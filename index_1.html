@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mācību Portāls no Fejas</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Gloria+Hallelujah&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#ffffff;
+    --paper:#ffffff;
+    --heading:#020202;
+    --hand:#4A6D7C;
+    --border:#BCD2EE;
+    --highlight:#8BB174;
+    --muted:#696047;
+    --line:#BCD2EE;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    background:var(--bg);
+    font-family:'Nunito',sans-serif;
+    color:var(--heading);
+    padding:28px 16px 60px;
+  }
+  .wrap{max-width:980px;margin:0 auto;}
+
+  /* header */
+  .top{
+    display:flex;justify-content:space-between;align-items:flex-end;
+    margin-bottom:26px;flex-wrap:wrap;gap:14px;
+  }
+  .top h1{
+    font-family:'Oswald',sans-serif;
+    font-weight:600;
+    font-size:2rem;
+    letter-spacing:0.01em;
+    color:var(--heading);
+  }
+  .top p{font-family:'Gloria Hallelujah',cursive;font-size:1.4rem;color:var(--hand);}
+  /* subject tabs */
+  .subjects{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px;}
+  .subj-btn{
+    padding:12px 20px;border-radius:14px;border:2px solid var(--border);
+    font-weight:700;font-size:0.95rem;cursor:pointer;font-family:'Oswald',sans-serif;
+    background:var(--paper);color:var(--muted);letter-spacing:0.02em;
+  }
+  .subj-btn.active{background:var(--border);color:var(--heading);}
+
+  /* grade chips */
+  .grades{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px;}
+  .grade-chip{
+    padding:7px 14px;border-radius:20px;border:1.5px solid var(--border);
+    background:var(--paper);font-weight:700;font-size:0.85rem;cursor:pointer;color:var(--muted);
+  }
+  .grade-chip.active{background:var(--highlight);color:#fff;border-color:var(--highlight);}
+
+  /* topic cards */
+  .topics{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;}
+  .topic-card{
+    background:var(--paper);border:1.5px solid var(--border);border-radius:16px;
+    padding:18px;display:flex;flex-direction:column;gap:10px;
+  }
+  .topic-card h3{font-family:'Oswald',sans-serif;font-weight:600;font-size:1.1rem;color:var(--heading);}
+  .topic-card p{font-size:0.85rem;color:var(--muted);line-height:1.4;}
+  .open-btn{
+    align-self:flex-start;border:none;border-radius:10px;padding:8px 16px;
+    font-weight:800;font-size:0.85rem;cursor:pointer;color:#fff;
+    background:var(--highlight);
+  }
+  .empty-card{border-style:dashed;color:var(--muted);}
+  .empty-card p{font-style:italic;}
+
+
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="top">
+    <div>
+      <h1>Mācību Portāls no Fejas</h1>
+      <p>visas darba lapas vienuviet</p>
+    </div>
+  </div>
+
+  <div class="subjects" id="subjectTabs">
+    <button class="subj-btn active" data-s="english" onclick="selectSubject('english')">English</button>
+    <button class="subj-btn" data-s="math" onclick="selectSubject('math')">Matemātika</button>
+    <button class="subj-btn" data-s="chem" onclick="selectSubject('chem')">Ķīmija</button>
+    <button class="subj-btn" data-s="phys" onclick="selectSubject('phys')">Fizika</button>
+  </div>
+
+  <div class="grades" id="gradeChips"></div>
+
+  <div class="topics" id="topicGrid"></div>
+
+
+</div>
+
+<script>
+const GRADES = { english:['4.','5.','6.','7.','8.'], math:['4.','5.','6.','7.','8.'], chem:['8.'], phys:['8.'] };
+
+// Placeholder topic data — replace/extend as real worksheets are added.
+// To add a real worksheet, give it: { title, desc, url } where url points to the published sheet.
+const TOPICS = {
+  english: { '6.':[
+      {title:'Much & Many', desc:'Teorija + kartītes + teikumi'},
+      {title:'Home & Furniture', desc:'Istabas, mēbeles, prievārdi, salīdzināšana'},
+      {title:'Weather & Dialogues', desc:'Vārdu kartītes, dialogi, vingrinājumi'}
+  ], '7.':[
+      {title:'Appearance description', desc:'Vārdu krājums + rakstīšana'},
+      {title:'Daily routines (past tense)', desc:'Pagātnes formas ikdienas darbībām'}
+  ]},
+  math: { '6.':[
+      {title:'Koordinātas 1. kvadrantā', desc:'Ātrums, laiks, attālums + grafiki'},
+      {title:'Lineārās sakarības', desc:'Tabulas, grafiki, y = kx + b'}
+  ], '7.':[
+      {title:'Statistika', desc:'Vidējais, moda, mediāna, izkliede'}
+  ]},
+  chem: { '8.':[
+      {title:'Skābes un bāzes', desc:'Neitralizācija, indikatori'}
+  ]},
+  phys: { '8.':[
+      {title:'Blīvums, spiediens, Arhimēds', desc:'Peldēšana, ķermeņu iegrimšana'}
+  ]}
+};
+
+let currentSubject='english';
+let currentGrade=null;
+
+function selectSubject(s){
+  currentSubject=s;
+  document.querySelectorAll('.subj-btn').forEach(b=>b.classList.toggle('active', b.dataset.s===s));
+  const grades = GRADES[s];
+  currentGrade = grades[0];
+  renderGrades();
+  renderTopics();
+}
+
+function renderGrades(){
+  const box=document.getElementById('gradeChips');
+  box.innerHTML='';
+  GRADES[currentSubject].forEach(g=>{
+    const chip=document.createElement('button');
+    chip.className='grade-chip'+(g===currentGrade?' active':'');
+    chip.textContent=g+' klase';
+    chip.onclick=()=>{currentGrade=g;renderGrades();renderTopics();};
+    box.appendChild(chip);
+  });
+}
+
+function renderTopics(){
+  const grid=document.getElementById('topicGrid');
+  grid.innerHTML='';
+  const list = (TOPICS[currentSubject] && TOPICS[currentSubject][currentGrade]) || [];
+
+  list.forEach(t=>{
+    const card=document.createElement('div');
+    card.className='topic-card';
+    card.innerHTML=`<h3>${t.title}</h3><p>${t.desc}</p>
+      <button class="open-btn">Atvērt</button>`;
+    grid.appendChild(card);
+  });
+
+  const empty=document.createElement('div');
+  empty.className='topic-card empty-card';
+  empty.innerHTML=`<h3>+ Pievienot tēmu</h3><p>Šeit parādīsies nākamā darba lapa šai klasei un priekšmetam, tiklīdz tā tiks pievienota.</p>`;
+  grid.appendChild(empty);
+
+}
+
+selectSubject('english');
+</script>
+</body>
+</html>

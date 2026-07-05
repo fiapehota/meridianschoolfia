@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Past Simple — Theory</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Gloria+Hallelujah&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#ffffff;
+    --paper:#ffffff;
+    --heading:#020202;
+    --hand:#4A6D7C;
+    --border:#BCD2EE;
+    --highlight:#8BB174;
+    --muted:#696047;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    background:var(--bg);
+    font-family:'Nunito',sans-serif;
+    color:var(--heading);
+    padding:32px 16px 60px;
+  }
+  .page{max-width:860px;margin:0 auto;}
+
+  .eyebrow{
+    font-family:'Nunito',sans-serif;font-weight:800;font-size:0.75rem;
+    letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);
+    margin-bottom:6px;
+  }
+  h1{
+    font-family:'Oswald',sans-serif;font-weight:600;font-size:2.2rem;
+    color:var(--heading);letter-spacing:0.01em;margin-bottom:6px;
+  }
+  .hand-note{
+    font-family:'Gloria Hallelujah',cursive;font-size:1.35rem;color:var(--hand);
+    margin-bottom:28px;
+  }
+
+  h2{
+    font-family:'Oswald',sans-serif;font-weight:600;font-size:1.35rem;
+    color:var(--heading);margin-bottom:14px;
+  }
+
+  /* rule callout */
+  .rule-box{
+    border:1.5px solid var(--border);border-radius:16px;
+    padding:24px;margin-bottom:36px;
+  }
+  .rule-box p.lead{font-size:1.02rem;line-height:1.6;margin-bottom:18px;}
+  .rule-box p.lead b{color:var(--heading);}
+
+  .pronoun-row{
+    display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:18px;
+  }
+  .pronoun-pill{
+    border:1.5px solid var(--border);border-radius:20px;
+    padding:8px 16px;font-family:'Oswald',sans-serif;font-weight:600;
+    font-size:0.95rem;color:var(--heading);background:#ffffff;
+  }
+  .same-form{
+    text-align:center;font-family:'Gloria Hallelujah',cursive;color:var(--hand);
+    font-size:1.5rem;margin-bottom:16px;
+  }
+  .example-verb{
+    text-align:center;background:var(--highlight);color:#ffffff;
+    display:inline-block;padding:10px 24px;border-radius:12px;
+    font-family:'Oswald',sans-serif;font-weight:600;font-size:1.15rem;
+    margin:0 auto;
+  }
+  .example-wrap{text-align:center;margin-bottom:6px;}
+
+  .example-list{
+    margin-top:20px;font-size:0.92rem;color:var(--muted);line-height:1.7;
+  }
+  .example-list b{color:var(--heading);font-weight:700;}
+
+  /* two-column split */
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px;}
+  @media (max-width:640px){.split{grid-template-columns:1fr;}}
+
+  .type-card{
+    border:1.5px solid var(--border);border-radius:16px;padding:22px;
+  }
+  .type-tag{
+    display:inline-block;font-family:'Nunito',sans-serif;font-weight:800;
+    font-size:0.72rem;letter-spacing:0.06em;text-transform:uppercase;
+    color:#ffffff;background:var(--highlight);padding:4px 12px;
+    border-radius:20px;margin-bottom:12px;
+  }
+  .type-tag.muted-tag{background:var(--muted);}
+
+  .type-card h3{
+    font-family:'Oswald',sans-serif;font-weight:600;font-size:1.15rem;
+    margin-bottom:10px;color:var(--heading);
+  }
+  .type-card p{font-size:0.9rem;line-height:1.6;margin-bottom:14px;color:var(--heading);}
+
+  .spelling-rules{list-style:none;margin-bottom:14px;}
+  .spelling-rules li{
+    font-size:0.85rem;padding:8px 0;border-bottom:1px dashed var(--border);
+    line-height:1.5;
+  }
+  .spelling-rules li:last-child{border-bottom:none;}
+  .spelling-rules b{color:var(--heading);}
+  .spelling-rules .arrow{color:var(--highlight);font-weight:800;margin:0 6px;}
+
+  .verb-sample{
+    display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;
+  }
+  .verb-chip{
+    font-size:0.82rem;border:1.5px solid var(--border);border-radius:10px;
+    padding:6px 12px;font-family:'Nunito',sans-serif;font-weight:700;
+  }
+  .verb-chip .to{color:var(--muted);font-weight:400;}
+  .verb-chip .from{color:var(--muted);}
+
+  .side-note{
+    font-family:'Gloria Hallelujah',cursive;color:var(--hand);font-size:1.1rem;
+    margin-top:16px;
+  }
+
+  .coming-next{
+    border:1.5px dashed var(--border);border-radius:14px;padding:16px 20px;
+    font-size:0.85rem;color:var(--muted);margin-top:8px;
+  }
+  .coming-next b{color:var(--heading);}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="eyebrow">English · 7th grade · Past tense</div>
+  <h1>Past Simple</h1>
+  <p class="hand-note">one action, one form, no matter who did it!</p>
+
+  <div class="rule-box">
+    <p class="lead">
+      In the present tense, the verb changes depending on who is doing the action
+      (<b>he plays</b>, but <b>I play</b>). In <b>Past Simple</b>, this doesn't
+      happen — every pronoun uses the exact same verb form.
+    </p>
+
+    <div class="pronoun-row">
+      <span class="pronoun-pill">I</span>
+      <span class="pronoun-pill">you</span>
+      <span class="pronoun-pill">we</span>
+      <span class="pronoun-pill">they</span>
+      <span class="pronoun-pill">he</span>
+      <span class="pronoun-pill">she</span>
+      <span class="pronoun-pill">it</span>
+    </div>
+
+    <div class="same-form">↓ all of them use the same form ↓</div>
+
+    <div class="example-wrap">
+      <span class="example-verb">played</span>
+    </div>
+
+    <div class="example-list">
+      <b>I</b> played football. &nbsp;·&nbsp; <b>She</b> played football. &nbsp;·&nbsp;
+      <b>They</b> played football.<br>
+      No -s, no -es, no extra endings for "he / she / it" like in the present tense.
+      One form fits everyone.
+    </div>
+  </div>
+
+  <h2>Two families of verbs</h2>
+  <p style="margin-bottom:20px;color:var(--muted);font-size:0.92rem;">
+    Every verb in English belongs to one of two groups in the past tense —
+    and they behave very differently.
+  </p>
+
+  <div class="split">
+
+    <div class="type-card">
+      <span class="type-tag">Regular verbs</span>
+      <h3>Just add -ed</h3>
+      <p>Most English verbs are regular. To make the past form, add
+        <b>-ed</b> to the base verb — and the spelling follows a few small rules.</p>
+
+      <ul class="spelling-rules">
+        <li><b>Most verbs:</b> add <b>-ed</b> <span class="arrow">→</span> play <span class="arrow">→</span> play<b>ed</b></li>
+        <li><b>Verb ends in -e:</b> add only <b>-d</b> <span class="arrow">→</span> live <span class="arrow">→</span> live<b>d</b></li>
+        <li><b>Consonant + y:</b> change y to <b>-ied</b> <span class="arrow">→</span> study <span class="arrow">→</span> stud<b>ied</b></li>
+        <li><b>Short vowel + consonant:</b> double the consonant <span class="arrow">→</span> stop <span class="arrow">→</span> stop<b>ped</b></li>
+      </ul>
+
+      <div class="verb-sample">
+        <span class="verb-chip"><span class="from">play</span> <span class="to">→</span> played</span>
+        <span class="verb-chip"><span class="from">watch</span> <span class="to">→</span> watched</span>
+        <span class="verb-chip"><span class="from">clean</span> <span class="to">→</span> cleaned</span>
+      </div>
+    </div>
+
+    <div class="type-card">
+      <span class="type-tag muted-tag">Irregular verbs</span>
+      <h3>No rule — they just change</h3>
+      <p>Irregular verbs don't follow the -ed pattern at all. Each one has its
+        own past form, and there's only one way to learn them:
+        <b>memorize each one</b>.</p>
+
+      <div class="verb-sample">
+        <span class="verb-chip"><span class="from">go</span> <span class="to">→</span> went</span>
+        <span class="verb-chip"><span class="from">eat</span> <span class="to">→</span> ate</span>
+        <span class="verb-chip"><span class="from">see</span> <span class="to">→</span> saw</span>
+        <span class="verb-chip"><span class="from">have</span> <span class="to">→</span> had</span>
+      </div>
+
+      <div class="coming-next">
+        <b>Coming up next:</b> the full irregular verbs table, plus flashcards
+        to test yourself.
+      </div>
+    </div>
+
+  </div>
+
+  <p class="side-note">psst — if you're not sure if a verb is regular or irregular, try adding -ed. If it sounds wrong, it's probably irregular!</p>
+
+</div>
+</body>
+</html>
