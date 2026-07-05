@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Irregular Verbs — Reference Table</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Gloria+Hallelujah&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#ffffff;
+    --heading:#020202;
+    --hand:#4A6D7C;
+    --border:#BCD2EE;
+    --highlight:#8BB174;
+    --muted:#696047;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    background:var(--bg);
+    font-family:'Nunito',sans-serif;
+    color:var(--heading);
+    padding:32px 16px 60px;
+  }
+  .page{max-width:920px;margin:0 auto;}
+
+  .eyebrow{
+    font-family:'Nunito',sans-serif;font-weight:800;font-size:0.75rem;
+    letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);
+    margin-bottom:6px;
+  }
+  h1{
+    font-family:'Oswald',sans-serif;font-weight:600;font-size:2.2rem;
+    color:var(--heading);letter-spacing:0.01em;margin-bottom:6px;
+  }
+  .hand-note{
+    font-family:'Gloria Hallelujah',cursive;font-size:1.35rem;color:var(--hand);
+    margin-bottom:22px;
+  }
+
+  .search-wrap{margin-bottom:18px;}
+  .search-wrap input{
+    width:100%;padding:12px 16px;border:1.5px solid var(--border);
+    border-radius:12px;font-family:'Nunito',sans-serif;font-size:0.95rem;
+    color:var(--heading);
+  }
+  .search-wrap input:focus{outline:none;border-color:var(--highlight);}
+  .count{font-size:0.8rem;color:var(--muted);margin-top:6px;}
+
+  table{
+    width:100%;border-collapse:collapse;border:1.5px solid var(--border);
+    border-radius:14px;overflow:hidden;
+  }
+  thead th{
+    background:var(--border);color:var(--heading);
+    font-family:'Oswald',sans-serif;font-weight:600;font-size:0.8rem;
+    text-transform:uppercase;letter-spacing:0.04em;
+    padding:12px 10px;text-align:left;
+  }
+  tbody td{
+    padding:9px 10px;font-size:0.9rem;border-bottom:1px solid var(--border);
+    vertical-align:top;
+  }
+  tbody tr:nth-child(even){background:#fafcff;}
+  tbody tr:hover{background:#f0f6ff;}
+  td.base{font-weight:700;color:var(--heading);}
+  td.ru{color:var(--muted);font-size:0.85rem;}
+
+  .empty-cell{color:var(--muted);font-style:italic;}
+
+  .tr{
+    display:block;font-family:'Gloria Hallelujah',cursive;color:var(--hand);
+    font-size:0.82rem;line-height:1.1;margin-top:1px;
+  }
+
+  .no-results{
+    text-align:center;padding:24px;color:var(--muted);font-style:italic;
+    display:none;
+  }
+
+  .source-note{
+    margin-top:22px;font-size:0.78rem;color:var(--muted);text-align:center;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="eyebrow">English · 7th grade · Past tense</div>
+  <h1>Irregular Verbs</h1>
+  <p class="hand-note">need to learn ALL of this :DD</p>
+
+  <div class="search-wrap">
+    <input type="text" id="search" placeholder="Search a verb or translation...">
+    <div class="count" id="count"></div>
+  </div>
+
+  <table>
+    <thead>
+      <tr><th>Base form</th><th>Past simple</th><th>Past participle</th><th>Перевод</th></tr>
+    </thead>
+    <tbody id="tbody"></tbody>
+  </table>
+  <div class="no-results" id="noResults">No verbs match your search.</div>
+
+  <p class="source-note">Source list: e-grammar.org (www.e-grammar.org/irregular-verbs/). Транскрипция и перевод — ориентировочные, для запоминания произношения на слух.</p>
+
+</div>
+
+<script>
+// [base, base_tr, past, past_tr, participle, participle_tr, ru]
+const VERBS = [
+["abide","эбайд","abided/abode","эбайдид/эбоуд","abided/abode","эбайдид/эбоуд","соблюдать, терпеть"],
+["arise","эрайз","arose","эроуз","arisen","эризн","возникать"],
+["awake","эуэйк","awaked/awoke","эуэйкт/эуоук","awoken","эуоукен","будить(ся)"],
+["be","би","was/were","уоз/уёр","been","бин","быть"],
+["bear","бэа","bore","бор","born","борн","нести; рождать"],
+["beat","бит","beat","бит","beaten","битн","бить"],
+["become","бикам","became","бикейм","become","бикам","становиться"],
+["befall","бифол","befell","бифэл","befallen","бифолен","случаться (с кем-то)"],
+["beget","бигэт","begot","бигот","begotten","биготн","порождать"],
+["begin","бигин","began","биган","begun","биган","начинать"],
+["behold","бихоулд","beheld","бихэлд","beheld","бихэлд","созерцать"],
+["bend","бэнд","bent","бэнт","bent","бэнт","гнуть"],
+["bereave","бирив","bereft","бирэфт","bereft","бирэфт","лишать (при утрате)"],
+["beseech","бисич","besought","бисот","besought","бисот","умолять"],
+["beset","бисэт","beset","бисэт","beset","бисэт","осаждать"],
+["bespeak","биспик","bespoke","биспоук","bespoken","биспоукен","свидетельствовать о чём-то"],
+["bestride","бистрайд","bestrode","бистроуд","bestridden","бистриднен","стоять/сидеть верхом"],
+["bet","бэт","bet","бэт","bet","бэт","держать пари"],
+["bid","бид","bade/bid","бэйд/бид","bidden/bid","биднен/бид","предлагать цену; велеть"],
+["bind","байнд","bound","баунд","bound","баунд","связывать"],
+["bite","байт","bit","бит","bitten","битн","кусать"],
+["bleed","блид","bled","блэд","bled","блэд","кровоточить"],
+["blow","блоу","blew","блу","blown","блоун","дуть"],
+["break","брэйк","broke","броук","broken","броукен","ломать"],
+["breed","брид","bred","брэд","bred","брэд","разводить (животных)"],
+["bring","бринг","brought","брот","brought","брот","приносить"],
+["broadcast","бродкаст","broadcast(ed)","бродкаст(ид)","broadcast(ed)","бродкаст(ид)","транслировать"],
+["build","билд","built","билт","built","билт","строить"],
+["burn","бёрн","burned/burnt","бёрнд/бёрнт","burned/burnt","бёрнд/бёрнт","жечь, гореть"],
+["burst","бёрст","burst","бёрст","burst","бёрст","лопаться, взрываться"],
+["buy","бай","bought","бот","bought","бот","покупать"],
+["can","кэн","could","куд","","","мочь, уметь"],
+["cast","каст","cast","каст","cast","каст","бросать; распределять роли"],
+["catch","кэч","caught","кот","caught","кот","ловить"],
+["choose","чуз","chose","чоуз","chosen","чоузен","выбирать"],
+["cling","клинг","clung","кланг","clung","кланг","цепляться"],
+["come","кам","came","кейм","come","кам","приходить"],
+["cost","кост","cost","кост","cost","кост","стоить"],
+["creep","крип","crept","крэпт","crept","крэпт","ползти"],
+["cut","кат","cut","кат","cut","кат","резать"],
+["deal","дил","dealt","дэлт","dealt","дэлт","иметь дело; торговать"],
+["dig","диг","dug","даг","dug","даг","копать"],
+["do","ду","did","дид","done","дан","делать"],
+["draw","дро","drew","дру","drawn","дрон","рисовать; тянуть"],
+["dream","дрим","dreamed/dreamt","дримд/дрэмт","dreamed/dreamt","дримд/дрэмт","мечтать; видеть сон"],
+["drink","дринк","drank","дрэнк","drunk","дранк","пить"],
+["drive","драйв","drove","дроув","driven","дривен","водить машину; гнать"],
+["dwell","дуэл","dwelled/dwelt","дуэлд/дуэлт","dwelled/dwelt","дуэлд/дуэлт","обитать; задерживаться (на теме)"],
+["eat","ит","ate","эйт","eaten","итн","есть"],
+["interweave","интеруив","interwove","интеруоув","interwoven","интеруоувен","переплетать"],
+["fall","фол","fell","фэл","fallen","фолен","падать"],
+["feed","фид","fed","фэд","fed","фэд","кормить"],
+["feel","фил","felt","фэлт","felt","фэлт","чувствовать"],
+["fight","файт","fought","фот","fought","фот","драться, бороться"],
+["find","файнд","found","фаунд","found","фаунд","находить"],
+["flee","фли","fled","флэд","fled","флэд","бежать (спасаться)"],
+["fling","флинг","flung","фланг","flung","фланг","швырять"],
+["fly","флай","flew","флу","flown","флоун","летать"],
+["forbid","форбид","forbad(e)","форбэд(эйд)","forbidden","форбиднен","запрещать"],
+["forecast","форкаст","forecast(ed)","форкаст(ид)","forecast(ed)","форкаст(ид)","прогнозировать"],
+["forget","форгэт","forgot","форгот","forgotten","форготн","забывать"],
+["forgive","форгив","forgave","форгэйв","forgiven","форгивен","прощать"],
+["forsake","форсэйк","forsook","форсук","forsaken","форсэйкен","покидать, отрекаться"],
+["foresee","форси","foresaw","форсо","foreseen","форсин","предвидеть"],
+["foretell","фортэл","foretold","фортоулд","foretold","фортоулд","предсказывать"],
+["freeze","фриз","froze","фроуз","frozen","фроузен","замерзать"],
+["get","гэт","got","гот","got","гот","получать"],
+["give","гив","gave","гэйв","given","гивен","давать"],
+["go","гоу","went","уэнт","gone","гонн","идти, ехать"],
+["grind","грайнд","ground","граунд","ground","граунд","молоть"],
+["grow","гроу","grew","гру","grown","гроун","расти"],
+["hang","хэнг","hanged/hung","хэнгд/ханг","hanged/hung","хэнгд/ханг","вешать"],
+["have","хэв","had","хэд","had","хэд","иметь"],
+["hear","хиа","heard","хёрд","heard","хёрд","слышать"],
+["hide","хайд","hid","хид","hidden","хиднен","прятать"],
+["hit","хит","hit","хит","hit","хит","ударять"],
+["hold","хоулд","held","хэлд","held","хэлд","держать"],
+["hurt","хёрт","hurt","хёрт","hurt","хёрт","причинять боль"],
+["keep","кип","kept","кэпт","kept","кэпт","хранить, держать"],
+["kneel","нил","knelt","нэлт","knelt","нэлт","стоять на коленях"],
+["know","ноу","knew","нью","known","ноун","знать"],
+["lay","лэй","laid","лэйд","laid","лэйд","класть"],
+["lead","лид","led","лэд","led","лэд","вести"],
+["lean","лин","leaned/leant","линд/лэнт","leaned/leant","линд/лэнт","наклоняться"],
+["leap","лип","leapt","лэпт","leapt","лэпт","прыгать"],
+["learn","лёрн","learned/learnt","лёрнд/лёрнт","learned/learnt","лёрнд/лёрнт","учить(ся)"],
+["leave","лив","left","лэфт","left","лэфт","покидать, оставлять"],
+["lend","лэнд","lent","лэнт","lent","лэнт","одалживать (давать)"],
+["let","лэт","let","лэт","let","лэт","позволять"],
+["lie","лай","lay","лэй","lain","лэйн","лежать"],
+["lose","луз","lost","лост","lost","лост","терять"],
+["make","мэйк","made","мэйд","made","мэйд","делать, создавать"],
+["mean","мин","meant","мэнт","meant","мэнт","означать"],
+["meet","мит","met","мэт","met","мэт","встречать"],
+["pay","пэй","paid","пэйд","paid","пэйд","платить"],
+["mistake","мистэйк","mistook","мистук","mistaken","мистэйкен","ошибаться"],
+["overhear","оувархиа","overheard","оувархёрд","overheard","оувархёрд","подслушать"],
+["oversleep","оуварслип","overslept","оуварслэпт","overslept","оуварслэпт","проспать"],
+["put","пут","put","пут","put","пут","класть, ставить"],
+["read","рид","read","рэд","read","рэд","читать"],
+["rend","рэнд","rended/rent","рэндид/рэнт","rended/rent","рэндид/рэнт","разрывать"],
+["rid","рид","rid","рид","rid","рид","избавлять"],
+["ride","райд","rode","роуд","ridden","риднен","ездить верхом"],
+["ring","ринг","rang","рэнг","rung","ранг","звонить"],
+["rise","райз","rose","роуз","risen","ризн","подниматься"],
+["run","ран","ran","рэн","run","ран","бегать"],
+["say","сэй","said","сэд","said","сэд","говорить, сказать"],
+["see","си","saw","со","seen","син","видеть"],
+["seek","сик","sought","сот","sought","сот","искать"],
+["sell","сэл","sold","соулд","sold","соулд","продавать"],
+["send","сэнд","sent","сэнт","sent","сэнт","отправлять"],
+["set","сэт","set","сэт","set","сэт","устанавливать, ставить"],
+["shake","шэйк","shook","шук","shaken","шэйкен","трясти"],
+["shed","шэд","shed","шэд","shed","шэд","проливать (слёзы), сбрасывать"],
+["shine","шайн","shone","шоун","shone","шоун","светить, сиять"],
+["shit","шит","shit/shat","шит/шэт","shit/shat","шит/шэт","(груб.) какать"],
+["shoot","шут","shot","шот","shot","шот","стрелять"],
+["show","шоу","showed","шоуд","shown","шоун","показывать"],
+["shrink","шринк","shrank","шрэнк","shrunk","шранк","сжиматься"],
+["shrive","шрайв","shrove","шроув","shriven","шривен","отпускать грехи (устар.)"],
+["shut","шат","shut","шат","shut","шат","закрывать"],
+["sing","синг","sang","сэнг","sung","санг","петь"],
+["sink","синк","sank","сэнк","sunk","санк","тонуть"],
+["sit","сит","sat","сэт","sat","сэт","сидеть"],
+["slay","слэй","slew","слу","slain","слэйн","убивать (лит./устар.)"],
+["sleep","слип","slept","слэпт","slept","слэпт","спать"],
+["slide","слайд","slid","слид","slid","слид","скользить"],
+["sling","слинг","slung","сланг","slung","сланг","швырять, вешать на ремне"],
+["slink","слинк","slunk","сланк","slunk","сланк","красться"],
+["slit","слит","slit","слит","slit","слит","разрезать (узко)"],
+["smell","смэл","smelled/smelt","смэлд/смэлт","smelled/smelt","смэлд/смэлт","пахнуть, нюхать"],
+["smite","смайт","smote","смоут","smitten","смитн","поражать (лит./устар.)"],
+["speak","спик","spoke","споук","spoken","споукен","говорить"],
+["speed","спид","speeded/sped","спидид/спэд","speeded/sped","спидид/спэд","мчаться, ускоряться"],
+["spend","спэнд","spent","спэнт","spent","спэнт","тратить"],
+["spin","спин","spun","спан","spun","спан","вращать(ся), прясть"],
+["spit","спит","spat","спэт","spat","спэт","плевать"],
+["split","сплит","split","сплит","split","сплит","раскалывать"],
+["spoil","спойл","spoiled/spoilt","спойлд/спойлт","spoiled/spoilt","спойлд/спойлт","портить"],
+["spread","спрэд","spread","спрэд","spread","спрэд","распространять"],
+["spring","спринг","sprang","спрэнг","sprung","спранг","прыгать (внезапно)"],
+["stand","стэнд","stood","студ","stood","студ","стоять"],
+["steal","стил","stole","стоул","stolen","стоулен","воровать"],
+["stick","стик","stuck","стак","stuck","стак","приклеивать, застревать"],
+["sting","стинг","stung","станг","stung","станг","жалить"],
+["stink","стинк","stank","стэнк","stunk","станк","вонять"],
+["stride","страйд","strode","строуд","stridden","стриднен","шагать (широко)"],
+["strike","страйк","struck","страк","struck","страк","ударять; бастовать"],
+["string","стринг","strung","странг","strung","странг","нанизывать, натягивать"],
+["strive","страйв","strove","строув","striven","стривен","стремиться"],
+["swear","суэа","swore","суор","sworn","суорн","клясться; ругаться"],
+["sweep","суип","swept","суэпт","swept","суэпт","подметать"],
+["swim","суим","swam","суэм","swum","суам","плавать"],
+["swing","суинг","swung","суанг","swung","суанг","качать(ся)"],
+["take","тэйк","took","тук","taken","тэйкен","брать"],
+["teach","тич","taught","тот","taught","тот","учить (преподавать)"],
+["tear","тэа","tore","тор","torn","торн","рвать"],
+["tell","тэл","told","тоулд","told","тоулд","рассказывать"],
+["think","синк","thought","сот","thought","сот","думать"],
+["throw","строу","threw","сру","thrown","строун","бросать"],
+["thrust","страст","thrust","страст","thrust","страст","толкать, совать"],
+["tread","трэд","treaded/trod","трэдид/трод","trodden","троднен","ступать"],
+["understand","андерстэнд","understood","андерстуд","understood","андерстуд","понимать"],
+["undertake","андертэйк","undertook","андертук","undertaken","андертэйкен","предпринимать"],
+["undo","анду","undid","андид","undone","андан","отменять, расстёгивать"],
+["upset","апсэт","upset","апсэт","upset","апсэт","расстраивать"],
+["wake","уэйк","woke","уоук","woken","уоукен","просыпаться, будить"],
+["wear","уэа","wore","уор","worn","уорн","носить (одежду)"],
+["weave","уив","wove","уоув","woven","уоувен","ткать, плести"],
+["weep","уип","wept","уэпт","wept","уэпт","плакать"],
+["win","уин","won","уан","won","уан","выигрывать"],
+["wind","уайнд","wound","уаунд","wound","уаунд","заводить (часы); виться"],
+["withdraw","уиздро","withdrew","уиздру","withdrawn","уиздрон","отзывать; снимать (деньги)"],
+["withstand","уизстэнд","withstood","уизстуд","withstood","уизстуд","выдерживать, противостоять"],
+["wring","ринг","wrung","ранг","wrung","ранг","выжимать (бельё), скручивать"],
+["write","райт","wrote","роут","written","ритн","писать"]
+];
+
+const tbody = document.getElementById('tbody');
+const countEl = document.getElementById('count');
+const noResults = document.getElementById('noResults');
+
+function cell(word, tr){
+  if(!word) return '<span class="empty-cell">—</span>';
+  return `${word}${tr ? `<span class="tr">[${tr}]</span>` : ''}`;
+}
+
+function render(filter){
+  tbody.innerHTML='';
+  const q = filter.trim().toLowerCase();
+  const filtered = VERBS.filter(v =>
+    !q || v[0].includes(q) || v[2].toLowerCase().includes(q) || v[4].toLowerCase().includes(q) || v[6].toLowerCase().includes(q)
+  );
+  filtered.forEach(v=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML = `<td class="base">${cell(v[0],v[1])}</td><td>${cell(v[2],v[3])}</td><td>${cell(v[4],v[5])}</td><td class="ru">${v[6]}</td>`;
+    tbody.appendChild(tr);
+  });
+  countEl.textContent = `${filtered.length} of ${VERBS.length} verbs`;
+  noResults.style.display = filtered.length ? 'none' : 'block';
+}
+
+document.getElementById('search').addEventListener('input', e => render(e.target.value));
+render('');
+</script>
+</body>
+</html>
