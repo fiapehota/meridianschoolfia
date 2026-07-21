@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Numbers in English — Meridian School</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,500&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap');
+
+:root{
+  --brown:#452316;
+  --orange:#4e653d;
+  --coral:#697e50;
+  --yellow:#a2ad59;
+  --pink:#a4b17b;
+  --warm-white:#FBF6EE;
+}
+
+*{box-sizing:border-box; margin:0; padding:0;}
+
+body{
+  font-family:'Outfit', sans-serif;
+  background:var(--warm-white);
+  color:var(--brown);
+  line-height:1.6;
+  padding-bottom:60px;
+}
+
+.page{max-width:900px; margin:0 auto; padding:30px 24px;}
+
+/* Breadcrumb */
+.breadcrumb{
+  font-size:13px;
+  color:var(--coral);
+  margin-bottom:18px;
+  letter-spacing:0.03em;
+}
+
+/* Hero */
+.hero-tag{
+  display:inline-block;
+  font-family:'JetBrains Mono', monospace;
+  font-size:12px;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  color:var(--orange);
+  border:1.5px solid var(--orange);
+  padding:4px 12px;
+  border-radius:20px;
+  margin-bottom:14px;
+}
+
+h1{
+  font-family:'Cormorant Garamond', serif;
+  font-size:44px;
+  font-weight:600;
+  margin-bottom:6px;
+}
+h1 em{font-style:italic; color:var(--coral);}
+
+.subtitle{
+  font-size:15px;
+  color:#7a5a48;
+  margin-bottom:8px;
+}
+
+/* Site header */
+header{border-bottom:2px solid var(--orange); margin-bottom:24px;}
+.header-inner{
+  max-width:900px; margin:0 auto; padding:16px 24px;
+  display:flex; justify-content:space-between; align-items:center;
+  flex-wrap:wrap; gap:10px;
+}
+.site-nav{
+  max-width:900px; margin:0 auto; padding:0 24px 16px;
+  display:flex; gap:8px; flex-wrap:wrap;
+}
+.site-nav .nav-chip{
+  font-family:'Outfit', sans-serif;
+  font-size:0.68rem;
+  font-weight:500;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+  color:#452316;
+  padding:7px 16px;
+  border-radius:20px;
+  background:#a4b17b;
+}
+.site-nav .nav-chip:nth-child(even){background:#a2ad59;}
+.site-nav .nav-chip.active{outline:2px solid #452316; outline-offset:1px;}
+.logo{
+  font-family:'Cormorant Garamond', serif;
+  font-weight:600;
+  font-size:24px;
+  letter-spacing:0.01em;
+  color:var(--brown);
+  text-decoration:none;
+}
+.logo em{font-style:italic; font-weight:400; color:var(--coral);}
+.back-link{
+  font-family:'Outfit', sans-serif;
+  font-size:13px;
+  font-weight:600;
+  letter-spacing:0.02em;
+  color:var(--coral);
+  text-decoration:none;
+}
+.back-link:hover{opacity:0.7;}
+
+/* Section label */
+.section-label{
+  font-family:'JetBrains Mono', monospace;
+  font-size:13px;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  color:var(--brown);
+  display:inline-block;
+  padding-bottom:4px;
+  border-bottom:3px solid var(--orange);
+  margin:40px 0 18px 0;
+}
+
+/* Theory card */
+.theory-card{
+  background:#fff;
+  border-radius:16px;
+  padding:24px 26px;
+  margin-bottom:18px;
+  box-shadow:0 2px 10px rgba(69,35,22,0.06);
+}
+.theory-card h3{
+  font-family:'Cormorant Garamond', serif;
+  font-style:italic;
+  font-size:24px;
+  margin-bottom:10px;
+  color:var(--coral);
+}
+.theory-card p{font-size:15px; margin-bottom:8px;}
+.theory-card .rule{
+  font-family:'JetBrains Mono', monospace;
+  background:var(--yellow);
+  display:inline-block;
+  padding:2px 8px;
+  border-radius:6px;
+  font-size:14px;
+  margin:2px 0;
+}
+
+/* Concept chips */
+.chips{display:flex; flex-wrap:wrap; gap:10px; margin:12px 0;}
+.chip{
+  font-family:'JetBrains Mono', monospace;
+  font-size:14px;
+  padding:8px 14px;
+  border-radius:10px;
+  font-weight:600;
+}
+.chip:nth-child(odd){background:var(--yellow);}
+.chip:nth-child(even){background:var(--pink);}
+.chip .rus{
+  font-family:'Outfit', sans-serif;
+  font-weight:400;
+  font-size:12px;
+  color:#7a5a48;
+  display:block;
+  margin-top:2px;
+}
+
+/* Source note */
+.source-note{
+  border-left:4px solid var(--orange);
+  background:#fff8ef;
+  padding:12px 16px;
+  font-size:14px;
+  margin:16px 0;
+  border-radius:0 8px 8px 0;
+}
+
+/* Number formation table */
+table.formation{
+  width:100%;
+  border-collapse:collapse;
+  margin:14px 0;
+  font-size:14px;
+}
+table.formation th{
+  background:var(--brown);
+  color:var(--warm-white);
+  padding:8px 10px;
+  text-align:left;
+  font-family:'JetBrains Mono', monospace;
+  font-size:12px;
+  letter-spacing:0.04em;
+}
+table.formation td{
+  padding:8px 10px;
+  border-bottom:1px solid #f0e2d5;
+}
+table.formation td.num{font-family:'JetBrains Mono', monospace; font-weight:600;}
+
+/* Task card (peel-write style) */
+.task-card{
+  background:#fff;
+  border-radius:16px;
+  padding:22px 24px;
+  margin-bottom:16px;
+  box-shadow:0 2px 10px rgba(69,35,22,0.06);
+}
+.task-card .task-type{
+  font-family:'JetBrains Mono', monospace;
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:0.08em;
+  color:var(--orange);
+  margin-bottom:6px;
+}
+.task-instructions{
+  font-size:15px;
+  margin-bottom:14px;
+  color:#5c3d2e;
+}
+
+.qrow{
+  display:flex;
+  align-items:flex-start;
+  gap:12px;
+  margin-bottom:14px;
+}
+.qnum{
+  min-width:32px; height:32px;
+  border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-family:'JetBrains Mono', monospace;
+  font-weight:600;
+  font-size:14px;
+  flex-shrink:0;
+}
+.qrow:nth-child(odd) .qnum{background:var(--yellow);}
+.qrow:nth-child(even) .qnum{background:var(--pink);}
+
+.qbody{flex:1;}
+.qbody .prompt{
+  font-family:'JetBrains Mono', monospace;
+  font-size:16px;
+  font-weight:600;
+  margin-bottom:6px;
+}
+.qbody input[type="text"]{
+  width:100%;
+  max-width:420px;
+  padding:8px 10px;
+  border:1.5px solid #e6d5c3;
+  border-radius:8px;
+  font-family:'Outfit', sans-serif;
+  font-size:14px;
+  background:var(--warm-white);
+}
+.qbody input.correct{border-color:#5b9e6e; background:#eefaf1;}
+.qbody input.incorrect{border-color:var(--coral); background:#fdeeec;}
+
+/* Reading card */
+.reading-card{
+  background:#fff;
+  border-radius:16px;
+  padding:26px 28px;
+  margin-bottom:18px;
+  box-shadow:0 2px 10px rgba(69,35,22,0.06);
+}
+.reading-card h3{
+  font-family:'Cormorant Garamond', serif;
+  font-style:italic;
+  font-size:26px;
+  margin-bottom:14px;
+  color:var(--brown);
+}
+.reading-text{font-size:16px; line-height:1.9;}
+.reading-text .figure{
+  font-family:'JetBrains Mono', monospace;
+  font-weight:700;
+  background:var(--yellow);
+  padding:1px 6px;
+  border-radius:5px;
+  color:var(--brown);
+}
+
+/* buttons */
+.btn-row{display:flex; gap:10px; margin-top:16px; flex-wrap:wrap;}
+button{
+  font-family:'Outfit', sans-serif;
+  font-weight:600;
+  font-size:14px;
+  padding:9px 18px;
+  border-radius:10px;
+  border:none;
+  cursor:pointer;
+  transition:transform 0.1s;
+}
+button:active{transform:scale(0.97);}
+.btn-check{background:var(--orange); color:#fff;}
+.btn-reset{background:#fff; color:var(--brown); border:1.5px solid #e6d5c3;}
+.btn-answers{background:var(--coral); color:#fff;}
+
+.feedback{
+  font-size:14px;
+  margin-top:10px;
+  font-weight:600;
+}
+.feedback.good{color:#3f8556;}
+.feedback.bad{color:var(--coral);}
+
+/* Score */
+.score-box{
+  position:sticky;
+  bottom:16px;
+  background:var(--brown);
+  color:var(--warm-white);
+  padding:14px 22px;
+  border-radius:14px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  max-width:900px;
+  margin:30px auto 0 auto;
+  font-family:'JetBrains Mono', monospace;
+  box-shadow:0 4px 18px rgba(69,35,22,0.25);
+}
+.score-box .label{font-size:13px; letter-spacing:0.05em; text-transform:uppercase;}
+.score-box .value{font-size:22px; font-weight:700; color:var(--yellow);}
+
+@media print{
+  button, .btn-row, .score-box{display:none !important;}
+  body{padding-bottom:0;}
+  .qbody input{border:none; border-bottom:1.5px solid var(--brown); border-radius:0; background:transparent;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo">MERIDIAN <em>SCHOOL</em></a>
+    <a href="index.html" class="back-link">&larr; Uz sākumu</a>
+  </div>
+  <nav class="site-nav">
+    <div class="nav-chip">English</div>
+    <div class="nav-chip active">Vocabulary</div>
+    <div class="nav-chip">Numbers</div>
+  </nav>
+</header>
+
+<div class="page">
+
+  <div class="breadcrumb">Meridian School / English / 5. klase / Vocabulary / Practice</div>
+
+  <span class="hero-tag">English · 5. klase · Vocabulary → Practice</span>
+  <h1>Numbers in <em>English</em></h1>
+  <p class="subtitle">Тысячи, знаки +, −, =, числа от 100 до 1000, и как называть года</p>
+
+  <!-- THEORY 1: symbols -->
+  <div class="section-label">Theory · Math Signs</div>
+  <div class="theory-card">
+    <h3>Знаки в математике</h3>
+    <p>Когда мы читаем пример вслух, знаки заменяются словами:</p>
+    <div class="chips">
+      <div class="chip">+ plus<span class="rus">плюс</span></div>
+      <div class="chip">− minus<span class="rus">минус</span></div>
+      <div class="chip">× times<span class="rus">умножить на</span></div>
+      <div class="chip">÷ divided by<span class="rus">разделить на</span></div>
+      <div class="chip">= equals / is<span class="rus">равно</span></div>
+      <div class="chip">&gt; more than<span class="rus">больше чем</span></div>
+      <div class="chip">&lt; less than<span class="rus">меньше чем</span></div>
+    </div>
+    <p>Пример: <span class="rule">25 + 10 = 35</span> → <em>Twenty-five plus ten equals thirty-five.</em></p>
+  </div>
+
+  <!-- THEORY 2: hundreds -->
+  <div class="section-label">Theory · Numbers 100–1000</div>
+  <div class="theory-card">
+    <h3>Как образуются числа от 100 до 1000</h3>
+    <p>Формула: <span class="rule">[количество сотен] + hundred + (and) + [десятки и единицы]</span></p>
+    <p><strong>hundred</strong> всегда остаётся в единственном числе (не hundreds), даже после 2, 3, 9 и т.д.</p>
+    <p>Слово <strong>and</strong> ставится перед десятками/единицами в британском варианте языка. В американском варианте его часто пропускают — оба варианта верны.</p>
+    <table class="formation">
+      <tr><th>Число</th><th>По-английски</th></tr>
+      <tr><td class="num">100</td><td>one hundred</td></tr>
+      <tr><td class="num">245</td><td>two hundred (and) forty-five</td></tr>
+      <tr><td class="num">308</td><td>three hundred (and) eight</td></tr>
+      <tr><td class="num">590</td><td>five hundred (and) ninety</td></tr>
+      <tr><td class="num">1000</td><td>one thousand / a thousand</td></tr>
+    </table>
+  </div>
+
+  <!-- THEORY 3: thousands -->
+  <div class="section-label">Theory · Thousands</div>
+  <div class="theory-card">
+    <h3>Как работают тысячи</h3>
+    <p>В английском числа разделяются <strong>запятой</strong> каждые три цифры (не пробелом, как в латышском/русском): <span class="rule">1,250</span> — one thousand, two hundred (and) fifty.</p>
+    <p>Порядок при чтении: тысячи → сотни → десятки и единицы.</p>
+    <table class="formation">
+      <tr><th>Число</th><th>По-английски</th></tr>
+      <tr><td class="num">1,200</td><td>one thousand, two hundred</td></tr>
+      <tr><td class="num">3,045</td><td>three thousand, (and) forty-five</td></tr>
+      <tr><td class="num">12,500</td><td>twelve thousand, five hundred</td></tr>
+    </table>
+    <p>Между тысячами и сотнями ставим запятую (короткую паузу) при произношении, а <strong>and</strong> — только перед последним "блоком" (десятками/единицами), если нет сотен.</p>
+  </div>
+
+  <!-- THEORY 4: years -->
+  <div class="section-label">Theory · Years</div>
+  <div class="theory-card">
+    <h3>Как называть года</h3>
+    <p><strong>До 2000 года</strong> — год делится на две пары цифр:</p>
+    <p><span class="rule">1998</span> → nineteen ninety-eight &nbsp; (19 / 98)</p>
+    <p><span class="rule">1500</span> → fifteen hundred &nbsp; (15 / 00)</p>
+    <p><strong>Год 2000</strong> → two thousand</p>
+    <p><strong>2001–2009</strong> → two thousand (and) one … two thousand (and) nine</p>
+    <p><strong>2010 и далее</strong> → снова парами: <span class="rule">2025</span> → twenty twenty-five</p>
+  </div>
+
+  <!-- PRACTICE 1: hundreds -->
+  <div class="section-label">Practice 1 · Write the Numbers</div>
+  <div class="task-card">
+    <div class="task-type">Fill in the blank</div>
+    <p class="task-instructions">Напиши число словами полностью.</p>
+    <div id="section1">
+      <div class="qrow"><div class="qnum">1</div><div class="qbody"><div class="prompt">156</div><input type="text" data-answer="one hundred fifty-six,one hundred and fifty-six"></div></div>
+      <div class="qrow"><div class="qnum">2</div><div class="qbody"><div class="prompt">403</div><input type="text" data-answer="four hundred three,four hundred and three"></div></div>
+      <div class="qrow"><div class="qnum">3</div><div class="qbody"><div class="prompt">271</div><input type="text" data-answer="two hundred seventy-one,two hundred and seventy-one"></div></div>
+      <div class="qrow"><div class="qnum">4</div><div class="qbody"><div class="prompt">819</div><input type="text" data-answer="eight hundred nineteen,eight hundred and nineteen"></div></div>
+      <div class="qrow"><div class="qnum">5</div><div class="qbody"><div class="prompt">1,000</div><input type="text" data-answer="one thousand,a thousand"></div></div>
+      <div class="qrow"><div class="qnum">6</div><div class="qbody"><div class="prompt">2,340</div><input type="text" data-answer="two thousand three hundred forty,two thousand, three hundred forty,two thousand three hundred and forty,two thousand, three hundred and forty"></div></div>
+    </div>
+    <div class="btn-row">
+      <button class="btn-check" onclick="checkSection('section1')">Check</button>
+      <button class="btn-reset" onclick="resetSection('section1')">Reset</button>
+      <button class="btn-answers" onclick="showAnswers('section1')">Show Answers</button>
+    </div>
+  </div>
+
+  <!-- PRACTICE 2: symbols -->
+  <div class="section-label">Practice 2 · Read the Equation</div>
+  <div class="task-card">
+    <div class="task-type">Write as a sentence</div>
+    <p class="task-instructions">Запиши пример словами полностью (числа тоже словами).</p>
+    <div id="section2">
+      <div class="qrow"><div class="qnum">1</div><div class="qbody"><div class="prompt">14 + 8 = 22</div><input type="text" data-answer="fourteen plus eight equals twenty-two,fourteen plus eight is twenty-two"></div></div>
+      <div class="qrow"><div class="qnum">2</div><div class="qbody"><div class="prompt">100 − 45 = 55</div><input type="text" data-answer="one hundred minus forty-five equals fifty-five,one hundred minus forty-five is fifty-five"></div></div>
+      <div class="qrow"><div class="qnum">3</div><div class="qbody"><div class="prompt">12 × 3 = 36</div><input type="text" data-answer="twelve times three equals thirty-six,twelve times three is thirty-six"></div></div>
+      <div class="qrow"><div class="qnum">4</div><div class="qbody"><div class="prompt">200 &gt; 150</div><input type="text" data-answer="two hundred is more than one hundred fifty,two hundred is more than one hundred and fifty"></div></div>
+    </div>
+    <div class="btn-row">
+      <button class="btn-check" onclick="checkSection('section2')">Check</button>
+      <button class="btn-reset" onclick="resetSection('section2')">Reset</button>
+      <button class="btn-answers" onclick="showAnswers('section2')">Show Answers</button>
+    </div>
+  </div>
+
+  <!-- PRACTICE 3: years -->
+  <div class="section-label">Practice 3 · Say the Year</div>
+  <div class="task-card">
+    <div class="task-type">Fill in the blank</div>
+    <p class="task-instructions">Напиши год так, как он произносится по-английски.</p>
+    <div id="section3">
+      <div class="qrow"><div class="qnum">1</div><div class="qbody"><div class="prompt">1969</div><input type="text" data-answer="nineteen sixty-nine"></div></div>
+      <div class="qrow"><div class="qnum">2</div><div class="qbody"><div class="prompt">2000</div><input type="text" data-answer="two thousand"></div></div>
+      <div class="qrow"><div class="qnum">3</div><div class="qbody"><div class="prompt">2005</div><input type="text" data-answer="two thousand and five,two thousand five"></div></div>
+      <div class="qrow"><div class="qnum">4</div><div class="qbody"><div class="prompt">2027</div><input type="text" data-answer="twenty twenty-seven"></div></div>
+      <div class="qrow"><div class="qnum">5</div><div class="qbody"><div class="prompt">1932</div><input type="text" data-answer="nineteen thirty-two"></div></div>
+    </div>
+    <div class="btn-row">
+      <button class="btn-check" onclick="checkSection('section3')">Check</button>
+      <button class="btn-reset" onclick="resetSection('section3')">Reset</button>
+      <button class="btn-answers" onclick="showAnswers('section3')">Show Answers</button>
+    </div>
+  </div>
+
+  <!-- READING TEXT -->
+  <div class="section-label">Reading · Numbers in a Text</div>
+  <div class="reading-card">
+    <h3>A Visit to the Science Museum</h3>
+    <p class="reading-text">
+      Every year, more than <span class="figure">500</span> students from our school visit the National Science Museum. The museum opened in <span class="figure">1932</span>, and today it has <span class="figure">12</span> exhibition halls. Last Saturday, exactly <span class="figure">1,250</span> visitors came in one day! The most popular exhibit is a real space rocket, which is <span class="figure">45</span> metres tall. It was built in <span class="figure">1969</span> — the same year humans first landed on the Moon.
+    </p>
+    <p class="reading-text" style="margin-top:14px;">
+      A ticket costs <span class="figure">8</span> euros for children and <span class="figure">15</span> euros for adults. Our class visited last October. There were <span class="figure">24</span> students and <span class="figure">3</span> teachers with us. We spent <span class="figure">3</span> hours there and saw more than <span class="figure">100</span> different exhibits. My favourite part was the dinosaur hall, where a huge skeleton is <span class="figure">26</span> metres long and is around <span class="figure">150</span> million years old! Next year, in <span class="figure">2027</span>, the museum plans to open a new hall with space for <span class="figure">200</span> more visitors every day.
+    </p>
+  </div>
+
+  <div class="task-card">
+    <div class="task-type">Reading task</div>
+    <p class="task-instructions">Прочитай текст вслух и напиши выделенные числа словами полностью — так, как ты бы их произнёс.</p>
+    <div id="section4">
+      <div class="qrow"><div class="qnum">1</div><div class="qbody"><div class="prompt">500</div><input type="text" data-answer="five hundred"></div></div>
+      <div class="qrow"><div class="qnum">2</div><div class="qbody"><div class="prompt">1932</div><input type="text" data-answer="nineteen thirty-two"></div></div>
+      <div class="qrow"><div class="qnum">3</div><div class="qbody"><div class="prompt">12</div><input type="text" data-answer="twelve"></div></div>
+      <div class="qrow"><div class="qnum">4</div><div class="qbody"><div class="prompt">1,250</div><input type="text" data-answer="one thousand two hundred fifty,one thousand, two hundred fifty,one thousand two hundred and fifty,one thousand, two hundred and fifty"></div></div>
+      <div class="qrow"><div class="qnum">5</div><div class="qbody"><div class="prompt">45</div><input type="text" data-answer="forty-five"></div></div>
+      <div class="qrow"><div class="qnum">6</div><div class="qbody"><div class="prompt">1969</div><input type="text" data-answer="nineteen sixty-nine"></div></div>
+      <div class="qrow"><div class="qnum">7</div><div class="qbody"><div class="prompt">8</div><input type="text" data-answer="eight"></div></div>
+      <div class="qrow"><div class="qnum">8</div><div class="qbody"><div class="prompt">15</div><input type="text" data-answer="fifteen"></div></div>
+      <div class="qrow"><div class="qnum">9</div><div class="qbody"><div class="prompt">24</div><input type="text" data-answer="twenty-four"></div></div>
+      <div class="qrow"><div class="qnum">10</div><div class="qbody"><div class="prompt">3 (teachers)</div><input type="text" data-answer="three"></div></div>
+      <div class="qrow"><div class="qnum">11</div><div class="qbody"><div class="prompt">100</div><input type="text" data-answer="one hundred,a hundred"></div></div>
+      <div class="qrow"><div class="qnum">12</div><div class="qbody"><div class="prompt">26</div><input type="text" data-answer="twenty-six"></div></div>
+      <div class="qrow"><div class="qnum">13</div><div class="qbody"><div class="prompt">150</div><input type="text" data-answer="one hundred fifty,a hundred and fifty,one hundred and fifty"></div></div>
+      <div class="qrow"><div class="qnum">14</div><div class="qbody"><div class="prompt">2027</div><input type="text" data-answer="twenty twenty-seven"></div></div>
+      <div class="qrow"><div class="qnum">15</div><div class="qbody"><div class="prompt">200</div><input type="text" data-answer="two hundred"></div></div>
+    </div>
+    <div class="btn-row">
+      <button class="btn-check" onclick="checkSection('section4')">Check</button>
+      <button class="btn-reset" onclick="resetSection('section4')">Reset</button>
+      <button class="btn-answers" onclick="showAnswers('section4')">Show Answers</button>
+    </div>
+  </div>
+
+  <div class="score-box">
+    <div class="label">Total Score</div>
+    <div class="value"><span id="scoreValue">0</span> / <span id="scoreTotal">0</span></div>
+  </div>
+
+</div>
+
+<script>
+function normalize(str){
+  return str
+    .toLowerCase()
+    .trim()
+    .replace(/[.,!?;:]/g, "")
+    .replace(/\u2019/g, "'")
+    .replace(/\s+/g, " ")
+    .replace(/-/g, " ")
+    .replace(/'/g, "");
+}
+
+function checkSection(id){
+  const inputs = document.querySelectorAll('#' + id + ' input[type="text"]');
+  inputs.forEach(inp => {
+    const answers = inp.getAttribute('data-answer').split(',').map(a => normalize(a));
+    const userVal = normalize(inp.value);
+    inp.classList.remove('correct','incorrect');
+    if(answers.includes(userVal) && userVal.length > 0){
+      inp.classList.add('correct');
+    } else {
+      inp.classList.add('incorrect');
+    }
+  });
+  updateScore();
+}
+
+function resetSection(id){
+  const inputs = document.querySelectorAll('#' + id + ' input[type="text"]');
+  inputs.forEach(inp => {
+    inp.value = "";
+    inp.classList.remove('correct','incorrect');
+  });
+  updateScore();
+}
+
+function showAnswers(id){
+  const inputs = document.querySelectorAll('#' + id + ' input[type="text"]');
+  inputs.forEach(inp => {
+    const first = inp.getAttribute('data-answer').split(',')[0];
+    inp.value = first;
+    inp.classList.remove('incorrect');
+    inp.classList.add('correct');
+  });
+  updateScore();
+}
+
+function updateScore(){
+  const allInputs = document.querySelectorAll('input[type="text"]');
+  let correct = 0;
+  allInputs.forEach(inp => { if(inp.classList.contains('correct')) correct++; });
+  document.getElementById('scoreValue').innerText = correct;
+  document.getElementById('scoreTotal').innerText = allInputs.length;
+}
+
+updateScore();
+</script>
+
+</body>
+</html>
