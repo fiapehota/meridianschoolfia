@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kā notiek nodarbības? — MERIDIAN SCHOOL</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300;1,600&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --heading:#452316;
+    --body:#020202;
+    --line:#ac1605;
+    --accent:#7a0f03;
+    --pink:#FFC4CC;
+    --yellow:#FFE570;
+    --serif:'Cormorant Garamond', serif;
+    --sans:'Outfit', sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{font-family:var(--sans);background:#fff;color:var(--body);}
+  .container{max-width:800px;margin:0 auto;padding:0 40px 60px;}
+
+  header{border-bottom:2px solid var(--line);padding:20px 0;margin-bottom:0;}
+  .header-inner{max-width:800px;margin:0 auto;padding:0 40px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
+  .logo{font-family:var(--serif);font-weight:600;font-size:26px;letter-spacing:-1px;color:var(--heading);text-decoration:none;}
+  .logo em{font-style:italic;font-weight:300;}
+  .back-link{font-family:var(--sans);font-size:0.75rem;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent);text-decoration:none;}
+  .back-link:hover{opacity:0.7;}
+
+  .cover{
+    width:100%;max-width:420px;aspect-ratio:4/3;margin:36px 0 26px;overflow:hidden;
+    border:1px solid var(--line);
+  }
+  .cover img{width:100%;height:100%;object-fit:cover;display:block;}
+
+  .tag{font-family:var(--sans);font-size:0.72rem;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:10px;}
+  h1.title{font-family:var(--serif);font-weight:600;font-size:2.4rem;line-height:1.15;color:var(--heading);margin-bottom:28px;}
+  h1.title em{font-style:italic;font-weight:300;}
+
+  p{font-size:0.98rem;line-height:1.8;color:var(--body);margin-bottom:16px;}
+
+  h2{font-family:var(--serif);font-weight:600;font-size:1.55rem;color:var(--heading);margin:38px 0 14px;padding-top:20px;border-top:1px solid var(--line);}
+  h2:first-of-type{border-top:none;padding-top:0;margin-top:0;}
+
+  .cv-box{
+    border:1.5px solid var(--line);border-radius:14px;padding:22px 24px;margin:20px 0 28px;
+    background:rgba(172,22,5,0.05);
+  }
+  .cv-box .cv-label{font-family:var(--sans);font-size:0.68rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:12px;}
+  .cv-row{display:flex;justify-content:space-between;gap:16px;padding:8px 0;border-bottom:1px dashed var(--line);font-size:0.88rem;}
+  .cv-row:last-child{border-bottom:none;}
+  .cv-row .cv-k{color:var(--body);}
+  .cv-row .cv-v{color:var(--heading);font-weight:600;text-align:right;}
+
+  .faq-item{margin-bottom:26px;}
+  .faq-q{font-family:var(--serif);font-weight:600;font-size:1.15rem;color:var(--heading);margin-bottom:8px;}
+  .faq-a{font-size:0.92rem;color:var(--body);line-height:1.75;}
+
+  footer{margin-top:50px;padding:22px 0;border-top:2px solid var(--heading);text-align:center;}
+  footer a{font-family:var(--serif);font-weight:600;color:var(--heading);text-decoration:none;font-size:1rem;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo">MERIDIAN <em>SCHOOL</em></a>
+    <a href="index.html" class="back-link">&larr; Uz sākumu</a>
+  </div>
+</header>
+
+<div class="container">
+
+  <div class="cover"><img src="cover_par_mani.jpg" alt="Kaķis pie klēpjdatora"></div>
+
+  <span class="tag">Par mani</span>
+  <h1 class="title">Kā notiek nodarbības?<br><em>Iepazīšanās un bieži uzdotie jautājumi</em></h1>
+
+  <p>Меня зовут Софья Пехота. Я родом из Латвии, из Риги — но сейчас живу в Бельгии, поэтому все занятия проходят онлайн.</p>
+
+  <p>Училась в Rīgas Ģimnāzija Zolitūde, затем прошла программу International Baccalaureate Diploma (IB Diploma) на английском языке, а сейчас заканчиваю третий курс Thomas More University.</p>
+
+  <div class="cv-box">
+    <div class="cv-label">Уровень знаний</div>
+    <div class="cv-row"><span class="cv-k">Математика</span><span class="cv-v">уровень AA</span></div>
+    <div class="cv-row"><span class="cv-k">Экономика</span><span class="cv-v">высший уровень</span></div>
+    <div class="cv-row"><span class="cv-k">Исследовательская работа</span><span class="cv-v">Экология / Физика</span></div>
+    <div class="cv-row"><span class="cv-k">Английский язык</span><span class="cv-v">C (native) · 5+ лет обучения на английском</span></div>
+  </div>
+
+  <h2>Как проходят занятия</h2>
+  <p>Занятия проходят онлайн на платформе Google Meet. Ссылку на урок отправляю лично каждому ученику. Подключиться нужно вовремя; камера не обязательна.</p>
+  <p>Ученик всегда видит мою камеру и второй экран, на котором я от руки пишу материал вместе с ним.</p>
+  <p>Эта платформа, MERIDIAN SCHOOL, используется как база теории и части заданий — она доступна ученикам онлайн и офлайн в любое время. Материалы можно смотреть без ограничений, но они не предназначены для распространения.</p>
+
+  <h2>Часто задаваемые вопросы</h2>
+
+  <div class="faq-item">
+    <div class="faq-q">Сколько длятся занятия?</div>
+    <div class="faq-a">По желанию — минимум 1 час, по договорённости можно взять и 2 часа. За 2 часа дети успевают полностью пройти всю теорию и почти все уровни сложности в заданиях.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q">Сколько раз в неделю можно заниматься?</div>
+    <div class="faq-a">До 3 раз в неделю. Каждый день можно брать разные предметы.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q">Что вы делаете на занятии?</div>
+    <div class="faq-a">За день до занятия мы договариваемся с учеником о теме, которую будем разбирать. Урок начинается с теории — по теме, которая изучается в школе сейчас, требует повторения, или взята немного вперёд школьной программы. Дальше выполняем задания, чтобы закрепить знания — есть и творческие темы, и задания, подобранные индивидуально под темп и стиль ученика. В последней части занятия можно сделать домашнее задание или школьные рабочие листы. Отдельные занятия можно посвятить подготовке к контрольным, диагностическим и мониторинговым работам. Темп работы обсуждается заранее, не позже чем за день до занятия.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q">Что делать, если не можем прийти на назначенное занятие?</div>
+    <div class="faq-a">Об отмене занятия нужно предупредить минимум за час. По договорённости занятие можно перенести на более позднее время или даже другой день. За неотменённое занятие и неявку без предупреждения будет взиматься полная стоимость занятия.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q">Можно ли попробовать бесплатное занятие?</div>
+    <div class="faq-a">Да, можно запланировать пробное занятие на 30–40 минут, бесплатно. Познакомимся с учеником (и родителем, если нужно); дам решить пару примеров/заданий, чтобы оценить уровень знаний, а затем обсудим темы, которые хотим повторить, составим план тем и индивидуальный темп занятий.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q">Что делать, если преподаватель не может прийти на занятие?</div>
+    <div class="faq-a">Преподаватель предупреждает минимум за день, максимум за час до занятия, о его отмене. После этого можно просто договориться об отмене занятия или переносе на любое удобное ученику время.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q">Как происходит оплата занятий?</div>
+    <div class="faq-a">По личной договорённости с родителем можно выбрать один из нескольких способов оплаты — после каждого занятия, пакетом раз в две недели, или один раз в конце месяца. За подробной информацией, пожалуйста, свяжитесь со мной лично по номеру телефона.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q">Какие технические требования нужны ученику?</div>
+    <div class="faq-a">Для занятия нужен компьютер или телефон для подключения. Занятия проходят в Google Meet, звонок можно открыть в браузере или в приложении (на телефоне); камера не обязательна, но желательна. Рекомендуется, чтобы ученик записывал и решал задания сам на бумаге или в тетради — а не печатал на компьютере, так знания закрепляются лучше. Иногда есть и интерактивные задания на сайте, которые можно выполнить в цифровом виде.</div>
+  </div>
+
+</div>
+
+<footer>
+  <a href="index.html">MERIDIAN <em>SCHOOL</em></a>
+</footer>
+
+</body>
+</html>
