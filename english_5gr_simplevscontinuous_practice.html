@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Present Simple vs Present Continuous — Practice | Meridian School</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Outfit:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --brown:#452316;
+    --bg:#FFFFFF;
+    --card-bg:#FDFAF5;
+    --chip1:#9B4B7B;
+    --chip2:#FFC2EE;
+    --accent:#845C5D;
+    --hl1:#F9C784;
+    --hl2:#9C914F;
+    --white:#FFFFFF;
+    --correct:#4C7A4C;
+    --wrong:#B5453D;
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--brown);
+    font-family:'Outfit', sans-serif;
+    line-height:1.6;
+  }
+
+  /* ===== HEADER ===== */
+  header{
+    width:100%;
+    border-bottom:2px solid var(--accent);
+    margin-bottom:24px;
+    background:var(--bg);
+  }
+  .header-inner{
+    max-width:900px;
+    margin:0 auto;
+    padding:20px 24px 14px 24px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+  }
+  .logo{
+    font-family:'Cormorant Garamond', serif;
+    font-weight:600;
+    font-size:24px;
+    color:var(--brown);
+  }
+  .logo em{
+    font-style:italic;
+    font-weight:400;
+    color:var(--accent);
+  }
+  .back-link{
+    font-family:'Outfit', sans-serif;
+    font-size:13px;
+    font-weight:600;
+    color:var(--accent);
+    text-decoration:none;
+  }
+  .back-link:hover{ text-decoration:underline; }
+
+  .site-nav{
+    max-width:900px;
+    margin:0 auto;
+    padding:0 24px 16px 24px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+  .nav-chip{
+    font-family:'Outfit', sans-serif;
+    font-weight:500;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:1.5px;
+    padding:7px 16px;
+    border-radius:20px;
+    text-decoration:none;
+    background:var(--chip1);
+    color:var(--white);
+  }
+  .nav-chip:nth-child(even){
+    background:var(--hl1);
+    color:var(--brown);
+  }
+  .nav-chip.active{
+    outline:2px solid var(--brown);
+    outline-offset:1px;
+  }
+
+  /* ===== PAGE ===== */
+  .page{
+    max-width:900px;
+    margin:0 auto;
+    padding:0 24px 60px 24px;
+  }
+
+  h1{
+    font-family:'Cormorant Garamond', serif;
+    font-weight:600;
+    font-size:40px;
+    margin:0 0 4px 0;
+  }
+  h1 em{
+    font-style:italic;
+    font-weight:400;
+    color:var(--accent);
+  }
+  .subtitle{
+    font-family:'Outfit', sans-serif;
+    font-size:14px;
+    color:var(--accent);
+    letter-spacing:0.5px;
+    margin-bottom:20px;
+  }
+
+  .grand-total{
+    background:var(--card-bg);
+    border:1.5px solid var(--accent);
+    border-radius:12px;
+    padding:12px 20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-family:'Outfit', sans-serif;
+    font-weight:600;
+    font-size:14px;
+    margin-top:32px;
+  }
+  #grand-total-num{
+    font-family:'JetBrains Mono', monospace;
+    color:var(--accent);
+    font-size:16px;
+  }
+
+  .section-label{
+    font-family:'Outfit', sans-serif;
+    font-weight:600;
+    font-size:13px;
+    text-transform:uppercase;
+    letter-spacing:1.5px;
+    color:var(--brown);
+    border-bottom:2px solid var(--accent);
+    display:inline-block;
+    padding-bottom:4px;
+    margin:36px 0 6px 0;
+  }
+  .section-label .star{ color:var(--hl2); }
+  .task-instruction{
+    font-size:13.5px;
+    color:var(--accent);
+    margin:0 0 14px 0;
+    font-style:italic;
+  }
+
+  .task-card{
+    background:var(--card-bg);
+    border-radius:14px;
+    padding:22px 26px;
+    margin-bottom:16px;
+    box-shadow:0 1px 3px rgba(69,35,22,0.08);
+  }
+
+  .control-bar{
+    display:flex;
+    gap:10px;
+    margin-top:16px;
+    align-items:center;
+    flex-wrap:wrap;
+  }
+  .control-bar button{
+    font-family:'Outfit', sans-serif;
+    font-weight:600;
+    font-size:12.5px;
+    text-transform:uppercase;
+    letter-spacing:0.8px;
+    padding:8px 16px;
+    border-radius:20px;
+    border:none;
+    cursor:pointer;
+  }
+  .btn-check{ background:var(--chip1); color:var(--white); }
+  .btn-reset{ background:var(--chip2); color:var(--brown); }
+  .btn-show{ background:var(--hl1); color:var(--brown); }
+  .control-bar button:hover{ filter:brightness(0.95); }
+  .score-badge{
+    margin-left:auto;
+    font-family:'JetBrains Mono', monospace;
+    font-size:12.5px;
+    font-weight:600;
+    color:var(--accent);
+  }
+
+  /* sentence-style tasks */
+  .sentence-line{
+    font-size:15px;
+    margin:10px 0;
+    line-height:2.1;
+  }
+  .item-num{
+    font-family:'JetBrains Mono', monospace;
+    font-weight:700;
+    color:var(--accent);
+    margin-right:6px;
+  }
+  .base-verb{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    background:var(--chip2);
+    color:var(--brown);
+    padding:2px 8px;
+    border-radius:6px;
+  }
+  .ru-line{
+    display:block;
+    font-size:13px;
+    color:var(--hl2);
+    margin:2px 0 4px 0;
+    font-style:italic;
+  }
+
+  input.blank-input, select.blank-select{
+    font-family:'JetBrains Mono', monospace;
+    font-size:14px;
+    border:none;
+    border-bottom:2px solid var(--chip1);
+    background:transparent;
+    padding:3px 6px;
+    color:var(--brown);
+    outline:none;
+  }
+  select.blank-select{
+    cursor:pointer;
+    background:var(--white);
+    border:1.5px solid var(--chip1);
+    border-radius:6px;
+  }
+  input.blank-input:focus, select.blank-select:focus{ border-color:var(--accent); }
+  input.blank-input.correct, select.blank-select.correct{ border-color:var(--correct); background:rgba(76,122,76,0.08); }
+  input.blank-input.incorrect, select.blank-select.incorrect{ border-color:var(--wrong); background:rgba(181,69,61,0.08); }
+  input.blank-input.shown, select.blank-select.shown{ border-color:var(--hl2); }
+
+  .blank-sm{ width:130px; }
+  .blank-md{ width:220px; }
+  .blank-lg{ width:100%; margin-top:6px; display:block; }
+
+  /* answer reveal: end of sentence / next to select */
+  .answer-reveal{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    font-weight:600;
+    color:var(--correct);
+    background:rgba(76,122,76,0.12);
+    padding:3px 9px;
+    border-radius:6px;
+    border-left:3px solid var(--correct);
+    white-space:nowrap;
+    display:inline-block;
+    margin-left:10px;
+  }
+
+  /* wrapper for tasks where answer sits to the right */
+  .blank-wrap{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    flex-wrap:wrap;
+    margin:10px 0;
+  }
+  .blank-wrap input.blank-input{
+    flex:1;
+    min-width:220px;
+  }
+
+  /* answer table (mini table at the bottom) */
+  .answer-table-wrap{ margin-top:16px; }
+  table.answer-table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:13.5px;
+  }
+  table.answer-table th{
+    background:var(--accent);
+    color:var(--white);
+    font-family:'Outfit', sans-serif;
+    font-weight:600;
+    font-size:11.5px;
+    text-transform:uppercase;
+    letter-spacing:0.8px;
+    padding:8px 12px;
+    text-align:left;
+  }
+  table.answer-table td{
+    padding:8px 12px;
+    border-bottom:1px solid rgba(69,35,22,0.12);
+  }
+  table.answer-table td.correct-cell{
+    font-family:'JetBrains Mono', monospace;
+    color:var(--correct);
+    font-weight:600;
+  }
+  table.answer-table tr:last-child td{ border-bottom:none; }
+
+  /* text-gap task */
+  .gap-text{
+    font-size:15.5px;
+    line-height:2.3;
+  }
+  .gap-text input.blank-input{ width:135px; }
+
+  .word-bank{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin:12px 0 4px 0;
+  }
+  .word-bank span{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12.5px;
+    background:var(--white);
+    border:1.5px solid var(--chip1);
+    color:var(--brown);
+    padding:5px 11px;
+    border-radius:8px;
+  }
+
+  .footer{
+    margin-top:40px;
+    padding-top:16px;
+    border-top:1px solid rgba(69,35,22,0.15);
+    display:flex;
+    justify-content:space-between;
+    font-size:12px;
+    color:var(--accent);
+    font-family:'JetBrains Mono', monospace;
+  }
+
+  @media print{
+    .nav-chip, .back-link, .control-bar, .answer-reveal, .answer-table-wrap, .grand-total{ display:none !important; }
+    body{ background:white; }
+    .task-card{ box-shadow:none; border:1px solid #ddd; }
+  }
+
+  @media (max-width:600px){
+    h1{ font-size:30px; }
+    .blank-wrap input.blank-input{ min-width:160px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo">MERIDIAN <em>SCHOOL</em></a>
+    <a class="back-link" href="index.html">← Uz sākumu</a>
+  </div>
+  <nav class="site-nav">
+    <a class="nav-chip" href="index.html">English</a>
+    <a class="nav-chip" href="index.html">Simple vs Continuous</a>
+    <a class="nav-chip active" href="index.html">Practice</a>
+  </nav>
+</header>
+
+<div class="page">
+
+  <h1>Present Simple <em>vs</em> Present Continuous</h1>
+  <div class="subtitle">Практика · 5 класс · English Grammar</div>
+
+  <!-- ============ TASK 1 — identify the tense by signal words ============ -->
+  <div class="section-label">Задание 1 · Find the signal word</div>
+  <p class="task-instruction">Найди слово-сигнал в предложении и определи, какое это время.</p>
+  <div class="task-card" id="section1">
+    <div class="sentence-line">
+      <span class="item-num">1.</span> She always gets up at 7 o'clock.
+      <select class="blank-select" data-answer="Present Simple">
+        <option value="">— выбери —</option>
+        <option value="Present Simple">Present Simple</option>
+        <option value="Present Continuous">Present Continuous</option>
+      </select>
+    </div>
+    <div class="sentence-line">
+      <span class="item-num">2.</span> Look! The children are playing in the garden.
+      <select class="blank-select" data-answer="Present Continuous">
+        <option value="">— выбери —</option>
+        <option value="Present Simple">Present Simple</option>
+        <option value="Present Continuous">Present Continuous</option>
+      </select>
+    </div>
+    <div class="sentence-line">
+      <span class="item-num">3.</span> My brother usually walks to school.
+      <select class="blank-select" data-answer="Present Simple">
+        <option value="">— выбери —</option>
+        <option value="Present Simple">Present Simple</option>
+        <option value="Present Continuous">Present Continuous</option>
+      </select>
+    </div>
+    <div class="sentence-line">
+      <span class="item-num">4.</span> Right now, Mum is cooking dinner.
+      <select class="blank-select" data-answer="Present Continuous">
+        <option value="">— выбери —</option>
+        <option value="Present Simple">Present Simple</option>
+        <option value="Present Continuous">Present Continuous</option>
+      </select>
+    </div>
+    <div class="sentence-line">
+      <span class="item-num">5.</span> Water boils at 100 degrees.
+      <select class="blank-select" data-answer="Present Simple">
+        <option value="">— выбери —</option>
+        <option value="Present Simple">Present Simple</option>
+        <option value="Present Continuous">Present Continuous</option>
+      </select>
+    </div>
+    <div class="sentence-line">
+      <span class="item-num">6.</span> At the moment, we are waiting for the bus.
+      <select class="blank-select" data-answer="Present Continuous">
+        <option value="">— выбери —</option>
+        <option value="Present Simple">Present Simple</option>
+        <option value="Present Continuous">Present Continuous</option>
+      </select>
+    </div>
+
+    <div class="control-bar">
+      <button class="btn-check" onclick="checkSection('section1')">Check</button>
+      <button class="btn-reset" onclick="resetSection('section1')">Reset</button>
+      <button class="btn-show" onclick="showAnswers('section1')">Show Answers</button>
+      <span class="score-badge" id="score-section1">0 / 6</span>
+    </div>
+  </div>
+
+  <!-- ============ TASK 2 — choose the correct form ============ -->
+  <div class="section-label">Задание 2 · Choose the correct form</div>
+  <p class="task-instruction">Выбери правильный вариант глагола.</p>
+  <div class="task-card" id="section2">
+    <div class="sentence-line">
+      <span class="item-num">1.</span> She usually
+      <select class="blank-select" data-answer="has">
+        <option value="">— выбери —</option>
+        <option value="has">has</option>
+        <option value="is having">is having</option>
+      </select>
+      breakfast at 8.
+    </div>
+    <div class="sentence-line">
+      <span class="item-num">2.</span> Listen! Somebody
+      <select class="blank-select" data-answer="is knocking">
+        <option value="">— выбери —</option>
+        <option value="knocks">knocks</option>
+        <option value="is knocking">is knocking</option>
+      </select>
+      at the door.
+    </div>
+    <div class="sentence-line">
+      <span class="item-num">3.</span> I
+      <select class="blank-select" data-answer="don't like">
+        <option value="">— выбери —</option>
+        <option value="don't like">don't like</option>
+        <option value="am not liking">am not liking</option>
+      </select>
+      horror films.
+    </div>
+    <div class="sentence-line">
+      <span class="item-num">4.</span> They
+      <select class="blank-select" data-answer="play">
+        <option value="">— выбери —</option>
+        <option value="play">play</option>
+        <option value="are playing">are playing</option>
+      </select>
+      tennis every Sunday.
+    </div>
+    <div class="sentence-line">
+      <span class="item-num">5.</span> We
+      <select class="blank-select" data-answer="are visiting">
+        <option value="">— выбери —</option>
+        <option value="visit">visit</option>
+        <option value="are visiting">are visiting</option>
+      </select>
+      our grandparents this weekend.
+    </div>
+    <div class="sentence-line">
+      <span class="item-num">6.</span> The sun
+      <select class="blank-select" data-answer="rises">
+        <option value="">— выбери —</option>
+        <option value="rises">rises</option>
+        <option value="is rising">is rising</option>
+      </select>
+      in the east.
+    </div>
+
+    <div class="control-bar">
+      <button class="btn-check" onclick="checkSection('section2')">Check</button>
+      <button class="btn-reset" onclick="resetSection('section2')">Reset</button>
+      <button class="btn-show" onclick="showAnswers('section2')">Show Answers</button>
+      <span class="score-badge" id="score-section2">0 / 6</span>
+    </div>
+  </div>
+
+  <!-- ============ TASK 3 — insert the verb in the correct tense ============ -->
+  <div class="section-label">Задание 3 · Insert the correct tense</div>
+  <p class="task-instruction">Поставь глагол в скобках в правильное время — Present Simple или Present Continuous.</p>
+  <div class="task-card" id="section3">
+    <div class="sentence-line">
+      <span class="item-num">1.</span> My father <input type="text" class="blank-input blank-sm" data-answer="works"> in a hospital. <span class="base-verb">work</span>
+    </div>
+    <div class="sentence-line">
+      <span class="item-num">2.</span> Be quiet! The baby <input type="text" class="blank-input blank-sm" data-answer="is sleeping"> now. <span class="base-verb">sleep</span>
+    </div>
+    <div class="sentence-line">
+      <span class="item-num">3.</span> We usually <input type="text" class="blank-input blank-sm" data-answer="spend"> our summer holidays at the seaside. <span class="base-verb">spend</span>
+    </div>
+    <div class="sentence-line">
+      <span class="item-num">4.</span> Look out! A car <input type="text" class="blank-input blank-sm" data-answer="is coming">! <span class="base-verb">come</span>
+    </div>
+    <div class="sentence-line">
+      <span class="item-num">5.</span> She <input type="text" class="blank-input blank-sm" data-answer="doesn't eat,does not eat"> meat, she is vegetarian. <span class="base-verb">not / eat</span>
+    </div>
+    <div class="sentence-line">
+      <span class="item-num">6.</span> ___ you <input type="text" class="blank-input blank-sm" data-answer="doing"> anything special this weekend? <span class="base-verb">do</span>
+    </div>
+
+    <div class="control-bar">
+      <button class="btn-check" onclick="checkSection('section3')">Check</button>
+      <button class="btn-reset" onclick="resetSection('section3')">Reset</button>
+      <button class="btn-show" onclick="showAnswers('section3')">Show Answers</button>
+      <span class="score-badge" id="score-section3">0 / 6</span>
+    </div>
+  </div>
+
+  <!-- ============ TASK 4 — complete the text (mixed tenses) ============ -->
+  <div class="section-label">Задание 4 · Complete the text</div>
+  <p class="task-instruction">Заполни пропуски глаголами из рамки — в тексте вперемешку оба времени.</p>
+  <div class="task-card" id="section4">
+    <div class="word-bank">
+      <span>get up</span><span>go</span><span>walk</span><span>wait</span><span>meet</span><span>stay</span>
+    </div>
+
+    <p class="gap-text">
+      Every morning, Peter
+      <input type="text" class="blank-input" data-answer="gets up"> at seven o'clock and
+      <input type="text" class="blank-input" data-answer="goes"> to school by bus. But today is different: he
+      <input type="text" class="blank-input" data-answer="is walking"> to school because his bike is broken, and right now he
+      <input type="text" class="blank-input" data-answer="is waiting"> for his friend Tom at the corner. Usually they
+      <input type="text" class="blank-input" data-answer="meet"> at the bus stop, but this week Tom
+      <input type="text" class="blank-input" data-answer="is staying"> with his grandmother, so today's meeting point is different.
+    </p>
+
+    <div class="answer-table-wrap" id="answer-table-section4"></div>
+
+    <div class="control-bar">
+      <button class="btn-check" onclick="checkSection('section4')">Check</button>
+      <button class="btn-reset" onclick="resetSection('section4')">Reset</button>
+      <button class="btn-show" onclick="showAnswers('section4')">Show Answers</button>
+      <span class="score-badge" id="score-section4">0 / 6</span>
+    </div>
+  </div>
+
+  <!-- ============ TASK 5 — translate from Russian ============ -->
+  <div class="section-label">Задание 5 · Translate</div>
+  <p class="task-instruction">Переведи предложение на английский, выбрав правильное время самостоятельно.</p>
+  <div class="task-card" id="section5">
+    <div class="sentence-line">
+      <span class="item-num">1.</span>
+      <span class="ru-line">Он всегда завтракает в 8 утра.</span>
+      <input type="text" class="blank-input blank-lg" data-answer="He always has breakfast at 8.,He always has breakfast at 8 o'clock.,He always has breakfast at eight.,He always has breakfast at 8 oclock.">
+    </div>
+    <div class="sentence-line">
+      <span class="item-num">2.</span>
+      <span class="ru-line">Сейчас идёт дождь.</span>
+      <input type="text" class="blank-input blank-lg" data-answer="It is raining now.,It's raining now.,It is raining.,It's raining.">
+    </div>
+    <div class="sentence-line">
+      <span class="item-num">3.</span>
+      <span class="ru-line">Моя сестра учится в университете.</span>
+      <input type="text" class="blank-input blank-lg" data-answer="My sister studies at university.,My sister studies at the university.">
+    </div>
+    <div class="sentence-line">
+      <span class="item-num">4.</span>
+      <span class="ru-line">Смотри! Кошка спит на диване.</span>
+      <input type="text" class="blank-input blank-lg" data-answer="Look! The cat is sleeping on the sofa.,Look, the cat is sleeping on the sofa.">
+    </div>
+    <div class="sentence-line">
+      <span class="item-num">5.</span>
+      <span class="ru-line">Мы обычно ужинаем в семь.</span>
+      <input type="text" class="blank-input blank-lg" data-answer="We usually have dinner at seven.,We usually have dinner at 7.">
+    </div>
+    <div class="sentence-line">
+      <span class="item-num">6.</span>
+      <span class="ru-line">Они сейчас готовятся к экзамену.</span>
+      <input type="text" class="blank-input blank-lg" data-answer="They are preparing for the exam now.,They're preparing for the exam now.,They are preparing for their exam now.">
+    </div>
+
+    <div class="control-bar">
+      <button class="btn-check" onclick="checkSection('section5')">Check</button>
+      <button class="btn-reset" onclick="resetSection('section5')">Reset</button>
+      <button class="btn-show" onclick="showAnswers('section5')">Show Answers</button>
+      <span class="score-badge" id="score-section5">0 / 6</span>
+    </div>
+  </div>
+
+  <!-- ============ TASK 6 — find and correct the mistake ============ -->
+  <div class="section-label"><span class="star">★</span> Задание 6 · Find the mistake</div>
+  <p class="task-instruction">В каждом предложении ошибка во времени. Перепиши предложение правильно.</p>
+  <div class="task-card" id="section6">
+    <div class="sentence-line">
+      <span class="item-num">1.</span> She is knowing the answer.
+    </div>
+    <div class="blank-wrap">
+      <input type="text" class="blank-input blank-lg" data-answer="She knows the answer.,She knows the answer">
+    </div>
+
+    <div class="sentence-line">
+      <span class="item-num">2.</span> Look! He plays football right now.
+    </div>
+    <div class="blank-wrap">
+      <input type="text" class="blank-input blank-lg" data-answer="Look! He is playing football right now.,Look, he is playing football right now.">
+    </div>
+
+    <div class="sentence-line">
+      <span class="item-num">3.</span> I am not liking spinach.
+    </div>
+    <div class="blank-wrap">
+      <input type="text" class="blank-input blank-lg" data-answer="I do not like spinach.,I don't like spinach.">
+    </div>
+
+    <div class="sentence-line">
+      <span class="item-num">4.</span> Every day he is going to work by bus.
+    </div>
+    <div class="blank-wrap">
+      <input type="text" class="blank-input blank-lg" data-answer="Every day he goes to work by bus.,Every day he goes to work by bus">
+    </div>
+
+    <div class="control-bar">
+      <button class="btn-check" onclick="checkSection('section6')">Check</button>
+      <button class="btn-reset" onclick="resetSection('section6')">Reset</button>
+      <button class="btn-show" onclick="showAnswers('section6')">Show Answers</button>
+      <span class="score-badge" id="score-section6">0 / 4</span>
+    </div>
+  </div>
+
+  <div class="grand-total">
+    <span>Общий результат</span>
+    <span id="grand-total-num">0 / 0</span>
+  </div>
+
+  <div class="footer">
+    <span>Present Simple vs Present Continuous · Practice</span>
+    <span>Meridian School</span>
+  </div>
+
+</div>
+
+<script>
+function normalize(str){
+  return str
+    .toLowerCase()
+    .trim()
+    .replace(/[.!?]/g, '')
+    .replace(/’/g, "'")
+    .replace(/\s+/g, ' ');
+}
+
+function getFields(section){
+  return section.querySelectorAll('input.blank-input, select.blank-select');
+}
+
+function checkSection(sectionId){
+  const section = document.getElementById(sectionId);
+  const fields = getFields(section);
+  let correctCount = 0;
+
+  fields.forEach(field => {
+    field.classList.remove('correct', 'incorrect', 'shown');
+    const accepted = field.getAttribute('data-answer').split(',').map(normalize);
+    const userVal = normalize(field.value);
+    if(accepted.includes(userVal) && userVal !== ''){
+      field.classList.add('correct');
+      correctCount++;
+    } else {
+      field.classList.add('incorrect');
+    }
+  });
+
+  document.getElementById('score-' + sectionId).textContent = correctCount + ' / ' + fields.length;
+  updateGrandTotal();
+}
+
+function resetSection(sectionId){
+  const section = document.getElementById(sectionId);
+  const fields = getFields(section);
+  fields.forEach(field => {
+    field.value = '';
+    field.classList.remove('correct', 'incorrect', 'shown');
+  });
+  const wraps = section.querySelectorAll('.answer-reveal');
+  wraps.forEach(el => el.remove());
+  const tableWrap = section.querySelector('.answer-table-wrap');
+  if(tableWrap) tableWrap.innerHTML = '';
+  document.getElementById('score-' + sectionId).textContent = '0 / ' + fields.length;
+  updateGrandTotal();
+}
+
+function showAnswers(sectionId){
+  const section = document.getElementById(sectionId);
+  const fields = getFields(section);
+
+  const tableWrap = section.querySelector('.answer-table-wrap');
+  if(tableWrap){
+    let rows = '';
+    fields.forEach((field, i) => {
+      const accepted = field.getAttribute('data-answer').split(',');
+      field.classList.remove('correct','incorrect');
+      field.classList.add('shown');
+      rows += '<tr><td>' + (i + 1) + '</td><td class="correct-cell">' + accepted[0] + '</td></tr>';
+    });
+    tableWrap.innerHTML = '<table class="answer-table"><tr><th>№</th><th>Правильный ответ</th></tr>' + rows + '</table>';
+  } else {
+    fields.forEach(field => {
+      field.classList.remove('correct','incorrect');
+      field.classList.add('shown');
+      const accepted = field.getAttribute('data-answer').split(',');
+      const wrap = field.closest('.blank-wrap') || field.parentElement;
+      let reveal = wrap.querySelector('.answer-reveal');
+      if(!reveal){
+        reveal = document.createElement('span');
+        reveal.className = 'answer-reveal';
+        wrap.appendChild(reveal);
+      }
+      reveal.textContent = '✓ ' + accepted[0];
+    });
+  }
+
+  document.getElementById('score-' + sectionId).textContent = fields.length + ' / ' + fields.length;
+  updateGrandTotal();
+}
+
+function updateGrandTotal(){
+  const allFields = document.querySelectorAll('input.blank-input, select.blank-select');
+  const total = allFields.length;
+  const correct = document.querySelectorAll('input.blank-input.correct, input.blank-input.shown, select.blank-select.correct, select.blank-select.shown').length;
+  document.getElementById('grand-total-num').textContent = correct + ' / ' + total;
+}
+
+document.addEventListener('DOMContentLoaded', updateGrandTotal);
+</script>
+
+</body>
+</html>
