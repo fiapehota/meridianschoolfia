@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Present Continuous — Theory | Meridian School</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Outfit:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --brown:#452316;
+    --bg:#FFFFFF;
+    --card-bg:#FDFAF5;
+    --chip1:#9B4B7B;
+    --chip2:#FFC2EE;
+    --accent:#845C5D;
+    --hl1:#F9C784;
+    --hl2:#9C914F;
+    --white:#FFFFFF;
+    --correct:#4C7A4C;
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--brown);
+    font-family:'Outfit', sans-serif;
+    line-height:1.6;
+  }
+
+  /* ===== HEADER ===== */
+  header{
+    width:100%;
+    border-bottom:2px solid var(--accent);
+    margin-bottom:24px;
+    background:var(--bg);
+  }
+  .header-inner{
+    max-width:900px;
+    margin:0 auto;
+    padding:20px 24px 14px 24px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+  }
+  .logo{
+    font-family:'Cormorant Garamond', serif;
+    font-weight:600;
+    font-size:24px;
+    color:var(--brown);
+  }
+  .logo em{
+    font-style:italic;
+    font-weight:400;
+    color:var(--accent);
+  }
+  .back-link{
+    font-family:'Outfit', sans-serif;
+    font-size:13px;
+    font-weight:600;
+    color:var(--accent);
+    text-decoration:none;
+  }
+  .back-link:hover{ text-decoration:underline; }
+
+  .site-nav{
+    max-width:900px;
+    margin:0 auto;
+    padding:0 24px 16px 24px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+  .nav-chip{
+    font-family:'Outfit', sans-serif;
+    font-weight:500;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:1.5px;
+    padding:7px 16px;
+    border-radius:20px;
+    text-decoration:none;
+    background:var(--chip1);
+    color:var(--white);
+  }
+  .nav-chip:nth-child(even){
+    background:var(--hl1);
+    color:var(--brown);
+  }
+  .nav-chip.active{
+    outline:2px solid var(--brown);
+    outline-offset:1px;
+  }
+
+  /* ===== PAGE ===== */
+  .page{
+    max-width:900px;
+    margin:0 auto;
+    padding:0 24px 60px 24px;
+  }
+
+  h1{
+    font-family:'Cormorant Garamond', serif;
+    font-weight:600;
+    font-size:44px;
+    margin:0 0 4px 0;
+  }
+  h1 em{
+    font-style:italic;
+    font-weight:400;
+    color:var(--accent);
+  }
+  .subtitle{
+    font-family:'Outfit', sans-serif;
+    font-size:14px;
+    color:var(--accent);
+    letter-spacing:0.5px;
+    margin-bottom:28px;
+  }
+
+  .section-label{
+    font-family:'Outfit', sans-serif;
+    font-weight:600;
+    font-size:13px;
+    text-transform:uppercase;
+    letter-spacing:1.5px;
+    color:var(--brown);
+    border-bottom:2px solid var(--accent);
+    display:inline-block;
+    padding-bottom:4px;
+    margin:32px 0 14px 0;
+  }
+
+  .reading-card{
+    background:var(--card-bg);
+    border-radius:14px;
+    padding:22px 26px;
+    margin-bottom:18px;
+    box-shadow:0 1px 3px rgba(69,35,22,0.08);
+  }
+  .reading-card h3{
+    font-family:'Cormorant Garamond', serif;
+    font-style:italic;
+    font-weight:600;
+    font-size:22px;
+    margin:0 0 10px 0;
+    color:var(--hl2);
+  }
+  .reading-card p{
+    font-size:15px;
+    margin:0 0 10px 0;
+  }
+  .reading-card p:last-child{ margin-bottom:0; }
+
+  .concept-chips{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-top:14px;
+  }
+  .concept-chip{
+    font-size:12px;
+    font-weight:600;
+    padding:6px 14px;
+    border-radius:16px;
+    background:var(--chip2);
+    color:var(--brown);
+  }
+  .concept-chip:nth-child(even){
+    background:var(--hl1);
+  }
+
+  /* structure table */
+  table.struct-table{
+    width:100%;
+    border-collapse:collapse;
+    margin:8px 0 4px 0;
+    font-size:14px;
+  }
+  table.struct-table th{
+    background:var(--accent);
+    color:var(--white);
+    font-family:'Outfit', sans-serif;
+    font-weight:600;
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    padding:9px 14px;
+    text-align:left;
+  }
+  table.struct-table td{
+    padding:10px 14px;
+    border-bottom:1px solid rgba(69,35,22,0.12);
+    vertical-align:top;
+  }
+  table.struct-table td.formula{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    white-space:nowrap;
+  }
+  table.struct-table td.example{
+    font-style:italic;
+  }
+  table.struct-table td.tag{
+    font-family:'JetBrains Mono', monospace;
+    font-weight:700;
+    text-align:center;
+    width:28px;
+  }
+  table.struct-table tr:last-child td{ border-bottom:none; }
+
+  .rule-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+    margin-top:6px;
+  }
+  .rule-grid > div{
+    background:rgba(155,73,123,0.07);
+    border-radius:10px;
+    padding:14px 18px;
+  }
+  .rule-grid strong{
+    display:block;
+    font-family:'Outfit', sans-serif;
+    font-size:13px;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    color:var(--accent);
+    margin-bottom:6px;
+  }
+
+  /* spelling rules table */
+  table.spelling-table{
+    width:100%;
+    border-collapse:collapse;
+    margin:8px 0 4px 0;
+    font-size:14px;
+  }
+  table.spelling-table th{
+    background:var(--hl2);
+    color:var(--white);
+    font-family:'Outfit', sans-serif;
+    font-weight:600;
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    padding:9px 14px;
+    text-align:left;
+  }
+  table.spelling-table td{
+    padding:10px 14px;
+    border-bottom:1px solid rgba(69,35,22,0.12);
+  }
+  table.spelling-table td.mono{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+  }
+  table.spelling-table tr:last-child td{ border-bottom:none; }
+
+  ul.signal-words{
+    list-style:none;
+    padding:0;
+    margin:14px 0 0 0;
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+  ul.signal-words li{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    background:var(--white);
+    border:1.5px solid var(--chip1);
+    color:var(--brown);
+    padding:6px 12px;
+    border-radius:8px;
+  }
+
+  .source-note{
+    border-left:3px solid var(--hl2);
+    background:rgba(156,145,79,0.08);
+    padding:10px 16px;
+    margin-top:14px;
+    font-size:13.5px;
+    border-radius:0 8px 8px 0;
+  }
+
+  /* mini self-check with answers placed to the side, never over the text */
+  .check-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    padding:9px 0;
+    border-bottom:1px dashed rgba(69,35,22,0.15);
+    font-size:14.5px;
+  }
+  .check-row:last-child{ border-bottom:none; }
+  .check-row .q{ flex:1; }
+  .check-answer{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    font-weight:600;
+    color:var(--correct);
+    background:rgba(76,122,76,0.12);
+    padding:4px 10px;
+    border-radius:6px;
+    border-left:3px solid var(--correct);
+    white-space:nowrap;
+    flex-shrink:0;
+  }
+
+  .footer{
+    margin-top:40px;
+    padding-top:16px;
+    border-top:1px solid rgba(69,35,22,0.15);
+    display:flex;
+    justify-content:space-between;
+    font-size:12px;
+    color:var(--accent);
+    font-family:'JetBrains Mono', monospace;
+  }
+
+  @media print{
+    .nav-chip, .back-link{ display:none !important; }
+    body{ background:white; }
+    .reading-card{ box-shadow:none; border:1px solid #ddd; }
+  }
+
+  @media (max-width:600px){
+    .rule-grid{ grid-template-columns:1fr; }
+    h1{ font-size:32px; }
+    table.struct-table, table.spelling-table{ font-size:12.5px; }
+    .check-row{ flex-direction:column; align-items:flex-start; gap:6px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo">MERIDIAN <em>SCHOOL</em></a>
+    <a class="back-link" href="index.html">← Uz sākumu</a>
+  </div>
+  <nav class="site-nav">
+    <a class="nav-chip" href="index.html">English</a>
+    <a class="nav-chip" href="index.html">Present Continuous</a>
+    <a class="nav-chip active" href="index.html">Theory</a>
+  </nav>
+</header>
+
+<div class="page">
+
+  <h1>Present <em>Continuous</em></h1>
+  <div class="subtitle">Теория · 6 класс · English Grammar</div>
+
+  <div class="section-label">Что это такое</div>
+  <div class="reading-card">
+    <h3>Present Continuous</h3>
+    <p>Present Continuous — это время, которое мы используем, когда говорим о действии, которое происходит <strong>прямо сейчас</strong>, <strong>в данный момент</strong>, или о временной ситуации, которая длится в настоящий период (но не всегда). Это не привычка и не факт — это процесс, который мы можем «застать» происходящим.</p>
+    <div class="concept-chips">
+      <span class="concept-chip">Right now / Прямо сейчас</span>
+      <span class="concept-chip">Temporary / Временно</span>
+      <span class="concept-chip">Changing situation / Изменения</span>
+      <span class="concept-chip">Future plan / Запланированное будущее</span>
+    </div>
+  </div>
+
+  <div class="reading-card">
+    <h3>Когда используем</h3>
+    <div class="rule-grid">
+      <div>
+        <strong>Действие прямо сейчас</strong>
+        Look! She is dancing.
+      </div>
+      <div>
+        <strong>Временная ситуация</strong>
+        I am staying at my aunt's this week.
+      </div>
+      <div>
+        <strong>Изменяющийся процесс</strong>
+        The weather is getting colder.
+      </div>
+      <div>
+        <strong>Запланированное будущее</strong>
+        We are meeting them tomorrow.
+      </div>
+    </div>
+  </div>
+
+  <div class="section-label">Как строим предложение</div>
+  <div class="reading-card">
+    <h3>Структура</h3>
+    <table class="struct-table">
+      <tr><th></th><th>Структура</th><th>Пример</th></tr>
+      <tr>
+        <td class="tag">+</td>
+        <td class="formula">I + am + V-ing</td>
+        <td class="example">I am reading a book.</td>
+      </tr>
+      <tr>
+        <td class="tag">+</td>
+        <td class="formula">He/She/It + is + V-ing</td>
+        <td class="example">She is reading a book.</td>
+      </tr>
+      <tr>
+        <td class="tag">+</td>
+        <td class="formula">You/We/They + are + V-ing</td>
+        <td class="example">They are reading a book.</td>
+      </tr>
+      <tr>
+        <td class="tag">−</td>
+        <td class="formula">Subject + am/is/are + not + V-ing</td>
+        <td class="example">She is not (isn't) reading.</td>
+      </tr>
+      <tr>
+        <td class="tag">?</td>
+        <td class="formula">Am/Is/Are + subject + V-ing?</td>
+        <td class="example">Is she reading a book?</td>
+      </tr>
+    </table>
+    <div class="source-note">
+      Глагол <em>to be</em> (am/is/are) меняется по подлежащему, а смысловой глагол всегда остаётся в форме <strong>V-ing</strong> — она не меняется по лицам.
+    </div>
+  </div>
+
+  <div class="reading-card">
+    <h3>Краткие ответы</h3>
+    <table class="struct-table">
+      <tr><th>Вопрос</th><th>Краткий ответ</th></tr>
+      <tr><td>Are you reading?</td><td>Yes, I am. / No, I'm not.</td></tr>
+      <tr><td>Is she dancing?</td><td>Yes, she is. / No, she isn't.</td></tr>
+      <tr><td>Are they playing?</td><td>Yes, they are. / No, they aren't.</td></tr>
+    </table>
+  </div>
+
+  <div class="section-label">Окончание -ing: правила написания</div>
+  <div class="reading-card">
+    <h3>Spelling rules</h3>
+    <table class="spelling-table">
+      <tr><th>Правило</th><th>Пример</th></tr>
+      <tr><td>Обычно просто добавляем -ing</td><td class="mono">play → playing, read → reading</td></tr>
+      <tr><td>Глагол на -e (без ударения на неё) — убираем -e</td><td class="mono">make → making, write → writing</td></tr>
+      <tr><td>Ударная короткая гласная + одна согласная на конце — согласную удваиваем</td><td class="mono">run → running, sit → sitting, swim → swimming</td></tr>
+      <tr><td>Глагол на -ie — меняем на -y</td><td class="mono">lie → lying, die → dying</td></tr>
+      <tr><td>Глагол на -ee, -oe, -ye — просто добавляем -ing (без изменений)</td><td class="mono">see → seeing, agree → agreeing</td></tr>
+    </table>
+  </div>
+
+  <div class="section-label">Слова-сигналы</div>
+  <div class="reading-card">
+    <h3>Signal words</h3>
+    <p>Эти слова часто встречаются в предложениях в Present Continuous и помогают узнать это время в тексте.</p>
+    <ul class="signal-words">
+      <li>now</li>
+      <li>right now</li>
+      <li>at the moment</li>
+      <li>look!</li>
+      <li>listen!</li>
+      <li>at present</li>
+      <li>these days</li>
+      <li>this week</li>
+      <li>currently</li>
+      <li>still</li>
+    </ul>
+    <div class="source-note">
+      Внимание: некоторые глаголы (know, like, want, believe, need, love, hate, understand) обычно <strong>не</strong> используются в Continuous — они описывают состояние, а не действие. Мы говорим <em>I know</em>, а не <em>I am knowing</em>.
+    </div>
+  </div>
+
+  <div class="footer">
+    <span>Present Continuous · Theory</span>
+    <span>Meridian School</span>
+  </div>
+
+</div>
+
+</body>
+</html>

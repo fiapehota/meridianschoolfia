@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Present Continuous — Practice | Meridian School</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Outfit:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --brown:#452316;
+    --bg:#FFFFFF;
+    --card-bg:#FDFAF5;
+    --chip1:#9B4B7B;
+    --chip2:#FFC2EE;
+    --accent:#845C5D;
+    --hl1:#F9C784;
+    --hl2:#9C914F;
+    --white:#FFFFFF;
+    --correct:#4C7A4C;
+    --wrong:#B5453D;
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--brown);
+    font-family:'Outfit', sans-serif;
+    line-height:1.6;
+  }
+
+  /* ===== HEADER ===== */
+  header{
+    width:100%;
+    border-bottom:2px solid var(--accent);
+    margin-bottom:24px;
+    background:var(--bg);
+  }
+  .header-inner{
+    max-width:900px;
+    margin:0 auto;
+    padding:20px 24px 14px 24px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+  }
+  .logo{
+    font-family:'Cormorant Garamond', serif;
+    font-weight:600;
+    font-size:24px;
+    color:var(--brown);
+  }
+  .logo em{
+    font-style:italic;
+    font-weight:400;
+    color:var(--accent);
+  }
+  .back-link{
+    font-family:'Outfit', sans-serif;
+    font-size:13px;
+    font-weight:600;
+    color:var(--accent);
+    text-decoration:none;
+  }
+  .back-link:hover{ text-decoration:underline; }
+
+  .site-nav{
+    max-width:900px;
+    margin:0 auto;
+    padding:0 24px 16px 24px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+  .nav-chip{
+    font-family:'Outfit', sans-serif;
+    font-weight:500;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:1.5px;
+    padding:7px 16px;
+    border-radius:20px;
+    text-decoration:none;
+    background:var(--chip1);
+    color:var(--white);
+  }
+  .nav-chip:nth-child(even){
+    background:var(--hl1);
+    color:var(--brown);
+  }
+  .nav-chip.active{
+    outline:2px solid var(--brown);
+    outline-offset:1px;
+  }
+
+  /* ===== PAGE ===== */
+  .page{
+    max-width:900px;
+    margin:0 auto;
+    padding:0 24px 60px 24px;
+  }
+
+  h1{
+    font-family:'Cormorant Garamond', serif;
+    font-weight:600;
+    font-size:44px;
+    margin:0 0 4px 0;
+  }
+  h1 em{
+    font-style:italic;
+    font-weight:400;
+    color:var(--accent);
+  }
+  .subtitle{
+    font-family:'Outfit', sans-serif;
+    font-size:14px;
+    color:var(--accent);
+    letter-spacing:0.5px;
+    margin-bottom:20px;
+  }
+
+  /* grand total */
+  .grand-total{
+    background:var(--card-bg);
+    border:1.5px solid var(--accent);
+    border-radius:12px;
+    padding:12px 20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-family:'Outfit', sans-serif;
+    font-weight:600;
+    font-size:14px;
+    margin-top:32px;
+  }
+  #grand-total-num{
+    font-family:'JetBrains Mono', monospace;
+    color:var(--accent);
+    font-size:16px;
+  }
+
+  .section-label{
+    font-family:'Outfit', sans-serif;
+    font-weight:600;
+    font-size:13px;
+    text-transform:uppercase;
+    letter-spacing:1.5px;
+    color:var(--brown);
+    border-bottom:2px solid var(--accent);
+    display:inline-block;
+    padding-bottom:4px;
+    margin:36px 0 6px 0;
+  }
+  .task-instruction{
+    font-size:13.5px;
+    color:var(--accent);
+    margin:0 0 14px 0;
+    font-style:italic;
+  }
+
+  .task-card{
+    background:var(--card-bg);
+    border-radius:14px;
+    padding:22px 26px;
+    margin-bottom:16px;
+    box-shadow:0 1px 3px rgba(69,35,22,0.08);
+  }
+
+  .control-bar{
+    display:flex;
+    gap:10px;
+    margin-bottom:16px;
+    align-items:center;
+    flex-wrap:wrap;
+  }
+  .control-bar button{
+    font-family:'Outfit', sans-serif;
+    font-weight:600;
+    font-size:12.5px;
+    text-transform:uppercase;
+    letter-spacing:0.8px;
+    padding:8px 16px;
+    border-radius:20px;
+    border:none;
+    cursor:pointer;
+  }
+  .btn-check{ background:var(--chip1); color:var(--white); }
+  .btn-reset{ background:var(--chip2); color:var(--brown); }
+  .btn-show{ background:var(--hl1); color:var(--brown); }
+  .control-bar button:hover{ filter:brightness(0.95); }
+  .score-badge{
+    margin-left:auto;
+    font-family:'JetBrains Mono', monospace;
+    font-size:12.5px;
+    font-weight:600;
+    color:var(--accent);
+  }
+
+  /* sentence-style tasks */
+  .sentence-line{
+    font-size:15px;
+    margin:10px 0;
+    line-height:2.1;
+  }
+  .item-num{
+    font-family:'JetBrains Mono', monospace;
+    font-weight:700;
+    color:var(--accent);
+    margin-right:6px;
+  }
+  .base-verb{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    background:var(--chip2);
+    color:var(--brown);
+    padding:2px 8px;
+    border-radius:6px;
+  }
+
+  input.blank-input{
+    font-family:'JetBrains Mono', monospace;
+    font-size:14px;
+    border:none;
+    border-bottom:2px solid var(--chip1);
+    background:transparent;
+    padding:3px 6px;
+    color:var(--brown);
+    outline:none;
+  }
+  input.blank-input:focus{ border-bottom-color:var(--accent); }
+  input.blank-input.correct{ border-bottom-color:var(--correct); background:rgba(76,122,76,0.08); }
+  input.blank-input.incorrect{ border-bottom-color:var(--wrong); background:rgba(181,69,61,0.08); }
+  input.blank-input.shown{ border-bottom-color:var(--hl2); }
+
+  .blank-sm{ width:120px; }
+  .blank-md{ width:220px; }
+  .blank-lg{ width:100%; margin-top:6px; display:block; }
+
+  /* answer reveal: end of sentence (task 1) */
+  .answer-reveal{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    font-weight:600;
+    color:var(--correct);
+    background:rgba(76,122,76,0.12);
+    padding:3px 9px;
+    border-radius:6px;
+    border-left:3px solid var(--correct);
+    white-space:nowrap;
+    display:inline-block;
+    margin-left:10px;
+  }
+
+  /* task 2 & 3 wrapper: blank + answer sit side by side, answer to the right */
+  .blank-wrap{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    flex-wrap:wrap;
+    margin:10px 0;
+  }
+  .blank-wrap .words-bank{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    color:var(--brown);
+    background:var(--white);
+    border:1px dashed var(--chip1);
+    padding:6px 10px;
+    border-radius:8px;
+  }
+  .blank-wrap input.blank-input{
+    flex:1;
+    min-width:220px;
+  }
+
+  /* answer table (task 4, mini table at the bottom) */
+  .answer-table-wrap{ margin-top:16px; }
+  table.answer-table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:13.5px;
+  }
+  table.answer-table th{
+    background:var(--accent);
+    color:var(--white);
+    font-family:'Outfit', sans-serif;
+    font-weight:600;
+    font-size:11.5px;
+    text-transform:uppercase;
+    letter-spacing:0.8px;
+    padding:8px 12px;
+    text-align:left;
+  }
+  table.answer-table td{
+    padding:8px 12px;
+    border-bottom:1px solid rgba(69,35,22,0.12);
+  }
+  table.answer-table td.correct-cell{
+    font-family:'JetBrains Mono', monospace;
+    color:var(--correct);
+    font-weight:600;
+  }
+  table.answer-table tr:last-child td{ border-bottom:none; }
+
+  /* text-gap task */
+  .gap-text{
+    font-size:15.5px;
+    line-height:2.3;
+  }
+  .gap-text input.blank-input{ width:130px; }
+
+  .word-bank{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin:12px 0 4px 0;
+  }
+  .word-bank span{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12.5px;
+    background:var(--white);
+    border:1.5px solid var(--chip1);
+    color:var(--brown);
+    padding:5px 11px;
+    border-radius:8px;
+  }
+
+  .footer{
+    margin-top:40px;
+    padding-top:16px;
+    border-top:1px solid rgba(69,35,22,0.15);
+    display:flex;
+    justify-content:space-between;
+    font-size:12px;
+    color:var(--accent);
+    font-family:'JetBrains Mono', monospace;
+  }
+
+  @media print{
+    .nav-chip, .back-link, .control-bar, .answer-reveal, .answer-table-wrap, .grand-total{ display:none !important; }
+    body{ background:white; }
+    .task-card{ box-shadow:none; border:1px solid #ddd; }
+  }
+
+  @media (max-width:600px){
+    h1{ font-size:32px; }
+    .blank-wrap input.blank-input{ min-width:160px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo">MERIDIAN <em>SCHOOL</em></a>
+    <a class="back-link" href="index.html">← Uz sākumu</a>
+  </div>
+  <nav class="site-nav">
+    <a class="nav-chip" href="index.html">English</a>
+    <a class="nav-chip" href="index.html">Present Continuous</a>
+    <a class="nav-chip active" href="index.html">Practice</a>
+  </nav>
+</header>
+
+<div class="page">
+
+  <h1>Present <em>Continuous</em></h1>
+  <div class="subtitle">Практика · 6 класс · English Grammar</div>
+
+  <!-- ============ TASK 1 — fill in the correct form ============ -->
+  <div class="section-label">Задание 1 · Fill in</div>
+  <p class="task-instruction">Впиши глагол в правильной форме Present Continuous.</p>
+  <div class="task-card" id="section1">
+    <div class="sentence-line">
+      <span class="item-num">1.</span> I <input type="text" class="blank-input blank-sm" data-answer="am reading,I am reading,I'm reading"> a book right now. <span class="base-verb">read</span>
+    </div>
+    <div class="sentence-line">
+      <span class="item-num">2.</span> Look! The dog <input type="text" class="blank-input blank-sm" data-answer="is running,is running.">  after the cat. <span class="base-verb">run</span>
+    </div>
+    <div class="sentence-line">
+      <span class="item-num">3.</span> My parents <input type="text" class="blank-input blank-sm" data-answer="are cooking"> dinner in the kitchen. <span class="base-verb">cook</span>
+    </div>
+    <div class="sentence-line">
+      <span class="item-num">4.</span> Sam <input type="text" class="blank-input blank-sm" data-answer="is not swimming,isn't swimming,is not swiming"> at the moment, he's doing his homework. <span class="base-verb">not / swim</span>
+    </div>
+    <div class="sentence-line">
+      <span class="item-num">5.</span> We <input type="text" class="blank-input blank-sm" data-answer="are lying,are lieing"> on the grass and watching the clouds. <span class="base-verb">lie</span>
+    </div>
+    <div class="sentence-line">
+      <span class="item-num">6.</span> ___ she <input type="text" class="blank-input blank-sm" data-answer="dancing"> in the school play this year? <span class="base-verb">dance</span>
+    </div>
+
+    <div class="control-bar">
+      <button class="btn-check" onclick="checkSection('section1')">Check</button>
+      <button class="btn-reset" onclick="resetSection('section1')">Reset</button>
+      <button class="btn-show" onclick="showAnswers('section1')">Show Answers</button>
+      <span class="score-badge" id="score-section1">0 / 6</span>
+    </div>
+  </div>
+
+  <!-- ============ TASK 2 — word order ============ -->
+  <div class="section-label">Задание 2 · Word order</div>
+  <p class="task-instruction">Собери из слов правильное предложение.</p>
+  <div class="task-card" id="section2">
+    <div class="blank-wrap">
+      <span class="item-num">1.</span>
+      <span class="words-bank">now / is / raining / it</span>
+      <input type="text" class="blank-input" data-answer="It is raining now.,It's raining now.,It is raining now,It's raining now">
+    </div>
+    <div class="blank-wrap">
+      <span class="item-num">2.</span>
+      <span class="words-bank">homework / are / their / not / doing / the boys</span>
+      <input type="text" class="blank-input" data-answer="The boys are not doing their homework.,The boys aren't doing their homework.,The boys are not doing their homework,The boys aren't doing their homework">
+    </div>
+    <div class="blank-wrap">
+      <span class="item-num">3.</span>
+      <span class="words-bank">a letter / grandmother / writing / my / is</span>
+      <input type="text" class="blank-input" data-answer="My grandmother is writing a letter.,My grandmother is writing a letter">
+    </div>
+    <div class="blank-wrap">
+      <span class="item-num">4.</span>
+      <span class="words-bank">to / are / you / listening / me</span>
+      <input type="text" class="blank-input" data-answer="Are you listening to me?,Are you listening to me">
+    </div>
+    <div class="blank-wrap">
+      <span class="item-num">5.</span>
+      <span class="words-bank">getting / colder / every day / is / the weather</span>
+      <input type="text" class="blank-input" data-answer="The weather is getting colder every day.,The weather is getting colder every day">
+    </div>
+
+    <div class="control-bar">
+      <button class="btn-check" onclick="checkSection('section2')">Check</button>
+      <button class="btn-reset" onclick="resetSection('section2')">Reset</button>
+      <button class="btn-show" onclick="showAnswers('section2')">Show Answers</button>
+      <span class="score-badge" id="score-section2">0 / 5</span>
+    </div>
+  </div>
+
+  <!-- ============ TASK 3 — form the question ============ -->
+  <div class="section-label">Задание 3 · Questions</div>
+  <p class="task-instruction">Прочитай контекст и составь к нему вопрос в Present Continuous.</p>
+  <div class="task-card" id="section3">
+    <div class="sentence-line">
+      <span class="item-num">1.</span> Anna is in the kitchen with flour on her hands. Ask her what she is doing.
+    </div>
+    <div class="blank-wrap">
+      <input type="text" class="blank-input blank-lg" data-answer="What are you doing?,What are you doing">
+    </div>
+
+    <div class="sentence-line">
+      <span class="item-num">2.</span> You see two classmates near the football field with a ball. Ask if they are playing football.
+    </div>
+    <div class="blank-wrap">
+      <input type="text" class="blank-input blank-lg" data-answer="Are you playing football?,Are you playing football">
+    </div>
+
+    <div class="sentence-line">
+      <span class="item-num">3.</span> Your friend's little brother is crying loudly. Ask why he is crying.
+    </div>
+    <div class="blank-wrap">
+      <input type="text" class="blank-input blank-lg" data-answer="Why is he crying?,Why is he crying">
+    </div>
+
+    <div class="sentence-line">
+      <span class="item-num">4.</span> Your parents are packing suitcases. Ask where they are going.
+    </div>
+    <div class="blank-wrap">
+      <input type="text" class="blank-input blank-lg" data-answer="Where are you going?,Where are they going?,Where are you going,Where are they going">
+    </div>
+
+    <div class="control-bar">
+      <button class="btn-check" onclick="checkSection('section3')">Check</button>
+      <button class="btn-reset" onclick="resetSection('section3')">Reset</button>
+      <button class="btn-show" onclick="showAnswers('section3')">Show Answers</button>
+      <span class="score-badge" id="score-section3">0 / 4</span>
+    </div>
+  </div>
+
+  <!-- ============ TASK 4 — complete the text ============ -->
+  <div class="section-label">Задание 4 · Complete the text</div>
+  <p class="task-instruction">Закончи текст, поставив глаголы из рамки в правильную форму Present Continuous.</p>
+  <div class="task-card" id="section4">
+    <div class="word-bank">
+      <span>play</span><span>not / do</span><span>sit</span><span>make</span><span>wear</span><span>get</span>
+    </div>
+
+    <p class="gap-text">
+      It's Saturday afternoon and the Petrov family is at home. In the living room, Dad
+      <input type="text" class="blank-input" data-answer="is sitting"> on the sofa and reading a newspaper. In the kitchen, Mum
+      <input type="text" class="blank-input" data-answer="is making"> a big cake for tomorrow's party. Outside, the children
+      <input type="text" class="blank-input" data-answer="are playing"> football with their dog. Grandma
+      <input type="text" class="blank-input" data-answer="is wearing"> her favourite blue coat because she
+      <input type="text" class="blank-input" data-answer="is not doing,isn't doing"> anything today — she is just going for a walk. And outside the window, the sky
+      <input type="text" class="blank-input" data-answer="is getting"> darker — it looks like rain is coming soon.
+    </p>
+
+    <div class="answer-table-wrap" id="answer-table-section4"></div>
+
+    <div class="control-bar">
+      <button class="btn-check" onclick="checkSection('section4')">Check</button>
+      <button class="btn-reset" onclick="resetSection('section4')">Reset</button>
+      <button class="btn-show" onclick="showAnswers('section4')">Show Answers</button>
+      <span class="score-badge" id="score-section4">0 / 6</span>
+    </div>
+  </div>
+
+  <div class="grand-total">
+    <span>Общий результат</span>
+    <span id="grand-total-num">0 / 0</span>
+  </div>
+
+  <div class="footer">
+    <span>Present Continuous · Practice</span>
+    <span>Meridian School</span>
+  </div>
+
+</div>
+
+<script>
+function normalize(str){
+  return str
+    .toLowerCase()
+    .trim()
+    .replace(/[.!?]/g, '')
+    .replace(/’/g, "'")
+    .replace(/\s+/g, ' ');
+}
+
+function checkSection(sectionId){
+  const section = document.getElementById(sectionId);
+  const inputs = section.querySelectorAll('input.blank-input');
+  let correctCount = 0;
+
+  inputs.forEach(input => {
+    input.classList.remove('correct', 'incorrect', 'shown');
+    const accepted = input.getAttribute('data-answer').split(',').map(normalize);
+    const userVal = normalize(input.value);
+    if(accepted.includes(userVal) && userVal !== ''){
+      input.classList.add('correct');
+      correctCount++;
+    } else {
+      input.classList.add('incorrect');
+    }
+  });
+
+  document.getElementById('score-' + sectionId).textContent = correctCount + ' / ' + inputs.length;
+  updateGrandTotal();
+}
+
+function resetSection(sectionId){
+  const section = document.getElementById(sectionId);
+  const inputs = section.querySelectorAll('input.blank-input');
+  inputs.forEach(input => {
+    input.value = '';
+    input.classList.remove('correct', 'incorrect', 'shown');
+  });
+  const wraps = section.querySelectorAll('.answer-reveal');
+  wraps.forEach(el => el.remove());
+  const tableWrap = section.querySelector('.answer-table-wrap');
+  if(tableWrap) tableWrap.innerHTML = '';
+  document.getElementById('score-' + sectionId).textContent = '0 / ' + inputs.length;
+  updateGrandTotal();
+}
+
+function showAnswers(sectionId){
+  const section = document.getElementById(sectionId);
+  const inputs = section.querySelectorAll('input.blank-input');
+
+  const tableWrap = section.querySelector('.answer-table-wrap');
+  if(tableWrap){
+    // Task 4 style: build a mini answer table at the bottom
+    let rows = '';
+    inputs.forEach((input, i) => {
+      const accepted = input.getAttribute('data-answer').split(',');
+      input.classList.remove('correct','incorrect');
+      input.classList.add('shown');
+      rows += '<tr><td>' + (i + 1) + '</td><td class="correct-cell">' + accepted[0] + '</td></tr>';
+    });
+    tableWrap.innerHTML = '<table class="answer-table"><tr><th>№</th><th>Правильный ответ</th></tr>' + rows + '</table>';
+  } else {
+    inputs.forEach(input => {
+      input.classList.remove('correct','incorrect');
+      input.classList.add('shown');
+      const accepted = input.getAttribute('data-answer').split(',');
+      const wrap = input.closest('.blank-wrap') || input.parentElement;
+      let reveal = wrap.querySelector('.answer-reveal');
+      if(!reveal){
+        reveal = document.createElement('span');
+        reveal.className = 'answer-reveal';
+        wrap.appendChild(reveal);
+      }
+      reveal.textContent = '✓ ' + accepted[0];
+    });
+  }
+
+  document.getElementById('score-' + sectionId).textContent = inputs.length + ' / ' + inputs.length;
+  updateGrandTotal();
+}
+
+function updateGrandTotal(){
+  const allInputs = document.querySelectorAll('input.blank-input');
+  const total = allInputs.length;
+  const correct = document.querySelectorAll('input.blank-input.correct, input.blank-input.shown').length;
+  document.getElementById('grand-total-num').textContent = correct + ' / ' + total;
+}
+
+document.addEventListener('DOMContentLoaded', updateGrandTotal);
+</script>
+
+</body>
+</html>
