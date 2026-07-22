@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Numbers — Theory — Meridian School</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,500&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap');
+
+:root{
+  --brown:#452316;
+  --green:#ecb977;
+  --coral:#ac1605;
+  --yellow:#c9cebd;
+  --pink:#435058;
+  --warm-white:#FBF6EE;
+}
+
+*{box-sizing:border-box; margin:0; padding:0;}
+
+body{
+  font-family:'Outfit', sans-serif;
+  background:var(--warm-white);
+  color:var(--brown);
+  line-height:1.6;
+  padding-bottom:40px;
+}
+
+.page{max-width:900px; margin:0 auto; padding:30px 24px;}
+
+/* Site header */
+header{border-bottom:2px solid var(--green); margin-bottom:24px;}
+.header-inner{
+  max-width:900px; margin:0 auto; padding:16px 24px;
+  display:flex; justify-content:space-between; align-items:center;
+  flex-wrap:wrap; gap:10px;
+}
+.site-nav{
+  max-width:900px; margin:0 auto; padding:0 24px 16px;
+  display:flex; gap:8px; flex-wrap:wrap;
+}
+.site-nav .nav-chip{
+  font-family:'Outfit', sans-serif;
+  font-size:0.68rem;
+  font-weight:500;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+  color:#fff;
+  padding:7px 16px;
+  border-radius:20px;
+  background:var(--pink);
+}
+.site-nav .nav-chip:nth-child(even){background:var(--yellow);color:var(--brown);}
+.site-nav .nav-chip.active{outline:2px solid var(--brown); outline-offset:1px;}
+.logo{
+  font-family:'Cormorant Garamond', serif;
+  font-weight:600;
+  font-size:24px;
+  letter-spacing:0.01em;
+  color:var(--brown);
+  text-decoration:none;
+}
+.logo em{font-style:italic; font-weight:400; color:var(--coral);}
+.back-link{
+  font-family:'Outfit', sans-serif;
+  font-size:13px;
+  font-weight:600;
+  letter-spacing:0.02em;
+  color:var(--coral);
+  text-decoration:none;
+}
+.back-link:hover{opacity:0.7;}
+
+/* Breadcrumb */
+.breadcrumb{
+  font-size:13px;
+  color:var(--coral);
+  margin-bottom:18px;
+  letter-spacing:0.03em;
+}
+
+.hero-tag{
+  display:inline-block;
+  font-family:'JetBrains Mono', monospace;
+  font-size:12px;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  color:var(--green);
+  border:1.5px solid var(--green);
+  padding:4px 12px;
+  border-radius:20px;
+  margin-bottom:14px;
+}
+
+h1{font-family:'Cormorant Garamond', serif; font-size:44px; font-weight:600; margin-bottom:6px;}
+h1 em{font-style:italic; color:var(--green);}
+.subtitle{font-size:15px; color:#7a5a48; margin-bottom:8px;}
+
+.section-label{
+  font-family:'JetBrains Mono', monospace;
+  font-size:13px;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  color:var(--brown);
+  display:inline-block;
+  padding-bottom:4px;
+  border-bottom:3px solid var(--green);
+  margin:40px 0 18px 0;
+}
+
+.theory-card{
+  background:#fff;
+  border-radius:16px;
+  padding:24px 26px;
+  margin-bottom:18px;
+  box-shadow:0 2px 10px rgba(69,35,22,0.06);
+}
+.theory-card h3{
+  font-family:'Cormorant Garamond', serif;
+  font-style:italic;
+  font-size:24px;
+  margin-bottom:10px;
+  color:var(--coral);
+}
+.theory-card p{font-size:15px; margin-bottom:8px;}
+.theory-card .rule{
+  font-family:'JetBrains Mono', monospace;
+  background:var(--yellow);
+  display:inline-block;
+  padding:2px 8px;
+  border-radius:6px;
+  font-size:14px;
+  margin:2px 0;
+}
+
+.chips{display:flex; flex-wrap:wrap; gap:10px; margin:12px 0;}
+.chip{
+  font-family:'JetBrains Mono', monospace;
+  font-size:14px;
+  padding:8px 14px;
+  border-radius:10px;
+  font-weight:600;
+}
+.chip:nth-child(odd){background:var(--yellow);}
+.chip:nth-child(even){background:var(--pink);color:#fff;}
+.chip:nth-child(even) .rus{color:#e5e5e5;}
+.chip .rus{
+  font-family:'Outfit', sans-serif;
+  font-weight:400;
+  font-size:12px;
+  color:#7a5a48;
+  display:block;
+  margin-top:2px;
+}
+
+.source-note{
+  border-left:4px solid var(--green);
+  background:#f2faf5;
+  padding:12px 16px;
+  font-size:14px;
+  margin:16px 0;
+  border-radius:0 8px 8px 0;
+}
+
+table.formation{
+  width:100%;
+  border-collapse:collapse;
+  margin:14px 0;
+  font-size:14px;
+}
+table.formation th{
+  background:var(--brown);
+  color:var(--warm-white);
+  padding:8px 10px;
+  text-align:left;
+  font-family:'JetBrains Mono', monospace;
+  font-size:12px;
+  letter-spacing:0.04em;
+}
+table.formation td{
+  padding:8px 10px;
+  border-bottom:1px solid #e5efe5;
+}
+table.formation td.num{font-family:'JetBrains Mono', monospace; font-weight:600; color:var(--green);}
+
+/* Vocabulary cards grid (0-10) */
+.vocab-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(150px, 1fr));
+  gap:10px;
+}
+.vocab-card{
+  background:#fff;
+  border-radius:12px;
+  padding:14px 14px 12px 14px;
+  box-shadow:0 2px 8px rgba(69,35,22,0.06);
+}
+.vocab-card:nth-child(3n+1){border-top:4px solid var(--green);}
+.vocab-card:nth-child(3n+2){border-top:4px solid var(--pink);}
+.vocab-card:nth-child(3n+3){border-top:4px solid var(--yellow);}
+.vocab-card .num{
+  font-family:'JetBrains Mono', monospace;
+  font-size:22px;
+  font-weight:700;
+  color:var(--coral);
+  margin-bottom:2px;
+}
+.vocab-card .word{
+  font-family:'Cormorant Garamond', serif;
+  font-size:19px;
+  font-weight:600;
+  margin-bottom:2px;
+}
+.vocab-card .phon{
+  font-family:'JetBrains Mono', monospace;
+  font-size:12px;
+  color:#8a6a58;
+  margin-bottom:3px;
+}
+.vocab-card .rus{font-size:13px; color:#5c3d2e;}
+
+.spelling-note{
+  border-left:4px solid var(--coral);
+  background:#fdf1ee;
+  padding:12px 16px;
+  font-size:14px;
+  margin:16px 0;
+  border-radius:0 8px 8px 0;
+}
+.spelling-note strong{color:var(--coral);}
+
+.example-row{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  padding:10px 0;
+  border-bottom:1px solid #e5efe5;
+  font-family:'JetBrains Mono', monospace;
+  font-size:15px;
+}
+.example-row .arrow{color:var(--green); font-weight:700;}
+
+@media print{
+  body{padding-bottom:0;}
+  .vocab-card, .theory-card{box-shadow:none; border:1px solid #eee;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo">MERIDIAN <em>SCHOOL</em></a>
+    <a href="index.html" class="back-link">&larr; Uz sākumu</a>
+  </div>
+  <nav class="site-nav">
+    <div class="nav-chip">English</div>
+    <div class="nav-chip active">Numbers</div>
+    <div class="nav-chip">Theory</div>
+  </nav>
+</header>
+
+<div class="page">
+
+  <h1>Numbers — <em>Theory</em></h1>
+  <p class="subtitle">От 0 до 10 → десятки → сотни → тысячи и миллионы</p>
+
+  <!-- 0-10 -->
+  <div class="section-label">0 – 10</div>
+  <div class="vocab-grid">
+    <div class="vocab-card"><div class="num">0</div><div class="word">zero</div><div class="phon">/ˈzɪər.oʊ/</div><div class="rus">ноль</div></div>
+    <div class="vocab-card"><div class="num">1</div><div class="word">one</div><div class="phon">/wʌn/</div><div class="rus">один</div></div>
+    <div class="vocab-card"><div class="num">2</div><div class="word">two</div><div class="phon">/tuː/</div><div class="rus">два</div></div>
+    <div class="vocab-card"><div class="num">3</div><div class="word">three</div><div class="phon">/θriː/</div><div class="rus">три</div></div>
+    <div class="vocab-card"><div class="num">4</div><div class="word">four</div><div class="phon">/fɔːr/</div><div class="rus">четыре</div></div>
+    <div class="vocab-card"><div class="num">5</div><div class="word">five</div><div class="phon">/faɪv/</div><div class="rus">пять</div></div>
+    <div class="vocab-card"><div class="num">6</div><div class="word">six</div><div class="phon">/sɪks/</div><div class="rus">шесть</div></div>
+    <div class="vocab-card"><div class="num">7</div><div class="word">seven</div><div class="phon">/ˈsev.ən/</div><div class="rus">семь</div></div>
+    <div class="vocab-card"><div class="num">8</div><div class="word">eight</div><div class="phon">/eɪt/</div><div class="rus">восемь</div></div>
+    <div class="vocab-card"><div class="num">9</div><div class="word">nine</div><div class="phon">/naɪn/</div><div class="rus">девять</div></div>
+    <div class="vocab-card"><div class="num">10</div><div class="word">ten</div><div class="phon">/ten/</div><div class="rus">десять</div></div>
+  </div>
+
+  <!-- Tens formation -->
+  <div class="section-label">Theory · Tens</div>
+  <div class="theory-card">
+    <h3>Как образуются десятки</h3>
+    <p>Десятки (20, 30, 40 …) образуются от чисел 2–9 с помощью суффикса <strong>-ty</strong>:</p>
+    <div class="chips">
+      <div class="chip">two → twen<strong>ty</strong><span class="rus">буква меняется</span></div>
+      <div class="chip">three → thir<strong>ty</strong><span class="rus">окончание меняется</span></div>
+      <div class="chip">four → for<strong>ty</strong><span class="rus">теряет "u"</span></div>
+      <div class="chip">five → fif<strong>ty</strong><span class="rus">v → f</span></div>
+      <div class="chip">six → six<strong>ty</strong><span class="rus">без изменений</span></div>
+      <div class="chip">seven → seven<strong>ty</strong><span class="rus">без изменений</span></div>
+      <div class="chip">eight → eigh<strong>ty</strong><span class="rus">теряет одну "t"</span></div>
+      <div class="chip">nine → nine<strong>ty</strong><span class="rus">буква "e" остаётся</span></div>
+    </div>
+  </div>
+
+  <div class="theory-card">
+    <h3>Двузначные числа: десятки + единицы</h3>
+    <p>Число от 21 до 99 (кроме круглых десятков) строится по формуле:</p>
+    <p><span class="rule">[десятки] + дефис (-) + [единицы]</span></p>
+    <div class="example-row"><span>21</span><span class="arrow">→</span><span>twenty <strong>+</strong> one</span><span class="arrow">=</span><span>twenty-one</span></div>
+    <div class="example-row"><span>47</span><span class="arrow">→</span><span>forty <strong>+</strong> seven</span><span class="arrow">=</span><span>forty-seven</span></div>
+    <div class="example-row"><span>68</span><span class="arrow">→</span><span>sixty <strong>+</strong> eight</span><span class="arrow">=</span><span>sixty-eight</span></div>
+  </div>
+
+  <div class="theory-card">
+    <h3>Все десятки</h3>
+    <table class="formation">
+      <tr><th>Число</th><th>Слово</th></tr>
+      <tr><td class="num">20</td><td>twenty</td></tr>
+      <tr><td class="num">30</td><td>thirty</td></tr>
+      <tr><td class="num">40</td><td>forty</td></tr>
+      <tr><td class="num">50</td><td>fifty</td></tr>
+      <tr><td class="num">60</td><td>sixty</td></tr>
+      <tr><td class="num">70</td><td>seventy</td></tr>
+      <tr><td class="num">80</td><td>eighty</td></tr>
+      <tr><td class="num">90</td><td>ninety</td></tr>
+      <tr><td class="num">100</td><td>one hundred</td></tr>
+    </table>
+  </div>
+
+  <!-- Hundreds -->
+  <div class="section-label">Theory · Hundreds</div>
+  <div class="theory-card">
+    <h3>Как образуются числа от 100 до 1000</h3>
+    <p>Формула: <span class="rule">[количество сотен] + hundred + (and) + [десятки и единицы]</span></p>
+    <p><strong>hundred</strong> всегда остаётся в единственном числе (не hundreds), даже после 2, 3, 9 и т.д.</p>
+    <p>Слово <strong>and</strong> ставится перед десятками/единицами в британском варианте языка. В американском варианте его часто пропускают — оба варианта верны.</p>
+    <table class="formation">
+      <tr><th>Число</th><th>По-английски</th></tr>
+      <tr><td class="num">100</td><td>one hundred</td></tr>
+      <tr><td class="num">245</td><td>two hundred (and) forty-five</td></tr>
+      <tr><td class="num">308</td><td>three hundred (and) eight</td></tr>
+      <tr><td class="num">590</td><td>five hundred (and) ninety</td></tr>
+      <tr><td class="num">1000</td><td>one thousand / a thousand</td></tr>
+    </table>
+  </div>
+
+  <!-- Thousands & Millions -->
+  <div class="section-label">Theory · Thousands &amp; Millions</div>
+  <div class="theory-card">
+    <h3>Как работают тысячи</h3>
+    <p>В английском числа разделяются <strong>запятой</strong> каждые три цифры (не пробелом, как в латышском/русском): <span class="rule">1,250</span> — one thousand, two hundred (and) fifty.</p>
+    <p>Порядок при чтении: тысячи → сотни → десятки и единицы.</p>
+    <table class="formation">
+      <tr><th>Число</th><th>По-английски</th></tr>
+      <tr><td class="num">1,200</td><td>one thousand, two hundred</td></tr>
+      <tr><td class="num">3,045</td><td>three thousand, (and) forty-five</td></tr>
+      <tr><td class="num">12,500</td><td>twelve thousand, five hundred</td></tr>
+    </table>
+  </div>
+
+  <div class="theory-card">
+    <h3>Миллионы</h3>
+    <table class="formation">
+      <tr><th>Число</th><th>Структура</th><th>Пример</th></tr>
+      <tr><td class="num">1,000</td><td>one thousand</td><td>one thousand</td></tr>
+      <tr><td class="num">10,000</td><td>[десятки] + thousand</td><td>ten thousand</td></tr>
+      <tr><td class="num">100,000</td><td>[сотня] + thousand</td><td>one hundred thousand</td></tr>
+      <tr><td class="num">250,000</td><td>[число] + hundred (and) + [число] + thousand</td><td>two hundred (and) fifty thousand</td></tr>
+      <tr><td class="num">1,000,000</td><td>one million</td><td>one million</td></tr>
+      <tr><td class="num">3,500,000</td><td>[число] + million, + [остаток]</td><td>three million, five hundred thousand</td></tr>
+    </table>
+    <p style="margin-top:10px;">Каждая новая "ступень" (thousand, million) остаётся в <strong>единственном числе</strong>, если перед ней стоит число: <span class="rule">two million</span>, а не two millions.</p>
+    <p style="margin-top:6px;">Порядок групп при чтении большого числа: <strong>millions → thousands → hundreds → tens/units</strong>.</p>
+  </div>
+
+</div>
+</body>
+</html>
