@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Present Simple — Theory | Meridian School</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Outfit:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --brown:#452316;
+    --bg:#FFFFFF;
+    --chip1:#9A94BC;
+    --chip2:#E3C1CB;
+    --accent:#4B2E5C;
+    --white:#FFFFFF;
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--brown);
+    font-family:'Outfit', sans-serif;
+    line-height:1.6;
+  }
+
+  /* ===== HEADER ===== */
+  header{
+    width:100%;
+    border-bottom:2px solid var(--accent);
+    margin-bottom:24px;
+    background:var(--bg);
+  }
+  .header-inner{
+    max-width:900px;
+    margin:0 auto;
+    padding:20px 24px 14px 24px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:10px;
+  }
+  .logo{
+    font-family:'Cormorant Garamond', serif;
+    font-weight:600;
+    font-size:24px;
+    color:var(--brown);
+  }
+  .logo em{
+    font-style:italic;
+    font-weight:400;
+    color:var(--accent);
+  }
+  .back-link{
+    font-family:'Outfit', sans-serif;
+    font-weight:600;
+    font-size:13px;
+    color:var(--accent);
+    text-decoration:none;
+  }
+  .back-link:hover{ text-decoration:underline; }
+
+  .site-nav{
+    max-width:900px;
+    margin:0 auto;
+    padding:0 24px 18px 24px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+  .nav-chip{
+    border:none;
+    border-radius:20px;
+    padding:7px 16px;
+    text-transform:uppercase;
+    letter-spacing:1.5px;
+    font-family:'Outfit', sans-serif;
+    font-weight:500;
+    font-size:11px;
+    color:var(--white);
+    background:var(--chip1);
+    cursor:pointer;
+    text-decoration:none;
+    display:inline-block;
+  }
+  .nav-chip:nth-child(even){
+    background:var(--chip2);
+    color:var(--white);
+  }
+  .nav-chip.active{
+    outline:2px solid var(--brown);
+    outline-offset:1px;
+  }
+
+  /* ===== PAGE ===== */
+  .page{
+    max-width:900px;
+    margin:0 auto;
+    padding:0 24px 60px 24px;
+  }
+
+  h1{
+    font-family:'Cormorant Garamond', serif;
+    font-weight:600;
+    font-size:42px;
+    margin:0 0 6px 0;
+  }
+  h1 em{
+    font-style:italic;
+    font-weight:400;
+    color:var(--accent);
+  }
+  .subtitle{
+    font-size:15px;
+    color:var(--brown);
+    opacity:0.75;
+    margin-bottom:36px;
+  }
+
+  .section-label{
+    font-family:'Outfit', sans-serif;
+    font-weight:600;
+    font-size:13px;
+    text-transform:uppercase;
+    letter-spacing:2px;
+    color:var(--brown);
+    display:inline-block;
+    padding-bottom:4px;
+    border-bottom:3px solid var(--accent);
+    margin:40px 0 18px 0;
+  }
+
+  .reading-card{
+    background:var(--white);
+    border-radius:14px;
+    padding:22px 26px;
+    margin-bottom:20px;
+    box-shadow:0 2px 8px rgba(69,35,22,0.06);
+  }
+  .reading-card h3{
+    font-family:'Cormorant Garamond', serif;
+    font-style:italic;
+    font-weight:600;
+    font-size:24px;
+    margin:0 0 12px 0;
+    color:var(--brown);
+  }
+  .reading-card p{ margin:0 0 10px 0; }
+  .reading-card p:last-child{ margin-bottom:0; }
+
+  .source-note{
+    border-left:4px solid var(--accent);
+    background:rgba(19,60,85,0.05);
+    padding:12px 18px;
+    border-radius:0 8px 8px 0;
+    font-size:14px;
+    margin:14px 0;
+  }
+
+  .concept-chips{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin:16px 0;
+  }
+  .concept-chip{
+    padding:8px 16px;
+    border-radius:20px;
+    font-family:'Outfit', sans-serif;
+    font-weight:600;
+    font-size:13px;
+    color:var(--white);
+    background:var(--chip1);
+  }
+  .concept-chip:nth-child(even){
+    background:var(--chip2);
+  }
+
+  table{
+    width:100%;
+    border-collapse:collapse;
+    margin:14px 0;
+    font-size:15px;
+  }
+  th{
+    background:var(--accent);
+    color:var(--white);
+    font-family:'Outfit', sans-serif;
+    font-weight:600;
+    padding:10px 14px;
+    text-align:left;
+  }
+  td{
+    padding:10px 14px;
+    border-bottom:1px solid rgba(69,35,22,0.12);
+  }
+  tr:nth-child(even) td{ background:rgba(154,148,188,0.08); }
+
+  .formula{
+    font-family:'JetBrains Mono', monospace;
+    background:rgba(19,60,85,0.06);
+    border-radius:8px;
+    padding:14px 18px;
+    margin:14px 0;
+    font-size:15px;
+    color:var(--accent);
+    font-weight:600;
+  }
+
+  .rule-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+    margin:14px 0;
+  }
+  .rule-grid > div{
+    background:rgba(126,132,107,0.08);
+    border-radius:10px;
+    padding:14px 18px;
+  }
+  .rule-grid strong{
+    display:block;
+    font-family:'Outfit', sans-serif;
+    font-size:13px;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    color:var(--accent);
+    margin-bottom:6px;
+  }
+
+  ul.signal-words{
+    list-style:none;
+    padding:0;
+    margin:14px 0;
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+  ul.signal-words li{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    background:var(--white);
+    border:1.5px solid var(--chip1);
+    color:var(--brown);
+    padding:6px 12px;
+    border-radius:8px;
+  }
+
+  @media print{
+    .nav-chip, .back-link{ display:none !important; }
+    body{ background:white; }
+    .reading-card{ box-shadow:none; border:1px solid #ddd; }
+  }
+
+  @media (max-width:600px){
+    .rule-grid{ grid-template-columns:1fr; }
+    h1{ font-size:32px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo">MERIDIAN <em>SCHOOL</em></a>
+    <a class="back-link" href="index.html">← Uz sākumu</a>
+  </div>
+  <nav class="site-nav">
+    <a class="nav-chip" href="index.html">English</a>
+    <a class="nav-chip active" href="index.html">Present Simple</a>
+    <a class="nav-chip" href="index.html">Theory</a>
+  </nav>
+</header>
+
+<div class="page">
+
+  <h1>Present <em>Simple</em></h1>
+  <div class="subtitle">Теория · 5 класс · English Grammar</div>
+
+  <div class="section-label">Что это такое</div>
+  <div class="reading-card">
+    <h3>Present Simple</h3>
+    <p>Present Simple — это время, которое мы используем, когда говорим о вещах, которые происходят <strong>регулярно</strong>, <strong>всегда</strong> или являются <strong>фактом</strong>. Это не про то, что происходит прямо сейчас, а про привычки, расписание и общие истины.</p>
+    <div class="concept-chips">
+      <span class="concept-chip">Habits / Привычки</span>
+      <span class="concept-chip">Facts / Факты</span>
+      <span class="concept-chip">Routines / Распорядок дня</span>
+      <span class="concept-chip">Schedules / Расписание</span>
+    </div>
+  </div>
+
+  <div class="reading-card">
+    <h3>Когда используем</h3>
+    <div class="rule-grid">
+      <div>
+        <strong>Привычки и повторяющиеся действия</strong>
+        She brushes her teeth every morning.
+      </div>
+      <div>
+        <strong>Факты и общие истины</strong>
+        Water boils at 100 degrees.
+      </div>
+      <div>
+        <strong>Расписания и программы</strong>
+        The train leaves at 9 o'clock.
+      </div>
+      <div>
+        <strong>Чувства и мнения</strong>
+        I like chocolate. He knows the answer.
+      </div>
+    </div>
+  </div>
+
+  <div class="section-label">Как строится</div>
+  <div class="reading-card">
+    <h3>Утвердительное предложение</h3>
+    <div class="formula">I / You / We / They + V1</div>
+    <div class="formula">He / She / It + V1 + s / es</div>
+    <p>Для He, She, It к глаголу добавляется окончание <strong>-s</strong> или <strong>-es</strong>.</p>
+    <table>
+      <tr><th>Местоимение</th><th>Глагол</th><th>Пример</th></tr>
+      <tr><td>I</td><td>work</td><td>I work every day.</td></tr>
+      <tr><td>You</td><td>work</td><td>You work every day.</td></tr>
+      <tr><td>He / She / It</td><td>work<strong>s</strong></td><td>He work<strong>s</strong> every day.</td></tr>
+      <tr><td>We</td><td>work</td><td>We work every day.</td></tr>
+      <tr><td>They</td><td>work</td><td>They work every day.</td></tr>
+    </table>
+  </div>
+
+  <div class="reading-card">
+    <h3>Правила добавления -s / -es</h3>
+    <table>
+      <tr><th>Окончание глагола</th><th>Правило</th><th>Пример</th></tr>
+      <tr><td>-s, -ss, -x, -ch, -sh, -o</td><td>+ es</td><td>watch → watches, go → goes</td></tr>
+      <tr><td>согласная + y</td><td>y → ies</td><td>study → studies, fly → flies</td></tr>
+      <tr><td>гласная + y</td><td>+ s</td><td>play → plays, say → says</td></tr>
+      <tr><td>остальные глаголы</td><td>+ s</td><td>work → works, read → reads</td></tr>
+    </table>
+    <div class="source-note">
+      Обрати внимание: <em>have</em> в форме для He/She/It меняется на <strong>has</strong> — это исключение.
+    </div>
+  </div>
+
+  <div class="reading-card">
+    <h3>Отрицание</h3>
+    <div class="formula">I / You / We / They + don't + V1</div>
+    <div class="formula">He / She / It + doesn't + V1</div>
+    <p>После <strong>don't</strong> и <strong>doesn't</strong> глагол всегда стоит в базовой форме — окончание -s не добавляется.</p>
+    <table>
+      <tr><th>Пример</th></tr>
+      <tr><td>I don't like coffee.</td></tr>
+      <tr><td>She doesn't watch TV in the morning.</td></tr>
+    </table>
+  </div>
+
+  <div class="reading-card">
+    <h3>Вопрос</h3>
+    <div class="formula">Do + I / you / we / they + V1 ... ?</div>
+    <div class="formula">Does + he / she / it + V1 ... ?</div>
+    <table>
+      <tr><th>Пример</th><th>Краткий ответ</th></tr>
+      <tr><td>Do you like pizza?</td><td>Yes, I do. / No, I don't.</td></tr>
+      <tr><td>Does he play football?</td><td>Yes, he does. / No, he doesn't.</td></tr>
+    </table>
+  </div>
+
+  <div class="section-label">Слова-сигналы</div>
+  <div class="reading-card">
+    <h3>Signal words</h3>
+    <p>Эти слова часто встречаются в предложениях в Present Simple и помогают узнать это время в тексте.</p>
+    <ul class="signal-words">
+      <li>always</li>
+      <li>usually</li>
+      <li>often</li>
+      <li>sometimes</li>
+      <li>rarely</li>
+      <li>never</li>
+      <li>every day</li>
+      <li>every week</li>
+      <li>every morning</li>
+      <li>on Mondays</li>
+      <li>once a week</li>
+    </ul>
+    <div class="source-note">
+      Наречия частоты (always, usually, often, sometimes, never) обычно стоят <strong>перед</strong> основным глаголом, но <strong>после</strong> глагола <em>to be</em>: She <strong>always</strong> reads books. She <strong>is always</strong> happy.
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
