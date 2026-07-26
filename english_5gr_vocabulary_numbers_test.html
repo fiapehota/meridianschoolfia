@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Numbers — Test | Meridian School</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,300&family=Outfit:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --background:#FFFFFF;
+    --card-bg:#FDFAF5;
+    --brown:#452316;
+    --chip1:#9B4B7B;
+    --chip2:#FFC2EE;
+    --accent:#845C5D;
+    --highlight1:#F9C784;
+    --highlight2:#9C914F;
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--background);
+    color:var(--brown);
+    font-family:'Outfit', sans-serif;
+  }
+
+  header{
+    width:100%;
+    border-bottom:2px solid var(--accent);
+    margin-bottom:24px;
+  }
+  .header-inner{
+    max-width:900px;
+    margin:0 auto;
+    padding:18px 24px 14px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+  }
+  .logo{
+    font-family:'Cormorant Garamond', serif;
+    font-size:24px;
+    text-decoration:none;
+    color:var(--brown);
+    font-weight:600 !important;
+    font-style:normal !important;
+  }
+  .logo em{
+    color:var(--accent);
+    font-weight:300 !important;
+    font-style:italic !important;
+  }
+  .back-link{
+    font-family:'Outfit', sans-serif;
+    font-size:13px;
+    font-weight:600;
+    color:var(--accent);
+    text-decoration:none;
+  }
+  .back-link:hover{ text-decoration:underline; }
+
+  .site-nav{
+    max-width:900px;
+    margin:0 auto;
+    padding:0 24px 16px;
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+  }
+  .nav-chip{
+    border-radius:20px;
+    padding:7px 16px;
+    font-family:'Outfit', sans-serif;
+    font-weight:500;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:1.5px;
+    text-decoration:none;
+    color:var(--brown);
+  }
+  .nav-chip:nth-child(odd){ background:var(--chip1); color:#FFFFFF; }
+  .nav-chip:nth-child(even){ background:var(--chip2); color:var(--brown); }
+  .nav-chip.active{ outline:2px solid var(--brown); outline-offset:1px; }
+
+  .page{
+    max-width:700px;
+    margin:0 auto;
+    padding:0 24px 60px;
+  }
+
+  h1{
+    font-family:'Cormorant Garamond', serif;
+    font-weight:600;
+    font-size:38px;
+    margin:0 0 6px;
+  }
+  h1 em{
+    color:var(--accent);
+    font-style:italic;
+    font-weight:600;
+  }
+  .subtitle{
+    font-size:15px;
+    color:var(--brown);
+    opacity:0.8;
+    margin:0 0 28px;
+    line-height:1.5;
+  }
+
+  .score-bar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:var(--card-bg);
+    border:1px solid var(--highlight1);
+    border-radius:12px;
+    padding:12px 18px;
+    font-size:14px;
+    margin-bottom:12px;
+  }
+  .score-bar strong{ color:var(--accent); }
+
+  .progress-track{
+    width:100%;
+    height:8px;
+    background:var(--card-bg);
+    border:1px solid var(--highlight1);
+    border-radius:20px;
+    overflow:hidden;
+    margin-bottom:28px;
+  }
+  .progress-fill{
+    height:100%;
+    width:0%;
+    background:var(--chip1);
+    transition:width 0.35s ease;
+  }
+
+  .card{
+    background:var(--card-bg);
+    border:1px solid var(--highlight1);
+    border-radius:18px;
+    padding:36px 32px;
+    text-align:center;
+  }
+
+  .direction-tag{
+    display:inline-block;
+    background:var(--chip2);
+    color:var(--brown);
+    font-weight:600;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:1.5px;
+    padding:6px 16px;
+    border-radius:20px;
+    margin-bottom:22px;
+  }
+
+  .prompt-number{
+    font-family:'JetBrains Mono', monospace;
+    font-weight:700;
+    font-size:44px;
+    color:var(--brown);
+    margin-bottom:26px;
+    word-break:break-word;
+  }
+  .prompt-words{
+    font-family:'Cormorant Garamond', serif;
+    font-weight:600;
+    font-style:italic;
+    font-size:28px;
+    color:var(--brown);
+    margin-bottom:26px;
+    line-height:1.4;
+  }
+
+  .answer-input{
+    width:100%;
+    max-width:420px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:18px;
+    padding:12px 16px;
+    border:2px solid var(--highlight2);
+    border-radius:10px;
+    background:#FFFFFF;
+    color:var(--brown);
+    text-align:center;
+    outline:none;
+  }
+  .answer-input:focus{ border-color:var(--accent); }
+  .answer-input.correct{ border-color:#5c8a4a; background:#f2f8ee; }
+  .answer-input.wrong{ border-color:#b3453b; background:#fbeeec; }
+
+  .feedback{
+    min-height:22px;
+    margin-top:14px;
+    font-size:14px;
+    font-weight:600;
+  }
+  .feedback.correct{ color:#5c8a4a; }
+  .feedback.wrong{ color:#b3453b; }
+
+  .btn-area{
+    margin-top:24px;
+    display:flex;
+    justify-content:center;
+    gap:12px;
+  }
+  .btn{
+    font-family:'Outfit', sans-serif;
+    font-weight:600;
+    font-size:14px;
+    padding:11px 26px;
+    border-radius:10px;
+    border:none;
+    cursor:pointer;
+  }
+  .btn-check{ background:var(--chip1); color:#FFFFFF; }
+  .btn-next{ background:var(--accent); color:#FFFFFF; }
+  .btn-restart{ background:var(--chip1); color:#FFFFFF; }
+  .btn:hover{ opacity:0.88; }
+
+  .done-screen{ display:none; }
+  .done-title{
+    font-family:'Cormorant Garamond', serif;
+    font-weight:600;
+    font-size:30px;
+    margin-bottom:8px;
+  }
+  .done-score{
+    font-family:'JetBrains Mono', monospace;
+    font-size:36px;
+    font-weight:700;
+    color:var(--accent);
+    margin-bottom:20px;
+  }
+
+  .review-box{
+    text-align:left;
+    background:#FFFFFF;
+    border:1px solid var(--highlight2);
+    border-radius:12px;
+    padding:18px 22px;
+    margin-top:18px;
+  }
+  .review-box h3{
+    font-family:'Cormorant Garamond', serif;
+    font-size:20px;
+    margin:0 0 12px;
+    color:var(--highlight2);
+  }
+  .review-item{
+    display:flex;
+    justify-content:space-between;
+    gap:14px;
+    padding:8px 0;
+    border-bottom:1px solid #f0e6d8;
+    font-size:14px;
+  }
+  .review-item:last-child{ border-bottom:none; }
+  .review-item .num{ font-family:'JetBrains Mono', monospace; font-weight:700; }
+  .review-item .correct-answer{ color:#5c8a4a; font-weight:600; text-align:right; }
+  .no-mistakes{
+    text-align:center;
+    font-size:15px;
+    color:#5c8a4a;
+    font-weight:600;
+    margin-top:18px;
+  }
+
+  @media print{
+    .btn-area, .progress-track, .score-bar{ display:none !important; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo">MERIDIAN <em>SCHOOL</em></a>
+    <a href="index.html" class="back-link">&larr; Uz sākumu</a>
+  </div>
+  <nav class="site-nav">
+    <div class="nav-chip">English</div>
+    <div class="nav-chip active">Numbers</div>
+    <div class="nav-chip">Test</div>
+  </nav>
+</header>
+
+<div class="page">
+  <h1>Numbers — <em>Test</em></h1>
+  <p class="subtitle">
+    10 карточек. В каждой карточке — либо число цифрами (напиши словами), либо число словами (напиши цифрами).<br>
+    Число может быть любым от 1 до 10 000 000.
+  </p>
+
+  <div class="score-bar">
+    <span>Карточка <strong id="cardNum">1</strong> / <strong id="cardTotal">10</strong></span>
+    <span>Правильно: <strong id="scoreNum">0</strong></span>
+  </div>
+  <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+
+  <div class="card" id="quizCard">
+    <div class="direction-tag" id="directionTag">Digits &rarr; Words</div>
+    <div class="prompt-number" id="promptNumber" style="display:none;"></div>
+    <div class="prompt-words" id="promptWords" style="display:none;"></div>
+    <input type="text" class="answer-input" id="answerInput" autocomplete="off" placeholder="Напиши ответ...">
+    <div class="feedback" id="feedback"></div>
+    <div class="btn-area">
+      <button class="btn btn-check" id="checkBtn">Check</button>
+      <button class="btn btn-next" id="nextBtn" style="display:none;">Next &rarr;</button>
+    </div>
+  </div>
+
+  <div class="card done-screen" id="doneScreen">
+    <div class="done-title">Тест завершён!</div>
+    <div class="done-score" id="doneScore">0 / 10</div>
+    <div id="reviewArea"></div>
+    <div class="btn-area">
+      <button class="btn btn-restart" id="restartBtn">Начать заново</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const ones = ["zero","one","two","three","four","five","six","seven","eight","nine","ten",
+  "eleven","twelve","thirteen","fourteen","fifteen","sixteen","seventeen","eighteen","nineteen"];
+const tens = ["","","twenty","thirty","forty","fifty","sixty","seventy","eighty","ninety"];
+
+function chunkWords(num, withAnd){
+  let s = '';
+  const h = Math.floor(num/100);
+  const rem = num % 100;
+  if(h > 0){
+    s += ones[h] + ' hundred';
+    if(rem > 0){ s += withAnd ? ' and ' : ' '; }
+  }
+  if(rem > 0){
+    if(rem < 20){ s += ones[rem]; }
+    else{
+      s += tens[Math.floor(rem/10)];
+      if(rem % 10 > 0) s += '-' + ones[rem % 10];
+    }
+  }
+  return s;
+}
+
+function numberToWords(n, withAnd){
+  if(n === 0) return 'zero';
+  let segments = [];
+  const mil = Math.floor(n / 1000000);
+  const rem1 = n % 1000000;
+  const th = Math.floor(rem1 / 1000);
+  const rest = rem1 % 1000;
+
+  if(mil > 0) segments.push(chunkWords(mil, withAnd) + ' million');
+  if(th > 0) segments.push(chunkWords(th, withAnd) + ' thousand');
+  if(rest > 0){
+    if(withAnd && segments.length > 0 && rest < 100){
+      segments.push('and ' + chunkWords(rest, withAnd));
+    } else {
+      segments.push(chunkWords(rest, withAnd));
+    }
+  }
+  return segments.join(' ');
+}
+
+function capitalize(s){ return s.charAt(0).toUpperCase() + s.slice(1); }
+
+function formatWithCommas(n){
+  return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+}
+
+function normalizeWords(s){
+  return s.toLowerCase().trim().replace(/[^a-z]/g, '');
+}
+function normalizeDigits(s){
+  return s.replace(/[^0-9]/g, '');
+}
+
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i = a.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+const TOTAL_CARDS = 10;
+let deck = [];
+let idx = 0;
+let score = 0;
+let answered = false;
+
+function buildDeck(){
+  deck = [];
+  for(let i = 0; i < TOTAL_CARDS; i++){
+    const num = Math.floor(Math.random() * 10000000) + 1;
+    const direction = Math.random() < 0.5 ? 'digit2word' : 'word2digit';
+    const wordsAnd = numberToWords(num, true);
+    const wordsNoAnd = numberToWords(num, false);
+    deck.push({
+      num: num,
+      direction: direction,
+      wordsAnd: wordsAnd,
+      wordsNoAnd: wordsNoAnd,
+      acceptedWords: [normalizeWords(wordsAnd), normalizeWords(wordsNoAnd)],
+      wasCorrect: null
+    });
+  }
+  idx = 0;
+  score = 0;
+  document.getElementById('doneScreen').style.display = 'none';
+  document.getElementById('quizCard').style.display = 'block';
+  document.getElementById('scoreNum').textContent = 0;
+  document.getElementById('cardTotal').textContent = TOTAL_CARDS;
+  renderCard();
+}
+
+function renderCard(){
+  answered = false;
+  const item = deck[idx];
+  document.getElementById('cardNum').textContent = idx + 1;
+  document.getElementById('progressFill').style.width = ((idx) / TOTAL_CARDS * 100) + '%';
+
+  const promptNumber = document.getElementById('promptNumber');
+  const promptWords = document.getElementById('promptWords');
+  const input = document.getElementById('answerInput');
+  const feedback = document.getElementById('feedback');
+  const directionTag = document.getElementById('directionTag');
+
+  input.value = '';
+  input.className = 'answer-input';
+  input.disabled = false;
+  feedback.textContent = '';
+  feedback.className = 'feedback';
+  document.getElementById('checkBtn').style.display = 'inline-block';
+  document.getElementById('nextBtn').style.display = 'none';
+
+  if(item.direction === 'digit2word'){
+    directionTag.textContent = 'Digits → Words';
+    promptNumber.style.display = 'block';
+    promptWords.style.display = 'none';
+    promptNumber.textContent = formatWithCommas(item.num);
+    input.placeholder = 'Напиши число словами...';
+  } else {
+    directionTag.textContent = 'Words → Digits';
+    promptNumber.style.display = 'none';
+    promptWords.style.display = 'block';
+    promptWords.textContent = capitalize(item.wordsAnd);
+    input.placeholder = 'Напиши число цифрами...';
+  }
+
+  input.focus();
+}
+
+function checkAnswer(){
+  if(answered) return;
+  answered = true;
+  const item = deck[idx];
+  const input = document.getElementById('answerInput');
+  const feedback = document.getElementById('feedback');
+  let isCorrect = false;
+
+  if(item.direction === 'digit2word'){
+    const userNorm = normalizeWords(input.value);
+    isCorrect = item.acceptedWords.includes(userNorm);
+  } else {
+    const userNorm = normalizeDigits(input.value);
+    isCorrect = userNorm === String(item.num);
+  }
+
+  item.wasCorrect = isCorrect;
+
+  if(isCorrect){
+    score++;
+    input.className = 'answer-input correct';
+    feedback.className = 'feedback correct';
+    feedback.textContent = '✓ Верно!';
+  } else {
+    input.className = 'answer-input wrong';
+    feedback.className = 'feedback wrong';
+    if(item.direction === 'digit2word'){
+      feedback.textContent = '✗ Правильный ответ: ' + capitalize(item.wordsAnd);
+    } else {
+      feedback.textContent = '✗ Правильный ответ: ' + formatWithCommas(item.num);
+    }
+  }
+
+  document.getElementById('scoreNum').textContent = score;
+  input.disabled = true;
+  document.getElementById('checkBtn').style.display = 'none';
+  document.getElementById('nextBtn').style.display = 'inline-block';
+}
+
+function nextCard(){
+  idx++;
+  if(idx >= TOTAL_CARDS){
+    document.getElementById('progressFill').style.width = '100%';
+    document.getElementById('quizCard').style.display = 'none';
+    document.getElementById('doneScreen').style.display = 'block';
+    document.getElementById('doneScore').textContent = score + ' / ' + TOTAL_CARDS;
+
+    const mistakes = deck.filter(d => d.wasCorrect === false);
+    const reviewArea = document.getElementById('reviewArea');
+    if(mistakes.length === 0){
+      reviewArea.innerHTML = '<div class="no-mistakes">Все числа верны! 🎉</div>';
+    } else {
+      let html = '<div class="review-box"><h3>Числа, в которых была ошибка:</h3>';
+      mistakes.forEach(m => {
+        const wordsDisplay = capitalize(m.wordsAnd);
+        html += '<div class="review-item"><span class="num">' + formatWithCommas(m.num) + '</span><span class="correct-answer">' + wordsDisplay + '</span></div>';
+      });
+      html += '</div>';
+      reviewArea.innerHTML = html;
+    }
+  } else {
+    renderCard();
+  }
+}
+
+document.getElementById('checkBtn').addEventListener('click', checkAnswer);
+document.getElementById('nextBtn').addEventListener('click', nextCard);
+document.getElementById('restartBtn').addEventListener('click', buildDeck);
+document.getElementById('answerInput').addEventListener('keydown', function(e){
+  if(e.key === 'Enter'){
+    if(!answered) checkAnswer();
+    else nextCard();
+  }
+});
+
+buildDeck();
+</script>
+</body>
+</html>
