@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Irregular Verbs Test — 59 Words — Meridian School</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300;1,600&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --brown:   #452316;
+    --orange:  #FC8236;
+    --coral:   #E2725B;
+    --yellow:  #FFE570;
+    --pink:    #FFC4CC;
+    --serif:   'Cormorant Garamond', serif;
+    --sans:    'Outfit', sans-serif;
+    --mono:    'JetBrains Mono', monospace;
+    --correct: #3DAA6E;
+    --wrong:   #C0392B;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    background: #fff;
+    color: #020202;
+    min-height: 100vh;
+    padding-bottom: 80px;
+  }
+
+  /* ── HEADER ── */
+  header {
+    border-bottom: 2px solid var(--orange);
+    padding: 20px 0 0;
+  }
+  .container { max-width: 900px; margin: 0 auto; padding: 0 36px; }
+
+  .logo {
+    font-family: var(--serif); font-weight: 600; font-size: 38px;
+    letter-spacing: -1px; color: var(--brown); line-height: 1;
+  }
+  .logo em { font-style: italic; font-weight: 300; }
+
+  nav {
+    display: flex; gap: 8px; margin-top: 18px;
+    padding-bottom: 14px; flex-wrap: wrap;
+  }
+  .nav-chip {
+    font-family: var(--sans); font-size: 0.68rem; font-weight: 500;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--brown); padding: 7px 16px; border-radius: 20px;
+    background: var(--pink); border: none; cursor: default;
+  }
+  .nav-chip:nth-child(even) { background: var(--yellow); }
+  .nav-chip.active { outline: 2px solid var(--brown); outline-offset: 1px; }
+
+  /* ── PAGE HERO ── */
+  .page-hero {
+    padding: 36px 0 28px;
+    border-bottom: 1px solid var(--orange);
+    margin-bottom: 32px;
+  }
+  .hero-tag {
+    display: block; font-family: var(--sans);
+    font-size: 0.68rem; font-weight: 500;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: var(--coral); margin-bottom: 10px;
+  }
+  .hero-title {
+    font-family: var(--serif); font-weight: 600;
+    font-size: 2.6rem; line-height: 1.1;
+    color: var(--brown); margin-bottom: 12px;
+  }
+  .hero-title em { font-style: italic; font-weight: 300; }
+  .hero-desc {
+    font-size: 0.9rem; font-weight: 300;
+    color: #444; line-height: 1.75; max-width: 560px;
+  }
+
+  /* ── SECTION LABEL ── */
+  .section-header {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0 0 12px;
+    border-bottom: 1px solid var(--orange);
+    margin-bottom: 20px;
+  }
+  .section-label {
+    font-family: var(--sans); font-size: 0.7rem; font-weight: 500;
+    letter-spacing: 2px; text-transform: uppercase; color: var(--brown);
+  }
+  .section-count {
+    font-family: var(--serif); font-style: italic;
+    font-size: 0.95rem; color: var(--coral);
+  }
+
+  /* ── TABS ── */
+  .tabs {
+    display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px;
+  }
+  .tab {
+    font-family: var(--sans); font-size: 0.68rem; font-weight: 500;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--brown); padding: 7px 16px; border-radius: 20px;
+    background: #F5F0EB; border: 1.5px solid transparent;
+    cursor: pointer; transition: all 0.15s;
+  }
+  .tab:hover { opacity: 0.8; }
+  .tab.active {
+    background: var(--orange); color: #fff;
+    border-color: var(--orange);
+  }
+
+  /* ── TEST TABLE ── */
+  .test-wrap {
+    border: 1px solid var(--orange);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .table-head {
+    display: grid;
+    grid-template-columns: 32px 1fr 1fr 1fr;
+    background: var(--brown);
+    padding: 11px 20px; gap: 14px;
+    color: #fff;
+    font-family: var(--sans); font-size: 0.65rem;
+    font-weight: 500; letter-spacing: 2px; text-transform: uppercase;
+  }
+
+  .row {
+    display: grid;
+    grid-template-columns: 32px 1fr 1fr 1fr;
+    padding: 11px 20px; gap: 14px;
+    align-items: center;
+    border-bottom: 1px solid #F0EAE4;
+    transition: background 0.12s;
+  }
+  .row:last-child { border-bottom: none; }
+  .row:nth-child(odd)  { background: #fff; }
+  .row:nth-child(even) { background: #FDF9F6; }
+  .row:hover { background: #FFF8F0; }
+
+  .row-num {
+    font-family: var(--mono); font-size: 12px;
+    color: var(--coral); text-align: center; font-weight: 500;
+  }
+
+  .row-ru {
+    font-family: var(--serif); font-size: 1.15rem;
+    font-weight: 600; color: var(--brown); line-height: 1.2;
+  }
+
+  /* ── INPUTS ── */
+  .input-wrap { display: flex; flex-direction: column; gap: 2px; }
+  .inp-label {
+    font-family: var(--sans); font-size: 0.6rem; font-weight: 500;
+    letter-spacing: 1.5px; text-transform: uppercase; color: var(--coral);
+  }
+  .verb-input {
+    border: none;
+    border-bottom: 1.5px solid #D4C5BC;
+    background: transparent;
+    font-family: var(--mono); font-size: 14px; font-weight: 400;
+    color: var(--brown); width: 100%;
+    padding: 3px 2px; outline: none;
+    transition: border-color 0.2s;
+  }
+  .verb-input:focus { border-color: var(--orange); }
+  .verb-input.correct {
+    border-color: var(--correct); color: var(--correct);
+    background: rgba(61,170,110,0.07);
+  }
+  .verb-input.wrong {
+    border-color: var(--wrong); color: var(--wrong);
+    background: rgba(192,57,43,0.06);
+  }
+  .wrong-hint {
+    font-family: var(--mono); font-size: 11px;
+    color: var(--wrong); display: none; margin-top: 2px;
+  }
+  .wrong-hint.show { display: block; }
+
+  /* ── BUTTONS ── */
+  .btn-area {
+    display: flex; gap: 10px; flex-wrap: wrap;
+    margin-top: 22px;
+  }
+  .btn {
+    font-family: var(--sans); font-size: 0.7rem; font-weight: 500;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    border: none; border-radius: 2px; padding: 11px 24px;
+    cursor: pointer; transition: opacity 0.15s;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .btn:hover { opacity: 0.82; }
+  .btn:active { opacity: 0.65; }
+  .btn-check  { background: var(--brown);  color: #fff; }
+  .btn-new    { background: var(--orange); color: #fff; }
+  .btn-reset  { background: #F5F0EB; color: var(--brown); }
+
+  /* ── SCORE ── */
+  .score-card {
+    display: none;
+    margin-top: 20px;
+    border-left: 3px solid var(--orange);
+    background: #FFF8F0;
+    padding: 16px 22px;
+    border-radius: 0 2px 2px 0;
+  }
+  .score-card.show { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+
+  .score-big {
+    font-family: var(--serif); font-size: 2.8rem;
+    font-weight: 600; color: var(--brown); line-height: 1;
+  }
+  .score-big span { color: var(--orange); }
+  .score-label {
+    font-family: var(--sans); font-size: 0.68rem;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--coral); margin-bottom: 4px;
+  }
+  .score-verdict {
+    font-family: var(--serif); font-style: italic;
+    font-size: 1.1rem; color: var(--brown);
+  }
+  .score-bar-wrap {
+    flex: 1; min-width: 140px;
+    background: #EDE0D8; border-radius: 20px; height: 6px; overflow: hidden;
+  }
+  .score-bar-fill {
+    height: 100%; border-radius: 20px;
+    background: var(--orange);
+    transition: width 0.7s cubic-bezier(.22,1,.36,1);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    margin-top: 60px; padding: 22px 0;
+    border-top: 2px solid var(--brown);
+  }
+  .footer-inner {
+    display: flex; justify-content: space-between;
+    align-items: center; flex-wrap: wrap; gap: 10px;
+  }
+  .footer-logo {
+    font-family: var(--serif); font-weight: 600;
+    font-size: 1rem; color: var(--brown);
+  }
+  .footer-copy {
+    font-size: 0.65rem; color: var(--coral); letter-spacing: 0.5px;
+  }
+
+  /* ── PRINT ── */
+  @media print {
+    .btn-area, .score-card, .tabs, nav { display: none !important; }
+    header { border-bottom: 2px solid #000; }
+    .verb-input { color: #000; border-color: #000; background: none !important; }
+    .wrong-hint { display: none !important; }
+    .row:hover { background: inherit; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <div class="logo">MERIDIAN <em>SCHOOL</em></div>
+    <nav>
+      <div class="nav-chip">English</div>
+      <div class="nav-chip active">7. klase</div>
+      <div class="nav-chip">Irregular Verbs</div>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="container">
+
+    <div class="page-hero">
+      <span class="hero-tag">English · Grade 7 · Grammar</span>
+      <h1 class="hero-title">Irregular Verbs Test —<br><em>59 words</em></h1>
+      <p class="hero-desc">
+        Напиши <strong>1-ю форму</strong> (Present Simple) и <strong>2-ю форму</strong> (Past Simple) для каждого глагола.
+        Каждый раз нажимаешь «Новый тест» — появляются 20 случайных слов из базы в 59 глаголов.
+      </p>
+    </div>
+
+    <div class="test-wrap">
+      <div class="table-head">
+        <div>#</div>
+        <div>Перевод (RU)</div>
+        <div>Форма 1 — Present Simple</div>
+        <div>Форма 2 — Past Simple</div>
+      </div>
+      <div id="rows"></div>
+    </div>
+
+    <div class="btn-area">
+      <button class="btn btn-check" onclick="checkAll()">✓ Проверить</button>
+      <button class="btn btn-new"   onclick="newTest()">⟳ Новый тест</button>
+      <button class="btn btn-reset" onclick="resetAll()">↺ Сбросить</button>
+    </div>
+
+    <div class="score-card" id="scoreCard">
+      <div>
+        <div class="score-label">Результат</div>
+        <div class="score-big" id="scBig"><span id="scN">0</span> / <span id="scT">20</span></div>
+      </div>
+      <div>
+        <div class="score-verdict" id="scVerdict">Отлично!</div>
+        <div class="score-bar-wrap" style="margin-top:8px;">
+          <div class="score-bar-fill" id="scBar" style="width:0%"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-logo">MERIDIAN <em>SCHOOL</em></div>
+      <div class="footer-copy">© 2026 Meridian School · English · Grade 7</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+const VERBS = [
+  // ── ЛЕТНИЕ ──
+  { g:'summer', ru:'идти / ехать',         ps:'go',       past:'went'       },
+  { g:'summer', ru:'плавать',              ps:'swim',     past:'swam'       },
+  { g:'summer', ru:'есть',                 ps:'eat',      past:'ate'        },
+  { g:'summer', ru:'пить',                 ps:'drink',    past:'drank'      },
+  { g:'summer', ru:'покупать',             ps:'buy',      past:'bought'     },
+  { g:'summer', ru:'видеть',               ps:'see',      past:'saw'        },
+  { g:'summer', ru:'делать / готовить',    ps:'make',     past:'made'       },
+  { g:'summer', ru:'спать',                ps:'sleep',    past:'slept'      },
+  { g:'summer', ru:'брать / делать фото',  ps:'take',     past:'took'       },
+  { g:'summer', ru:'просыпаться',          ps:'wake up',  past:'woke up'    },
+  { g:'summer', ru:'кататься (велосипед)', ps:'ride',     past:'rode'       },
+  { g:'summer', ru:'встречать',            ps:'meet',     past:'met'        },
+  // ── ГРУППА 2 ──
+  { g:'g2', ru:'быть',                     ps:'be',       past:'was / were' },
+  { g:'g2', ru:'становиться',              ps:'become',   past:'became'     },
+  { g:'g2', ru:'мочь / уметь',             ps:'can',      past:'could'      },
+  { g:'g2', ru:'делать',                   ps:'do',       past:'did'        },
+  { g:'g2', ru:'чувствовать',              ps:'feel',     past:'felt'       },
+  { g:'g2', ru:'знать',                    ps:'know',     past:'knew'       },
+  { g:'g2', ru:'читать',                   ps:'read',     past:'read'       },
+  { g:'g2', ru:'бегать / бежать',          ps:'run',      past:'ran'        },
+  { g:'g2', ru:'сидеть',                   ps:'sit',      past:'sat'        },
+  { g:'g2', ru:'стоять',                   ps:'stand',    past:'stood'      },
+  { g:'g2', ru:'думать',                   ps:'think',    past:'thought'    },
+  { g:'g2', ru:'победить / выиграть',      ps:'win',      past:'won'        },
+  // ── ГРУППА 3 ──
+  { g:'g3', ru:'кусать',                   ps:'bite',     past:'bit'        },
+  { g:'g3', ru:'ломать / разбивать',       ps:'break',    past:'broke'      },
+  { g:'g3', ru:'летать / лететь',          ps:'fly',      past:'flew'       },
+  { g:'g3', ru:'забывать',                 ps:'forget',   past:'forgot'     },
+  { g:'g3', ru:'платить',                  ps:'pay',      past:'paid'       },
+  { g:'g3', ru:'начинать',                 ps:'begin',    past:'began'      },
+  { g:'g3', ru:'рисовать',                 ps:'draw',     past:'drew'       },
+  { g:'g3', ru:'прощать',                  ps:'forgive',  past:'forgave'    },
+  { g:'g3', ru:'получить',                 ps:'get',      past:'got'        },
+  { g:'g3', ru:'давать',                   ps:'give',     past:'gave'       },
+  { g:'g3', ru:'рассказывать',             ps:'tell',     past:'told'       },
+  // ── ГРУППА 4 (из предыдущего фото) ──
+  { g:'g4', ru:'ловить',                   ps:'catch',    past:'caught'     },
+  { g:'g4', ru:'расти',                    ps:'grow',     past:'grew'       },
+  { g:'g4', ru:'иметь',                    ps:'have',     past:'had'        },
+  { g:'g4', ru:'падать',                   ps:'fall',     past:'fell'       },
+  { g:'g4', ru:'терять',                   ps:'lose',     past:'lost'       },
+  { g:'g4', ru:'класть / ставить',         ps:'put',      past:'put'        },
+  { g:'g4', ru:'показывать',               ps:'show',     past:'showed'     },
+  { g:'g4', ru:'означать',                 ps:'mean',     past:'meant'      },
+  { g:'g4', ru:'петь',                     ps:'sing',     past:'sang'       },
+  { g:'g4', ru:'красть',                   ps:'steal',    past:'stole'      },
+  { g:'g4', ru:'выбирать',                 ps:'choose',   past:'chose'      },
+  { g:'g4', ru:'ехать / вести машину',     ps:'drive',    past:'drove'      },
+  // ── НОВЫЕ (из последнего фото) ──
+  { g:'g5', ru:'подойти / прийти',         ps:'come',     past:'came'       },
+  { g:'g5', ru:'хранить / держать',        ps:'keep',     past:'kept'       },
+  { g:'g5', ru:'резать',                   ps:'cut',      past:'cut'        },
+  { g:'g5', ru:'сжечь / сгореть',         ps:'burn',     past:'burnt'      },
+  { g:'g5', ru:'лгать / врать',            ps:'lie',      past:'lay'        },
+  { g:'g5', ru:'лежать / класть',          ps:'lay',      past:'laid'       },
+  { g:'g5', ru:'говорить (речь)',          ps:'speak',    past:'spoke'      },
+  { g:'g5', ru:'учить / обучать',          ps:'teach',    past:'taught'     },
+  { g:'g5', ru:'тратить / проводить',      ps:'spend',    past:'spent'      },
+  { g:'g5', ru:'сказать',                  ps:'say',      past:'said'       },
+  { g:'g5', ru:'продавать',                ps:'sell',     past:'sold'       },
+  { g:'g5', ru:'понимать',                 ps:'understand',past:'understood' },
+];
+
+const CAT_LABELS = {
+  all:'Все 59', summer:'☀️ Летние (12)',
+  g2:'Группа 2 (12)', g3:'Группа 3 (11)',
+  g4:'Группа 4 (12)', g5:'Новые (12)'
+};
+
+function shuffle(a){ const b=[...a]; for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];} return b; }
+
+let current=[];
+
+function buildDeck() {
+  return shuffle(VERBS).slice(0,20);
+}
+
+function newTest() {
+  current = buildDeck();
+  renderRows();
+  document.getElementById('scoreCard').classList.remove('show');
+}
+
+function renderRows() {
+  const c = document.getElementById('rows');
+  c.innerHTML = '';
+  current.forEach((v,i) => {
+    const row = document.createElement('div');
+    row.className = 'row';
+    row.innerHTML = `
+      <div class="row-num">${String(i+1).padStart(2,'0')}</div>
+      <div class="row-ru">${v.ru}</div>
+      <div class="input-wrap">
+        <div class="inp-label">Форма 1</div>
+        <input class="verb-input" id="ps_${i}" placeholder="present…" autocomplete="off" autocorrect="off" spellcheck="false" oninput="clearState(${i})">
+        <div class="wrong-hint" id="wh1_${i}"></div>
+      </div>
+      <div class="input-wrap">
+        <div class="inp-label">Форма 2</div>
+        <input class="verb-input" id="pa_${i}" placeholder="past…" autocomplete="off" autocorrect="off" spellcheck="false" oninput="clearState(${i})">
+        <div class="wrong-hint" id="wh2_${i}"></div>
+      </div>`;
+    c.appendChild(row);
+  });
+}
+
+function norm(s){ return s.trim().toLowerCase().replace(/\s+/g,' '); }
+
+// принимает "was/were", "was / were", "was,were", "was , were"
+function match(input, correct) {
+  const inp = norm(input);
+  // разбиваем correct по / или ,
+  const variants = correct.split(/[\/,]/).map(x=>norm(x));
+  return variants.includes(inp) || inp===norm(correct);
+}
+
+function clearState(i) {
+  ['ps','pa'].forEach(p => {
+    const el=document.getElementById(`${p}_${i}`);
+    if(el) el.classList.remove('correct','wrong');
+  });
+  ['wh1','wh2'].forEach(p => {
+    const el=document.getElementById(`${p}_${i}`);
+    if(el){ el.textContent=''; el.classList.remove('show'); }
+  });
+  document.getElementById('scoreCard').classList.remove('show');
+}
+
+function checkAll() {
+  let correct=0, total=0;
+  current.forEach((v,i) => {
+    const psEl=document.getElementById(`ps_${i}`);
+    const paEl=document.getElementById(`pa_${i}`);
+    const wh1=document.getElementById(`wh1_${i}`);
+    const wh2=document.getElementById(`wh2_${i}`);
+
+    // форма 1
+    if(psEl.value.trim()){
+      total++;
+      const ok=match(psEl.value, v.ps);
+      psEl.classList.toggle('correct',ok); psEl.classList.toggle('wrong',!ok);
+      if(!ok){ wh1.textContent='→ '+v.ps; wh1.classList.add('show'); } else wh1.classList.remove('show');
+      if(ok) correct++;
+    }
+    // форма 2
+    if(paEl.value.trim()){
+      total++;
+      const ok2=match(paEl.value, v.past);
+      paEl.classList.toggle('correct',ok2); paEl.classList.toggle('wrong',!ok2);
+      if(!ok2){ wh2.textContent='→ '+v.past; wh2.classList.add('show'); } else wh2.classList.remove('show');
+      if(ok2) correct++;
+    }
+  });
+
+  // считаем глаголы полностью верно
+  let rowsOk=0, rowsTotal=0;
+  current.forEach((v,i) => {
+    const ps=document.getElementById(`ps_${i}`).value.trim();
+    const pa=document.getElementById(`pa_${i}`).value.trim();
+    if(ps||pa){ rowsTotal++; if(match(ps,v.ps)&&match(pa,v.past)) rowsOk++; }
+  });
+
+  const pct = rowsTotal>0 ? Math.round(rowsOk/rowsTotal*100) : 0;
+  const verdict = pct===100 ? 'Превосходно!' : pct>=80 ? 'Отлично!' : pct>=60 ? 'Хорошо!' : pct>=40 ? 'Нужно повторить' : 'Учим дальше!';
+
+  document.getElementById('scN').textContent = rowsOk;
+  document.getElementById('scT').textContent = rowsTotal;
+  document.getElementById('scVerdict').textContent = verdict;
+  document.getElementById('scBar').style.width = pct+'%';
+  document.getElementById('scoreCard').classList.add('show');
+}
+
+function resetAll() {
+  document.querySelectorAll('.verb-input').forEach(el=>{
+    el.value=''; el.classList.remove('correct','wrong');
+  });
+  document.querySelectorAll('.wrong-hint').forEach(el=>{
+    el.textContent=''; el.classList.remove('show');
+  });
+  document.getElementById('scoreCard').classList.remove('show');
+}
+
+newTest();
+</script>
+</body>
+</html>
