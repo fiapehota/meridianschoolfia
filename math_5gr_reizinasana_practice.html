@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reizināšana stabiņā — Meridian School</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,400&family=Outfit:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* хедер всегда в дефолтном стиле, не зависит от палитры */
+    --header-accent:#6A66A3;
+    --header-accent-deep:#785C84;
+
+    /* Малиновое Вино — практика: оба цвета как акценты */
+    --color1:#c25f78;
+    --color2:#b9c8cb;
+    --color1-tint:#F3E1E6;
+    --color2-tint:#EDF2F2;
+    --brown:#452316;
+    --cream:#efede9;
+    --paper:#FFFFFF;
+    /* c25f78 достаточно насыщенный, поэтому на нём текст #efede9, а не brown */
+    --on-color1:#efede9;
+    --on-color2:#452316;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--cream);
+    color:var(--brown);
+    font-family:'Outfit',sans-serif;
+  }
+  .page{
+    max-width:900px;
+    margin:0 auto;
+    padding:36px 24px 120px;
+  }
+
+  /* Header — default style, unaffected by palette */
+  header{
+    background:var(--paper);
+    border-bottom:2px solid var(--header-accent);
+  }
+  .header-inner{
+    max-width:900px; margin:0 auto; padding:16px 24px;
+    display:flex; justify-content:space-between; align-items:center;
+    flex-wrap:wrap; gap:10px;
+  }
+  .logo{
+    font-family:'Cormorant Garamond',serif;
+    font-weight:600;
+    font-size:24px;
+    color:var(--brown);
+    text-decoration:none;
+  }
+  .logo em{ font-style:italic; font-weight:400; color:var(--header-accent); }
+  .back-link{
+    font-family:'Outfit',sans-serif;
+    font-size:13px;
+    font-weight:600;
+    letter-spacing:0.02em;
+    color:var(--header-accent-deep);
+    text-decoration:none;
+  }
+  .back-link:hover{ opacity:0.75; }
+  .site-nav{
+    max-width:900px; margin:0 auto; padding:0 24px 16px;
+    display:flex; gap:8px; flex-wrap:wrap;
+  }
+  .nav-chip{
+    font-family:'Outfit',sans-serif;
+    font-size:0.68rem;
+    font-weight:600;
+    letter-spacing:1.2px;
+    text-transform:uppercase;
+    color:var(--on-color1);
+    padding:7px 16px;
+    border-radius:20px;
+    background:var(--color1);
+  }
+  .nav-chip:nth-child(even){ background:var(--color2); color:var(--on-color2); }
+  .nav-chip.active{ outline:2px solid var(--brown); outline-offset:1px; }
+
+  h1{
+    font-family:'Cormorant Garamond',serif;
+    font-weight:600;
+    font-size:34px;
+    margin:26px 0 4px;
+    color:var(--brown);
+  }
+  h1 em{ font-style:italic; color:var(--header-accent-deep); }
+  .subtitle{
+    font-size:14px;
+    color:#7a5a48;
+    margin-bottom:18px;
+    font-weight:500;
+  }
+  .instructions{
+    background:var(--paper);
+    border-left:3px solid var(--color2);
+    padding:14px 18px;
+    border-radius:8px;
+    font-size:14px;
+    line-height:1.6;
+    margin-bottom:34px;
+    box-shadow:0 2px 8px rgba(69,35,22,0.05);
+  }
+  h2.section-title{
+    font-family:'Cormorant Garamond',serif;
+    font-weight:600;
+    font-size:24px;
+    color:var(--brown);
+    border-bottom:2px solid var(--color1);
+    padding-bottom:6px;
+    margin:36px 0 20px;
+  }
+  h2.section-title em{ font-style:italic; color:var(--header-accent-deep); }
+  .task-grid{
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:18px;
+  }
+  @media (max-width:700px){ .task-grid{grid-template-columns:1fr;} }
+  .task-card{
+    background:var(--paper);
+    border-radius:14px;
+    padding:16px 14px 14px;
+    box-shadow:0 2px 8px rgba(69,35,22,0.06);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+  }
+  .task-label{
+    align-self:flex-start;
+    font-size:12px;
+    font-weight:600;
+    letter-spacing:1px;
+    text-transform:uppercase;
+    color:var(--header-accent-deep);
+    margin-bottom:10px;
+  }
+  .stack{
+    width:308px;
+    max-width:100%;
+    font-family:'JetBrains Mono',monospace;
+  }
+  .digit-row{
+    display:flex;
+    justify-content:flex-end;
+    align-items:center;
+  }
+  .shifted-row{ padding-right:29px; }
+  .carry-row{
+    height:22px;
+    margin-bottom:2px;
+  }
+  .carry-cell{
+    width:30px;
+    height:20px;
+    text-align:center;
+    font-size:12px;
+    color:var(--header-accent-deep);
+    background:transparent;
+    border:none;
+    border-bottom:1px dashed var(--color2);
+    font-family:'JetBrains Mono',monospace;
+    outline:none;
+  }
+  .op-sign{
+    width:20px;
+    text-align:center;
+    font-size:18px;
+    font-weight:700;
+    color:var(--header-accent-deep);
+    flex-shrink:0;
+  }
+  .digit-cell{
+    width:30px;
+    height:36px;
+    border:1px solid var(--color2);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:17px;
+    font-weight:700;
+    color:var(--brown);
+    background:var(--cream);
+    margin-left:-1px;
+  }
+  .digit-cell:first-child{ margin-left:0; }
+  .line-row{
+    border-top:2px solid var(--brown);
+    margin:4px 0 4px;
+  }
+  .line-row.thin{
+    border-top:1px solid var(--header-accent-deep);
+    margin:3px 0 3px;
+  }
+  input.ans-cell{
+    width:30px;
+    height:36px;
+    border:1px solid var(--color2);
+    text-align:center;
+    font-size:17px;
+    font-weight:700;
+    font-family:'JetBrains Mono',monospace;
+    color:var(--brown);
+    background:var(--paper);
+    margin-left:-1px;
+    outline:none;
+    padding:0;
+  }
+  input.ans-cell:first-child{ margin-left:0; }
+  input.ans-cell:focus{
+    border-color:var(--color1);
+    background:var(--color1-tint);
+    position:relative;
+    z-index:1;
+  }
+  input.ans-cell.correct{
+    background:#e4f3d9;
+    border-color:#8fbf6f;
+    color:#3a5c22;
+  }
+  input.ans-cell.wrong{
+    background:#fbe1e1;
+    border-color:#d98a8a;
+    color:#8a2f2f;
+  }
+  .row-tag{
+    font-size:10px;
+    color:var(--header-accent-deep);
+    font-weight:600;
+    align-self:flex-end;
+    margin-right:2px;
+    text-transform:uppercase;
+    letter-spacing:0.5px;
+  }
+  .task-controls{
+    display:flex;
+    gap:8px;
+    margin-top:14px;
+    width:100%;
+    justify-content:center;
+    flex-wrap:wrap;
+  }
+  .btn{
+    font-family:'Outfit',sans-serif;
+    font-size:12px;
+    font-weight:600;
+    letter-spacing:0.3px;
+    padding:7px 12px;
+    border-radius:20px;
+    border:none;
+    cursor:pointer;
+    transition:opacity 0.15s;
+  }
+  .btn:hover{ opacity:0.85; }
+  .btn-check{ background:var(--color1); color:var(--on-color1); }
+  .btn-reset{ background:var(--color2); color:var(--on-color2); }
+  .btn-show{ background:var(--color1); color:var(--on-color1); }
+  .answer-line{
+    display:flex;
+    align-items:center;
+    justify-content:flex-end;
+    gap:10px;
+  }
+  .answer-line.shifted-row{ padding-right:29px; }
+  .correct-tag{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12px;
+    font-weight:700;
+    color:var(--header-accent-deep);
+    background:var(--color2-tint);
+    border:1px dashed var(--color2);
+    padding:3px 8px;
+    border-radius:8px;
+    white-space:nowrap;
+    opacity:0;
+    visibility:hidden;
+    transition:opacity 0.15s;
+  }
+  .correct-tag.visible{
+    opacity:1;
+    visibility:visible;
+  }
+  .task-feedback{
+    font-size:12px;
+    margin-top:8px;
+    font-weight:600;
+    height:14px;
+  }
+  .task-feedback.ok{ color:#4a7a2e; }
+  .task-feedback.bad{ color:#a83c3c; }
+  .score-bar{
+    position:fixed;
+    bottom:0;
+    left:0;
+    right:0;
+    background:var(--brown);
+    color:#fff;
+    text-align:center;
+    padding:12px 16px;
+    font-family:'Outfit',sans-serif;
+    font-weight:600;
+    font-size:15px;
+    letter-spacing:0.4px;
+    z-index:10;
+  }
+  .score-bar span{ color:var(--color2); }
+  @media print{
+    header, .task-controls, .score-bar, .task-feedback{ display:none !important; }
+    body{ padding-bottom:0; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo">MERIDIAN <em>SCHOOL</em></a>
+    <a href="index.html" class="back-link">&larr; Uz sākumu</a>
+  </div>
+  <nav class="site-nav">
+    <div class="nav-chip">Matemātika</div>
+    <div class="nav-chip active">5. klase</div>
+    <div class="nav-chip">Reizināšana</div>
+  </nav>
+</header>
+
+<div class="page">
+
+  <h1>Reizināšana <em>stabiņā</em></h1>
+  <div class="subtitle">Lielie skaitļi — 4 līdz 7 ciparu reizināmais</div>
+
+  <div class="instructions">
+    Uzdevumos 1.–4. reizinātājs ir viencipara skaitlis — reizini stabiņā un raksti atbildi rūtiņās.
+    Uzdevumos 5.–8. reizinātājs ir divciparu skaitlis — vispirms aprēķini abus <strong>starpproduktus</strong>
+    (reizinot ar vienībām un ar desmitiem), otro starpproduktu raksti par vienu rūtiņu pa kreisi, un tad
+    tos saskaiti, lai iegūtu galīgo atbildi. Mazajās rūtiņās virs reizināmā vari pierakstīt pārnesumus.
+  </div>
+
+  <h2 class="section-title">Uzdevumi</h2>
+  <div class="task-grid" id="task-grid"></div>
+
+</div>
+
+<div class="score-bar">Rezultāts: <span id="score">0</span> / <span id="total">8</span> pareizi</div>
+
+<script>
+const tasks = [
+  {a: 3456, b: 7, type: 'single'},
+  {a: 24689, b: 6, type: 'single'},
+  {a: 356789, b: 8, type: 'single'},
+  {a: 4567892, b: 9, type: 'single'},
+  {a: 3254, b: 46, type: 'double'},
+  {a: 24567, b: 38, type: 'double'},
+  {a: 345678, b: 24, type: 'double'},
+  {a: 2345678, b: 63, type: 'double'}
+];
+
+let solvedCount = 0;
+document.getElementById('total').textContent = tasks.length;
+
+function digitCells(str){
+  return str.split('').map(d => `<div class="digit-cell">${d}</div>`).join('');
+}
+
+function ansCellsHTML(str){
+  return str.split('').map(d => `<input type="text" maxlength="1" class="ans-cell" inputmode="numeric" data-correct="${d}">`).join('');
+}
+
+function buildTask(container, id, task){
+  const a = task.a, b = task.b;
+  const aStr = String(a), bStr = String(b);
+  const answer = a * b;
+  const ansStr = String(answer);
+  const carryCount = aStr.length;
+
+  let bodyHTML = `
+    <div class="digit-row carry-row">
+      ${Array.from({length: carryCount}).map(() => `<input type="text" maxlength="1" class="carry-cell" inputmode="numeric">`).join('')}
+    </div>
+    <div class="digit-row">${digitCells(aStr)}</div>
+    <div class="digit-row">
+      <div class="op-sign">&times;</div>
+      ${digitCells(bStr)}
+    </div>
+    <div class="line-row"></div>
+  `;
+
+  if(task.type === 'single'){
+    bodyHTML += `<div class="answer-line"><span class="correct-tag" data-value="${ansStr}"></span><div class="digit-row ans-row">${ansCellsHTML(ansStr)}</div></div>`;
+  } else {
+    const onesDigit = b % 10;
+    const tensDigit = Math.floor(b / 10);
+    const partial1 = a * onesDigit;
+    const partial2 = a * tensDigit;
+    const p1Str = String(partial1);
+    const p2Str = String(partial2);
+    bodyHTML += `
+      <div class="answer-line"><span class="correct-tag" data-value="${p1Str}"></span><div class="digit-row ans-row">${ansCellsHTML(p1Str)}</div></div>
+      <div class="answer-line shifted-row"><span class="correct-tag" data-value="${p2Str}"></span><div class="digit-row ans-row">${ansCellsHTML(p2Str)}</div></div>
+      <div class="line-row thin"></div>
+      <div class="answer-line"><span class="correct-tag" data-value="${ansStr}"></span><div class="digit-row ans-row">${ansCellsHTML(ansStr)}</div></div>
+    `;
+  }
+
+  const card = document.createElement('div');
+  card.className = 'task-card';
+  card.innerHTML = `
+    <div class="task-label">Uzdevums Nr.${id}</div>
+    <div class="stack">${bodyHTML}</div>
+    <div class="task-controls">
+      <button class="btn btn-check">Pārbaudīt</button>
+      <button class="btn btn-reset">Notīrīt</button>
+      <button class="btn btn-show">Rādīt atbildi</button>
+    </div>
+    <div class="task-feedback"></div>
+  `;
+  container.appendChild(card);
+
+  const ansCells = Array.from(card.querySelectorAll('.ans-cell'));
+  const feedback = card.querySelector('.task-feedback');
+  const correctTags = Array.from(card.querySelectorAll('.correct-tag'));
+  let alreadyScored = false;
+
+  ansCells.forEach((cell, idx) => {
+    cell.addEventListener('input', () => {
+      cell.value = cell.value.replace(/[^0-9]/g, '').slice(0,1);
+      if(cell.value && idx < ansCells.length - 1){
+        ansCells[idx+1].focus();
+      }
+    });
+    cell.addEventListener('keydown', (e) => {
+      if(e.key === 'Backspace' && !cell.value && idx > 0){
+        ansCells[idx-1].focus();
+      }
+    });
+  });
+
+  card.querySelector('.btn-check').addEventListener('click', () => {
+    let allCorrect = true;
+    ansCells.forEach(cell => {
+      const val = cell.value.trim();
+      const correct = cell.dataset.correct;
+      cell.classList.remove('correct','wrong');
+      if(val === correct){
+        cell.classList.add('correct');
+      } else {
+        cell.classList.add('wrong');
+        allCorrect = false;
+      }
+    });
+    if(allCorrect){
+      feedback.textContent = 'Pareizi!';
+      feedback.className = 'task-feedback ok';
+      if(!alreadyScored){
+        solvedCount++;
+        alreadyScored = true;
+        document.getElementById('score').textContent = solvedCount;
+      }
+    } else {
+      feedback.textContent = 'Vēl nav pareizi, mēģini vēlreiz.';
+      feedback.className = 'task-feedback bad';
+      if(alreadyScored){
+        solvedCount--;
+        alreadyScored = false;
+        document.getElementById('score').textContent = solvedCount;
+      }
+    }
+  });
+
+  card.querySelector('.btn-reset').addEventListener('click', () => {
+    ansCells.forEach(cell => {
+      cell.value = '';
+      cell.classList.remove('correct','wrong');
+    });
+    card.querySelectorAll('.carry-cell').forEach(c => c.value = '');
+    correctTags.forEach(tag => {
+      tag.textContent = '';
+      tag.classList.remove('visible');
+    });
+    feedback.textContent = '';
+    if(alreadyScored){
+      solvedCount--;
+      alreadyScored = false;
+      document.getElementById('score').textContent = solvedCount;
+    }
+  });
+
+  card.querySelector('.btn-show').addEventListener('click', () => {
+    correctTags.forEach(tag => {
+      tag.textContent = 'Pareizā atbilde: ' + tag.dataset.value;
+      tag.classList.add('visible');
+    });
+  });
+}
+
+const grid = document.getElementById('task-grid');
+tasks.forEach((t, i) => buildTask(grid, i+1, t));
+</script>
+</body>
+</html>
