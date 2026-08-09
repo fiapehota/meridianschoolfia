@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Question Words — Теория</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,300&family=Outfit:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    /* хедер всегда в дефолтном стиле, не зависит от палитры страницы */
+    --header-purple:#6A66A3;
+    --header-purple-dark:#785C84;
+
+    /* Матча с шоколадом — теория: светлый фон, коричневый + зелёный как акценты */
+    --chip1:#efede9;   /* кремовый */
+    --chip2:#a0b23e;   /* оливковый */
+    --accent:#65432f;  /* коричневый — структурный акцент */
+    --brown:#452316;   /* основной текст */
+    --bg:#efede9;
+    --card-bg:#efede9;
+  }
+
+  *{box-sizing:border-box;}
+
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--brown);
+    font-family:'Outfit', sans-serif;
+  }
+
+  header{
+    width:100%;
+    border-bottom:2px solid var(--header-purple);
+    margin-bottom:24px;
+  }
+
+  .header-inner{
+    max-width:900px;
+    margin:0 auto;
+    padding:18px 24px 14px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:10px;
+  }
+
+  .logo{
+    font-family:'Cormorant Garamond', serif !important;
+    font-weight:600 !important;
+    font-style:normal !important;
+    font-size:26px;
+    letter-spacing:1px;
+    color:var(--brown);
+  }
+  .logo em{
+    font-family:'Cormorant Garamond', serif !important;
+    font-weight:400 !important;
+    font-style:italic !important;
+    color:var(--header-purple-dark);
+  }
+
+  .back-link{
+    font-family:'Outfit', sans-serif;
+    font-weight:600;
+    font-size:13px;
+    color:var(--header-purple-dark);
+    text-decoration:none;
+  }
+  .back-link:hover{ text-decoration:underline; }
+
+  .site-nav{
+    max-width:900px;
+    margin:0 auto;
+    padding:0 24px 16px;
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+  }
+
+  .nav-chip{
+    font-family:'Outfit', sans-serif;
+    font-weight:500;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:1.5px;
+    padding:7px 16px;
+    border-radius:20px;
+    border:none;
+    cursor:pointer;
+    color:var(--brown);
+  }
+  .nav-chip:nth-child(odd){ background:var(--chip1); }
+  .nav-chip:nth-child(even){ background:var(--chip2); }
+  .nav-chip.active{
+    background:var(--accent);
+    color:var(--chip1);
+  }
+
+  .page{
+    max-width:900px;
+    margin:0 auto;
+    padding:0 24px 60px;
+  }
+
+  h1{
+    font-family:'Cormorant Garamond', serif;
+    font-weight:600;
+    font-size:38px;
+    margin:0 0 6px;
+    color:var(--brown);
+  }
+  h1 em{
+    font-style:italic;
+    font-weight:400;
+    color:var(--accent);
+  }
+
+  .subtitle{
+    font-family:'Outfit', sans-serif;
+    font-size:14px;
+    color:var(--accent);
+    margin:0 0 32px;
+  }
+
+  .card{
+    background:var(--card-bg);
+    border-radius:16px;
+    padding:26px 28px;
+    margin-bottom:24px;
+    box-shadow:0 2px 8px rgba(69,35,22,0.06);
+  }
+
+  .card h2{
+    font-family:'Cormorant Garamond', serif;
+    font-weight:600;
+    font-size:24px;
+    margin:0 0 14px;
+    color:var(--brown);
+    border-left:4px solid var(--chip2);
+    padding-left:12px;
+  }
+
+  .rule-box{
+    background:#FFFFFF;
+    border-left:4px solid var(--chip2);
+    border-radius:10px;
+    padding:16px 18px;
+    margin-bottom:18px;
+    font-size:15px;
+    line-height:1.55;
+  }
+  .rule-box .en{ font-weight:600; color:var(--brown); }
+  .rule-box .ru{ color:var(--accent); font-size:13.5px; margin-top:4px; }
+
+  .formula{
+    font-family:'JetBrains Mono', monospace;
+    font-size:14px;
+    background:var(--chip2);
+    display:inline-block;
+    padding:8px 14px;
+    border-radius:8px;
+    margin:6px 0 18px;
+    color:var(--brown);
+  }
+
+  table{
+    width:100%;
+    border-collapse:separate;
+    border-spacing:0;
+    font-size:14.5px;
+    border:2px solid #FFFFFF;
+    border-radius:10px;
+    overflow:hidden;
+    box-shadow:0 2px 8px rgba(69,35,22,0.08);
+  }
+  thead th{
+    text-align:left;
+    font-family:'Outfit', sans-serif;
+    font-weight:600;
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    color:var(--chip1);
+    background:var(--accent);
+    padding:10px 12px;
+  }
+  thead th:first-child{ border-radius:8px 0 0 0; }
+  thead th:last-child{ border-radius:0 8px 0 0; }
+
+  tbody td{
+    padding:10px 12px;
+    border-bottom:1px solid var(--chip2);
+    vertical-align:top;
+  }
+  tbody tr:last-child td{ border-bottom:none; }
+
+  .word-en{
+    font-weight:600;
+    color:var(--brown);
+    white-space:nowrap;
+  }
+  .word-ru{
+    font-size:12.5px;
+    color:var(--accent);
+    display:block;
+  }
+  .example{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    color:var(--brown);
+  }
+  .example-ru{
+    font-size:12.5px;
+    color:var(--accent);
+    display:block;
+    margin-top:2px;
+    font-family:'Outfit', sans-serif;
+  }
+
+  .sub-block{
+    margin-top:20px;
+  }
+  .sub-block h3{
+    font-family:'Outfit', sans-serif;
+    font-weight:600;
+    font-size:15px;
+    color:var(--brown);
+    margin:0 0 10px;
+  }
+
+  .how-list{
+    list-style:none;
+    margin:0;
+    padding:0;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+  }
+  .how-list li{
+    background:#FFFFFF;
+    border:1px solid var(--chip2);
+    border-radius:8px;
+    padding:10px 12px;
+    font-size:13.5px;
+  }
+  .how-list .en{ font-weight:600; color:var(--brown); }
+  .how-list .ru{ color:var(--accent); font-size:12.5px; }
+  .how-list .ex{
+    display:block;
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    margin-top:4px;
+    color:var(--brown);
+  }
+
+  .note{
+    background:var(--chip2);
+    border-radius:10px;
+    padding:14px 18px;
+    font-size:13.5px;
+    line-height:1.55;
+    margin-top:18px;
+    color:var(--brown);
+  }
+  .note strong{ display:block; margin-bottom:4px; font-size:12px; text-transform:uppercase; letter-spacing:1px; }
+
+  @media print{
+    .site-nav, .back-link{ display:none; }
+  }
+
+  @media (max-width:600px){
+    .how-list{ grid-template-columns:1fr; }
+    .header-inner{ flex-direction:column; align-items:flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="logo">MERIDIAN<em>SCHOOL</em></div>
+    <a href="index.html" class="back-link">← Uz sākumu</a>
+  </div>
+  <nav class="site-nav">
+    <button class="nav-chip">English</button>
+    <button class="nav-chip">Question Words</button>
+    <button class="nav-chip active">Theory</button>
+  </nav>
+</header>
+
+<div class="page">
+  <h1>Question Words <em>— Теория</em></h1>
+  <p class="subtitle">7 класс · Вопросительные слова в английском языке</p>
+
+  <div class="card">
+    <h2>1. Правило</h2>
+
+    <div class="rule-box">
+      <div class="en">Question words are placed at the beginning of a question, before the auxiliary verb (do/does/did/is/are/was/were etc.) and the subject.</div>
+      <div class="ru">Question words ставятся в начале вопроса, перед вспомогательным глаголом (do/does/did/is/are/was/were и т.д.) и подлежащим.</div>
+    </div>
+
+    <div class="formula">Question word + auxiliary verb + subject + main verb…?</div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Слово</th>
+          <th>Спрашивает о</th>
+          <th>Пример</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="word-en">What</span><span class="word-ru">что / какой</span></td>
+          <td>предмет, действие</td>
+          <td><span class="example">What is your favourite subject?</span><span class="example-ru">Какой твой любимый предмет?</span></td>
+        </tr>
+        <tr>
+          <td><span class="word-en">Where</span><span class="word-ru">где / куда</span></td>
+          <td>место</td>
+          <td><span class="example">Where do you live?</span><span class="example-ru">Где ты живёшь?</span></td>
+        </tr>
+        <tr>
+          <td><span class="word-en">When</span><span class="word-ru">когда</span></td>
+          <td>время</td>
+          <td><span class="example">When does the lesson start?</span><span class="example-ru">Когда начинается урок?</span></td>
+        </tr>
+        <tr>
+          <td><span class="word-en">Why</span><span class="word-ru">почему</span></td>
+          <td>причина</td>
+          <td><span class="example">Why are you late?</span><span class="example-ru">Почему ты опоздал?</span></td>
+        </tr>
+        <tr>
+          <td><span class="word-en">Who</span><span class="word-ru">кто</span></td>
+          <td>человек (подлежащее)</td>
+          <td><span class="example">Who broke the window?</span><span class="example-ru">Кто разбил окно?</span></td>
+        </tr>
+        <tr>
+          <td><span class="word-en">Whose</span><span class="word-ru">чей</span></td>
+          <td>принадлежность</td>
+          <td><span class="example">Whose bag is this?</span><span class="example-ru">Чья это сумка?</span></td>
+        </tr>
+        <tr>
+          <td><span class="word-en">Which</span><span class="word-ru">который / какой (из)</span></td>
+          <td>выбор из ограниченного числа</td>
+          <td><span class="example">Which colour do you prefer, red or blue?</span><span class="example-ru">Какой цвет ты предпочитаешь, красный или синий?</span></td>
+        </tr>
+        <tr>
+          <td><span class="word-en">How</span><span class="word-ru">как</span></td>
+          <td>способ / состояние</td>
+          <td><span class="example">How do you feel today?</span><span class="example-ru">Как ты себя чувствуешь сегодня?</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="sub-block">
+      <h3>Производные от How</h3>
+      <ul class="how-list">
+        <li>
+          <span class="en">How many</span> — <span class="ru">количество (исчисляемые)</span>
+          <span class="ex">How many books do you have?</span>
+        </li>
+        <li>
+          <span class="en">How much</span> — <span class="ru">количество (неисчисляемые)</span>
+          <span class="ex">How much water is left?</span>
+        </li>
+        <li>
+          <span class="en">How often</span> — <span class="ru">частота</span>
+          <span class="ex">How often do you play football?</span>
+        </li>
+        <li>
+          <span class="en">How long</span> — <span class="ru">продолжительность</span>
+          <span class="ex">How long is the film?</span>
+        </li>
+        <li>
+          <span class="en">How old</span> — <span class="ru">возраст</span>
+          <span class="ex">How old are you?</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

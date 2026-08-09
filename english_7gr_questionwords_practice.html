@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Question Words — Практика</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,300&family=Outfit:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    /* хедер всегда в дефолтном стиле, не зависит от палитры страницы */
+    --header-purple:#6A66A3;
+    --header-purple-dark:#785C84;
+
+    /* Матча с шоколадом — практика: кремовый фон, коричневый + зелёный как акценты */
+    --chip1:#efede9;   /* кремовый */
+    --chip2:#a0b23e;   /* оливковый */
+    --accent:#65432f;  /* коричневый — структурный акцент */
+    --brown:#452316;   /* основной текст */
+    --bg:#efede9;
+    --card-bg:#efede9;
+    --green:#3F8F5C;   /* цвет "правильно" — не связан с палитрой */
+    --red:#C1443B;     /* цвет "неправильно" — не связан с палитрой */
+  }
+
+  *{box-sizing:border-box;}
+
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--brown);
+    font-family:'Outfit', sans-serif;
+  }
+
+  header{
+    width:100%;
+    border-bottom:2px solid var(--header-purple);
+    margin-bottom:24px;
+  }
+
+  .header-inner{
+    max-width:900px;
+    margin:0 auto;
+    padding:18px 24px 14px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:10px;
+  }
+
+  .logo{
+    font-family:'Cormorant Garamond', serif !important;
+    font-weight:600 !important;
+    font-style:normal !important;
+    font-size:26px;
+    letter-spacing:1px;
+    color:var(--brown);
+  }
+  .logo em{
+    font-family:'Cormorant Garamond', serif !important;
+    font-weight:400 !important;
+    font-style:italic !important;
+    color:var(--header-purple-dark);
+  }
+
+  .back-link{
+    font-family:'Outfit', sans-serif;
+    font-weight:600;
+    font-size:13px;
+    color:var(--header-purple-dark);
+    text-decoration:none;
+  }
+  .back-link:hover{ text-decoration:underline; }
+
+  .site-nav{
+    max-width:900px;
+    margin:0 auto;
+    padding:0 24px 16px;
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+  }
+
+  .nav-chip{
+    font-family:'Outfit', sans-serif;
+    font-weight:500;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:1.5px;
+    padding:7px 16px;
+    border-radius:20px;
+    border:none;
+    cursor:pointer;
+    color:var(--brown);
+  }
+  .nav-chip:nth-child(odd){ background:var(--chip1); }
+  .nav-chip:nth-child(even){ background:var(--chip2); }
+  .nav-chip.active{
+    background:var(--accent);
+    color:var(--chip1);
+    outline:none;
+  }
+
+  .page{
+    max-width:900px;
+    margin:0 auto;
+    padding:0 24px 80px;
+  }
+
+  h1{
+    font-family:'Cormorant Garamond', serif;
+    font-weight:600;
+    font-size:38px;
+    margin:0 0 6px;
+    color:var(--brown);
+  }
+  h1 em{
+    font-style:italic;
+    font-weight:400;
+    color:var(--accent);
+  }
+
+  .subtitle{
+    font-family:'Outfit', sans-serif;
+    font-size:14px;
+    color:var(--accent);
+    margin:0 0 32px;
+  }
+
+  .card{
+    background:var(--card-bg);
+    border-radius:16px;
+    padding:26px 28px;
+    margin-bottom:26px;
+    box-shadow:0 2px 8px rgba(69,35,22,0.06);
+  }
+
+  .card h2{
+    font-family:'Cormorant Garamond', serif;
+    font-weight:600;
+    font-size:24px;
+    margin:0 0 6px;
+    color:var(--brown);
+    border-left:4px solid var(--chip2);
+    padding-left:12px;
+  }
+
+  .task-instructions{
+    font-size:13.5px;
+    color:var(--accent);
+    margin:0 0 20px;
+    padding-left:16px;
+  }
+
+  /* Task 1 - fill blank */
+  .sentence{
+    display:flex;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:8px;
+    padding:10px 0;
+    border-bottom:1px dashed var(--accent);
+    font-size:15px;
+  }
+  .sentence:last-of-type{ border-bottom:none; }
+  .sentence .num{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    color:var(--accent);
+    min-width:20px;
+  }
+  .blank-input{
+    font-family:'JetBrains Mono', monospace;
+    font-size:14px;
+    width:110px;
+    padding:6px 8px;
+    border:1.5px solid var(--chip2);
+    border-radius:6px;
+    background:#FFFFFF;
+    color:var(--brown);
+  }
+  .blank-input.correct{ border-color:var(--green); background:#EAF6EE; }
+  .blank-input.incorrect{ border-color:var(--red); background:#FBEAE8; }
+  .answer-reveal{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    color:var(--green);
+    font-weight:600;
+    display:none;
+  }
+  .answer-reveal.show{ display:inline; }
+
+  /* Task 2 & 3 - translation / write question */
+  .qa-block{
+    padding:14px 0;
+    border-bottom:1px dashed var(--accent);
+  }
+  .qa-block:last-of-type{ border-bottom:none; }
+  .qa-block .prompt{
+    font-size:14.5px;
+    margin-bottom:8px;
+  }
+  .qa-block .prompt .num{
+    font-family:'JetBrains Mono', monospace;
+    color:var(--accent);
+    margin-right:6px;
+  }
+  .text-input{
+    width:100%;
+    font-family:'Outfit', sans-serif;
+    font-size:14.5px;
+    padding:9px 12px;
+    border:1.5px solid var(--chip2);
+    border-radius:8px;
+    background:#FFFFFF;
+    color:var(--brown);
+  }
+  .text-input.correct{ border-color:var(--green); background:#EAF6EE; }
+  .text-input.incorrect{ border-color:var(--red); background:#FBEAE8; }
+
+  .given-answer{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13.5px;
+    background:var(--chip1);
+    border:1.5px solid var(--accent);
+    display:inline-block;
+    padding:5px 12px;
+    border-radius:6px;
+    margin-bottom:8px;
+  }
+
+  .answer-key-line{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    color:var(--green);
+    font-weight:600;
+    margin-top:6px;
+    display:none;
+  }
+  .answer-key-line.show{ display:block; }
+
+  /* Reading */
+  .reading-text{
+    background:#FFFFFF;
+    border:1px solid var(--chip1);
+    border-radius:10px;
+    padding:18px 20px;
+    font-size:14.5px;
+    line-height:1.7;
+    margin-bottom:20px;
+  }
+  .qw-highlight{
+    font-weight:600;
+    color:var(--accent);
+  }
+
+  .tf-item{
+    padding:10px 0;
+    border-bottom:1px dashed var(--accent);
+    font-size:14.5px;
+  }
+  .tf-item:last-of-type{ border-bottom:none; }
+  .tf-statement{ margin-bottom:8px; }
+  .tf-options{ display:flex; gap:16px; }
+  .tf-options label{
+    display:flex;
+    align-items:center;
+    gap:5px;
+    font-size:13.5px;
+    cursor:pointer;
+    padding:5px 12px;
+    border-radius:16px;
+    border:1.5px solid var(--accent);
+  }
+  .tf-options input{ accent-color: var(--accent); }
+  .tf-item.correct .tf-statement{ color:var(--green); }
+  .tf-item.incorrect .tf-statement{ color:var(--red); }
+
+  /* Buttons */
+  .card-buttons{
+    display:flex;
+    gap:10px;
+    margin-top:20px;
+    flex-wrap:wrap;
+  }
+  .btn{
+    font-family:'Outfit', sans-serif;
+    font-weight:600;
+    font-size:13px;
+    padding:9px 20px;
+    border-radius:20px;
+    border:none;
+    cursor:pointer;
+  }
+  .btn-check{ background:var(--accent); color:#FFFFFF; }
+  .btn-reset{ background:#FFFFFF; color:var(--brown); border:1.5px solid var(--accent); }
+  .btn-show{ background:var(--chip2); color:var(--brown); }
+
+  .card-feedback{
+    margin-top:12px;
+    font-size:13.5px;
+    font-weight:600;
+    color:var(--accent);
+  }
+
+  .free-write-note{
+    background:var(--chip1);
+    border-radius:10px;
+    padding:12px 16px;
+    font-size:13px;
+    margin-bottom:18px;
+    color:var(--brown);
+  }
+
+  .score-counter{
+    position:sticky;
+    bottom:16px;
+    max-width:260px;
+    margin:30px auto 0;
+    background:var(--accent);
+    color:#FFFFFF;
+    text-align:center;
+    padding:12px 20px;
+    border-radius:30px;
+    font-family:'Outfit', sans-serif;
+    font-weight:600;
+    font-size:14px;
+    box-shadow:0 4px 14px rgba(0,0,0,0.18);
+  }
+
+  @media print{
+    .site-nav, .back-link, .btn, .score-counter{ display:none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="logo">MERIDIAN<em>SCHOOL</em></div>
+    <a href="index.html" class="back-link">← Uz sākumu</a>
+  </div>
+  <nav class="site-nav">
+    <button class="nav-chip">English</button>
+    <button class="nav-chip">Question Words</button>
+    <button class="nav-chip active">Practice</button>
+  </nav>
+</header>
+
+<div class="page">
+  <h1>Question Words <em>— Практика</em></h1>
+  <p class="subtitle">7 класс · Задания на вопросительные слова</p>
+
+  <!-- TASK 1 -->
+  <div class="card" id="task1">
+    <h2>Задание 1</h2>
+    <p class="task-instructions">Вставьте нужное question word по смыслу предложения.</p>
+
+    <div id="t1-sentences"></div>
+
+    <div class="card-buttons">
+      <button class="btn btn-check" onclick="checkTask1()">Проверить</button>
+      <button class="btn btn-reset" onclick="resetTask1()">Сбросить</button>
+      <button class="btn btn-show" onclick="showTask1()">Показать ответы</button>
+    </div>
+    <div class="card-feedback" id="t1-feedback"></div>
+  </div>
+
+  <!-- TASK 2 -->
+  <div class="card" id="task2">
+    <h2>Задание 2</h2>
+    <p class="task-instructions">Переведите вопрос с русского на английский, используя нужное question word.</p>
+
+    <div id="t2-sentences"></div>
+
+    <div class="card-buttons">
+      <button class="btn btn-check" onclick="checkTask2()">Проверить</button>
+      <button class="btn btn-reset" onclick="resetTask2()">Сбросить</button>
+      <button class="btn btn-show" onclick="showTask2()">Показать ответы</button>
+    </div>
+    <div class="card-feedback" id="t2-feedback"></div>
+  </div>
+
+  <!-- TASK 3 -->
+  <div class="card" id="task3">
+    <h2>Задание 3</h2>
+    <p class="task-instructions">Дан ответ — напишите вопрос, на который он отвечает. Вопрос можно сформулировать по-разному, единственно верного варианта нет.</p>
+    <div class="free-write-note">Это задание не проверяется автоматически — просто напишите свой вариант вопроса.</div>
+
+    <div id="t3-sentences"></div>
+  </div>
+
+  <!-- TASK 4 - READING -->
+  <div class="card" id="task4">
+    <h2>Задание 4. Чтение</h2>
+    <p class="task-instructions">Прочитайте текст и отметьте, верны ли утверждения (True / False).</p>
+
+    <div class="reading-text">
+      Every morning, Anna wakes up early and asks herself several questions before school. She wonders
+      <span class="qw-highlight">where</span> her school bag is, because she always forgets it. She checks
+      <span class="qw-highlight">what</span> time it is and <span class="qw-highlight">how</span> long she has
+      before the bus arrives. On the bus, her friend Tom asks her <span class="qw-highlight">why</span> she looks
+      tired, and Anna explains that she stayed up late reading. When they arrive at school, the teacher asks
+      <span class="qw-highlight">who</span> finished their homework, and almost everyone raises a hand. After
+      class, Anna asks her teacher <span class="qw-highlight">which</span> book she should read next for the
+      school project.
+    </div>
+
+    <div id="t4-statements"></div>
+
+    <div class="card-buttons">
+      <button class="btn btn-check" onclick="checkTask4()">Проверить</button>
+      <button class="btn btn-reset" onclick="resetTask4()">Сбросить</button>
+      <button class="btn btn-show" onclick="showTask4()">Показать ответы</button>
+    </div>
+    <div class="card-feedback" id="t4-feedback"></div>
+  </div>
+
+  <div class="score-counter" id="score-counter">Счёт: 0 / 21</div>
+</div>
+
+<script>
+/* ---------- DATA ---------- */
+
+const task1Data = [
+  { sentence1:"", answer:"what|what's", after:" is your favourite subject?", given:"Maths." },
+  { sentence1:"", answer:"where", after:" do you live?", given:"In Riga." },
+  { sentence1:"", answer:"when", after:" does the lesson start?", given:"At nine o'clock." },
+  { sentence1:"", answer:"why", after:" are you late?", given:"Because I missed the bus." },
+  { sentence1:"", answer:"who", after:" broke the window?", given:"Tom did." },
+  { sentence1:"", answer:"whose", after:" bag is this?", given:"It's Anna's." },
+  { sentence1:"", answer:"which", after:" colour do you prefer, red or blue?", given:"Blue." },
+  { sentence1:"", answer:"how", after:" do you feel today?", given:"Great, thanks." },
+  { sentence1:"", answer:"how many", after:" books do you have?", given:"Twelve." },
+  { sentence1:"", answer:"how often", after:" do you play football?", given:"Twice a week." }
+];
+
+const task2Data = [
+  { ru:"Где ты живёшь?", answers:["where do you live"] },
+  { ru:"Почему ты опоздал?", answers:["why are you late","why were you late"] },
+  { ru:"Чья это сумка?", answers:["whose bag is this","whose is this bag"] },
+  { ru:"Сколько книг у тебя есть?", answers:["how many books do you have"] },
+  { ru:"Как часто ты играешь в футбол?", answers:["how often do you play football"] },
+  { ru:"Который час?", answers:["what time is it","what is the time","whats the time"] }
+];
+
+const task3Data = [
+  "I live in Riga.",
+  "Because I was tired.",
+  "It's my brother's bike.",
+  "I feel great today.",
+  "Twice a week.",
+  "Tom broke the window."
+];
+
+const task4Data = [
+  { text:"Anna always remembers her school bag.", correct:false },
+  { text:"Anna checks how long she has before the bus arrives.", correct:true },
+  { text:"Tom asks Anna why she looks tired.", correct:true },
+  { text:"The teacher asks who forgot their homework.", correct:false },
+  { text:"Anna asks her teacher which book to read next.", correct:true }
+];
+
+/* ---------- NORMALIZE ---------- */
+
+function normalize(str){
+  return str.toLowerCase()
+    .replace(/[.,!?'’]/g,"")
+    .replace(/\s+/g," ")
+    .trim();
+}
+
+/* ---------- BUILD TASK 1 ---------- */
+
+const t1Container = document.getElementById('t1-sentences');
+task1Data.forEach((item, i) => {
+  const div = document.createElement('div');
+  div.className = 'sentence';
+  div.innerHTML = `
+    <span class="num">${i+1}.</span>
+    <input type="text" class="blank-input" id="t1-input-${i}" placeholder="...">
+    <span>${item.after} — <em>${item.given}</em></span>
+    <span class="answer-reveal" id="t1-reveal-${i}">(${item.answer.split('|')[0]})</span>
+  `;
+  t1Container.appendChild(div);
+});
+
+function checkTask1(){
+  let correct = 0;
+  task1Data.forEach((item, i) => {
+    const input = document.getElementById(`t1-input-${i}`);
+    const variants = item.answer.split('|').map(normalize);
+    const userVal = normalize(input.value);
+    if(variants.includes(userVal)){
+      input.classList.add('correct');
+      input.classList.remove('incorrect');
+      correct++;
+    } else {
+      input.classList.add('incorrect');
+      input.classList.remove('correct');
+    }
+  });
+  document.getElementById('t1-feedback').textContent = `Правильно: ${correct} из ${task1Data.length}`;
+  updateScore();
+}
+
+function resetTask1(){
+  task1Data.forEach((item, i) => {
+    const input = document.getElementById(`t1-input-${i}`);
+    input.value = '';
+    input.classList.remove('correct','incorrect');
+    document.getElementById(`t1-reveal-${i}`).classList.remove('show');
+  });
+  document.getElementById('t1-feedback').textContent = '';
+  updateScore();
+}
+
+function showTask1(){
+  task1Data.forEach((item, i) => {
+    document.getElementById(`t1-reveal-${i}`).classList.add('show');
+  });
+}
+
+/* ---------- BUILD TASK 2 ---------- */
+
+const t2Container = document.getElementById('t2-sentences');
+task2Data.forEach((item, i) => {
+  const div = document.createElement('div');
+  div.className = 'qa-block';
+  div.innerHTML = `
+    <div class="prompt"><span class="num">${i+1}.</span>${item.ru}</div>
+    <input type="text" class="text-input" id="t2-input-${i}" placeholder="Write the question in English">
+    <div class="answer-key-line" id="t2-reveal-${i}">${item.answers[0]}</div>
+  `;
+  t2Container.appendChild(div);
+});
+
+function checkTask2(){
+  let correct = 0;
+  task2Data.forEach((item, i) => {
+    const input = document.getElementById(`t2-input-${i}`);
+    const userVal = normalize(input.value);
+    const variants = item.answers.map(normalize);
+    if(variants.includes(userVal)){
+      input.classList.add('correct');
+      input.classList.remove('incorrect');
+      correct++;
+    } else {
+      input.classList.add('incorrect');
+      input.classList.remove('correct');
+    }
+  });
+  document.getElementById('t2-feedback').textContent = `Правильно: ${correct} из ${task2Data.length}`;
+  updateScore();
+}
+
+function resetTask2(){
+  task2Data.forEach((item, i) => {
+    const input = document.getElementById(`t2-input-${i}`);
+    input.value = '';
+    input.classList.remove('correct','incorrect');
+    document.getElementById(`t2-reveal-${i}`).classList.remove('show');
+  });
+  document.getElementById('t2-feedback').textContent = '';
+  updateScore();
+}
+
+function showTask2(){
+  task2Data.forEach((item, i) => {
+    document.getElementById(`t2-reveal-${i}`).classList.add('show');
+  });
+}
+
+/* ---------- BUILD TASK 3 (no checking) ---------- */
+
+const t3Container = document.getElementById('t3-sentences');
+task3Data.forEach((answer, i) => {
+  const div = document.createElement('div');
+  div.className = 'qa-block';
+  div.innerHTML = `
+    <div class="prompt"><span class="num">${i+1}.</span>Answer:</div>
+    <div class="given-answer">${answer}</div>
+    <input type="text" class="text-input" id="t3-input-${i}" placeholder="Write your question here">
+  `;
+  t3Container.appendChild(div);
+});
+
+/* ---------- BUILD TASK 4 ---------- */
+
+const t4Container = document.getElementById('t4-statements');
+task4Data.forEach((item, i) => {
+  const div = document.createElement('div');
+  div.className = 'tf-item';
+  div.id = `t4-item-${i}`;
+  div.innerHTML = `
+    <div class="tf-statement">${i+1}. ${item.text}</div>
+    <div class="tf-options">
+      <label><input type="radio" name="t4-${i}" value="true"> True</label>
+      <label><input type="radio" name="t4-${i}" value="false"> False</label>
+    </div>
+  `;
+  t4Container.appendChild(div);
+});
+
+function checkTask4(){
+  let correct = 0;
+  task4Data.forEach((item, i) => {
+    const selected = document.querySelector(`input[name="t4-${i}"]:checked`);
+    const div = document.getElementById(`t4-item-${i}`);
+    div.classList.remove('correct','incorrect');
+    if(selected && (selected.value === 'true') === item.correct){
+      div.classList.add('correct');
+      correct++;
+    } else {
+      div.classList.add('incorrect');
+    }
+  });
+  document.getElementById('t4-feedback').textContent = `Правильно: ${correct} из ${task4Data.length}`;
+  updateScore();
+}
+
+function resetTask4(){
+  task4Data.forEach((item, i) => {
+    document.querySelectorAll(`input[name="t4-${i}"]`).forEach(r => r.checked = false);
+    document.getElementById(`t4-item-${i}`).classList.remove('correct','incorrect');
+  });
+  document.getElementById('t4-feedback').textContent = '';
+  updateScore();
+}
+
+function showTask4(){
+  task4Data.forEach((item, i) => {
+    const val = item.correct ? 'true' : 'false';
+    const radio = document.querySelector(`input[name="t4-${i}"][value="${val}"]`);
+    if(radio) radio.checked = true;
+    const div = document.getElementById(`t4-item-${i}`);
+    div.classList.remove('incorrect');
+    div.classList.add('correct');
+  });
+  document.getElementById('t4-feedback').textContent = 'Ответы показаны.';
+}
+
+/* ---------- SCORE ---------- */
+
+function updateScore(){
+  let total = 0;
+  let max = task1Data.length + task2Data.length + task4Data.length;
+
+  task1Data.forEach((item, i) => {
+    if(document.getElementById(`t1-input-${i}`).classList.contains('correct')) total++;
+  });
+  task2Data.forEach((item, i) => {
+    if(document.getElementById(`t2-input-${i}`).classList.contains('correct')) total++;
+  });
+  task4Data.forEach((item, i) => {
+    if(document.getElementById(`t4-item-${i}`).classList.contains('correct')) total++;
+  });
+
+  document.getElementById('score-counter').textContent = `Счёт: ${total} / ${max}`;
+}
+</script>
+
+</body>
+</html>
