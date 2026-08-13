@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Skaitliskie intervāli — teorija</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300;1,600&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#efede9;
+    --heading:#452316;
+    --body:#452316;
+    --tan:#cbbc9e;
+    --olive:#a28e30;
+    --maroon:#880500;
+    --red:#d42d23;
+    --card-bg:#faf8f4;
+    --brown:#452316;
+    --serif:'Cormorant Garamond', serif;
+    --sans:'Outfit', sans-serif;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--cream);color:var(--brown);font-family:var(--sans);}
+
+  /* ---------- Meridian header ---------- */
+  .site-container{max-width:1120px;margin:0 auto;padding:0 40px;}
+  header{border-bottom:2px solid var(--red);padding:20px 0 0;background:var(--cream);}
+  .header-top{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:16px;}
+  .logo{font-family:var(--serif);font-weight:600;font-size:42px;letter-spacing:-1px;color:var(--heading);line-height:1;}
+  .logo em{font-style:italic;font-weight:300;color:var(--maroon);}
+  .logo-tagline{font-family:var(--serif);font-style:italic;font-weight:300;font-size:1.05rem;color:var(--olive);margin-top:6px;}
+  nav.crumb-nav{display:flex;align-items:center;gap:10px;margin-top:22px;padding-bottom:16px;flex-wrap:wrap;}
+  .crumb{font-family:var(--sans);font-size:0.7rem;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;padding:9px 18px;border-radius:20px;color:#fff;background:var(--tan);}
+  .crumb:nth-child(2){background:var(--olive);}
+  .crumb:nth-child(3){background:var(--maroon);}
+  .crumb.current{outline:2px solid var(--heading);outline-offset:1px;}
+  .back-link{
+    font-family:var(--sans);font-weight:600;font-size:13px;
+    color:var(--maroon);text-decoration:none;letter-spacing:0.5px;
+    border:1.5px solid var(--maroon);border-radius:20px;padding:7px 16px;
+    display:inline-flex;align-items:center;gap:6px;
+    margin-top:8px;flex-shrink:0;
+  }
+  .back-link:hover{background:var(--maroon);color:#fff;}
+
+  .page{max-width:900px;margin:0 auto;padding:20px 20px 60px;}
+  h1{font-family:var(--serif);font-weight:600;font-size:38px;margin:0 0 4px 0;color:var(--heading);}
+  h1 em{font-style:italic;font-weight:300;color:var(--maroon);}
+  .subtitle{font-size:14px;letter-spacing:1.5px;text-transform:uppercase;color:var(--olive);font-weight:500;margin-bottom:28px;}
+  h3{font-family:var(--serif);font-style:italic;font-weight:500;color:var(--maroon);margin-top:22px;}
+  .theory-card{background:var(--card-bg);border-radius:4px;padding:22px 24px;border:1.5px solid var(--red);margin-bottom:16px;line-height:1.65;font-size:15.5px;}
+  .notation{font-family:'JetBrains Mono',monospace;font-size:17px;color:var(--maroon);font-weight:500;}
+  .rule-row{display:flex;gap:14px;flex-wrap:wrap;margin-top:14px;}
+  .rule-box{flex:1;min-width:220px;background:#fff;border:1px solid var(--tan);border-radius:4px;padding:12px 14px;}
+  .rule-box .notation{display:block;margin-bottom:4px;}
+  .rule-box p{margin:6px 0 0 0;font-size:14px;}
+  svg.numline{width:100%;height:auto;display:block;margin:14px 0;}
+  .axis{stroke:var(--brown);stroke-width:2;}
+  .tick{stroke:var(--brown);stroke-width:1.5;}
+  .tick-label{font-family:'JetBrains Mono',monospace;font-size:13px;fill:var(--brown);text-anchor:middle;}
+  .seg{stroke:var(--maroon);stroke-width:5;}
+  circle.pt-empty{fill:#fff;stroke:var(--maroon);stroke-width:3;}
+  circle.pt-filled{fill:var(--maroon);stroke:var(--maroon);stroke-width:3;}
+  .bottom-nav{display:flex;justify-content:center;margin-top:30px;}
+  .big-link{
+    font-family:var(--sans);font-weight:700;font-size:15px;color:#fff;
+    background:var(--maroon);text-decoration:none;padding:12px 28px;border-radius:24px;letter-spacing:0.5px;
+  }
+  .big-link:hover{opacity:0.85;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="site-container">
+    <div class="header-top">
+      <div>
+        <div class="logo">MERIDIAN <em>SCHOOL</em></div>
+        <div class="logo-tagline">online stundas no Fijas</div>
+      </div>
+      <a class="back-link" href="index.html">&larr; Uz sākumu</a>
+    </div>
+    <nav class="crumb-nav">
+      <a class="crumb" href="matematika-7-klase-intervali-teorija.html">Matemātika</a>
+      <a class="crumb" href="matematika-7-klase-intervali-teorija.html">Teorija</a>
+      <span class="crumb current">Intervāli</span>
+    </nav>
+  </div>
+</header>
+
+<div class="page">
+  <h1>Skaitliskie intervāli</h1>
+  <div class="subtitle">Matemātika · 7. klase · Teorija</div>
+
+  <div class="theory-card">
+    <p><strong>Intervāls</strong> ir visu tādu skaitļu kopa, kas atrodas starp divām robežām — starp mazāko un lielāko skaitli. Intervālu pieraksta ar iekavām un var attēlot skaitļu asī.</p>
+    <p><strong>Svarīgākais likums:</strong> kvadrātiekava <span class="notation">[ ]</span> nozīmē, ka robeža <em>pieder</em> intervālam (skaitļu asī — aizpildīts punkts). Apaļā iekava <span class="notation">( )</span> nozīmē, ka robeža <em>nepieder</em> intervālam (skaitļu asī — tukšs punkts).</p>
+    <div class="rule-row">
+      <div class="rule-box">
+        <span class="notation">[a; b]</span>
+        <p>Slēgts intervāls. a ≤ x ≤ b. Abas robežas pieder — abi punkti aizpildīti.</p>
+      </div>
+      <div class="rule-box">
+        <span class="notation">(a; b)</span>
+        <p>Atvērts intervāls. a &lt; x &lt; b. Abas robežas nepieder — abi punkti tukši.</p>
+      </div>
+      <div class="rule-box">
+        <span class="notation">[a; b) vai (a; b]</span>
+        <p>Pusatvērts intervāls. Viena robeža pieder, otra — nē.</p>
+      </div>
+    </div>
+    <h3>Piemērs 1 — slēgts intervāls [2; 5]</h3>
+    <svg class="numline" id="theory1"></svg>
+    <h3>Piemērs 2 — atvērts intervāls (2; 5)</h3>
+    <svg class="numline" id="theory2"></svg>
+    <p style="margin-top:16px;"><strong>Stari.</strong> Ja viena robeža ir bezgalīga, iegūstam staru, piemēram <span class="notation">(-∞; 3]</span> nozīmē x ≤ 3. Bezgalības simbolu ∞ vienmēr raksta ar apaļo iekavu, jo bezgalība nav konkrēts skaitlis, kas varētu "piederēt".</p>
+    <h3>Piemērs 3 — stars (-∞; 3]</h3>
+    <svg class="numline" id="theory3"></svg>
+    <p style="margin-top:16px;"><strong>Decimāldaļskaitļi intervālos.</strong> Skaitļi ar komatu (piem. 2,5) var arī piederēt vai nepiederēt intervālam — svarīgi salīdzināt tos ar robežām tieši tāpat kā veselus skaitļus. Piemēram, 2,5 pieder intervālam [2; 5], bet nepieder intervālam (2; 2,5).</p>
+  </div>
+
+  <div class="bottom-nav"><a class="big-link" href="matematika-7-klase-intervali-uzdevumi.html">Sākt uzdevumus →</a></div>
+</div>
+
+<script>
+function baseAxis(svg, min, max){
+  const unit = 46, pad = 34;
+  const width = (max-min)*unit + pad*2;
+  const height = 66;
+  svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
+  const toX = v => pad + (v-min)*unit;
+  const y = 36;
+  svg.innerHTML = '';
+  const ns = 'http://www.w3.org/2000/svg';
+  const defs = document.createElementNS(ns,'defs');
+  defs.innerHTML = `
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#452316"/></marker>
+    <marker id="arrow-left" markerWidth="8" markerHeight="8" refX="0" refY="3" orient="auto"><path d="M6,0 L0,3 L6,6 Z" fill="#452316"/></marker>`;
+  svg.appendChild(defs);
+  const axis = document.createElementNS(ns,'line');
+  axis.setAttribute('x1', toX(min)-14); axis.setAttribute('x2', toX(max)+14);
+  axis.setAttribute('y1', y); axis.setAttribute('y2', y);
+  axis.setAttribute('class','axis');
+  axis.setAttribute('marker-end','url(#arrow)');
+  axis.setAttribute('marker-start','url(#arrow-left)');
+  svg.appendChild(axis);
+  for(let v=min; v<=max; v++){
+    const tick = document.createElementNS(ns,'line');
+    tick.setAttribute('x1',toX(v)); tick.setAttribute('x2',toX(v));
+    tick.setAttribute('y1',y-5); tick.setAttribute('y2',y+5);
+    tick.setAttribute('class','tick');
+    svg.appendChild(tick);
+    const label = document.createElementNS(ns,'text');
+    label.setAttribute('x',toX(v)); label.setAttribute('y',y+22);
+    label.setAttribute('class','tick-label');
+    label.textContent = v;
+    svg.appendChild(label);
+  }
+  return {toX, y};
+}
+function drawSegment(svg, toX, y, start, end){
+  const ns='http://www.w3.org/2000/svg';
+  const seg = document.createElementNS(ns,'line');
+  seg.setAttribute('x1',toX(start)); seg.setAttribute('x2',toX(end));
+  seg.setAttribute('y1',y); seg.setAttribute('y2',y);
+  seg.setAttribute('class','seg');
+  svg.appendChild(seg);
+}
+function drawRaySegment(svg, toX, y, point, dir){
+  const ns='http://www.w3.org/2000/svg';
+  const edgeX = dir==='left' ? toX(point)-40 : toX(point)+40;
+  const seg = document.createElementNS(ns,'line');
+  seg.setAttribute('x1',toX(point)); seg.setAttribute('x2',edgeX);
+  seg.setAttribute('y1',y); seg.setAttribute('y2',y);
+  seg.setAttribute('class','seg');
+  svg.appendChild(seg);
+}
+function drawPoint(svg, x, y, cls, radius){
+  const ns='http://www.w3.org/2000/svg';
+  const c = document.createElementNS(ns,'circle');
+  c.setAttribute('cx',x); c.setAttribute('cy',y); c.setAttribute('r',radius);
+  c.setAttribute('class',cls);
+  svg.appendChild(c);
+}
+function renderStaticInterval(id, min, max, start, end, startOpen, endOpen){
+  const svg = document.getElementById(id);
+  const {toX,y} = baseAxis(svg,min,max);
+  drawSegment(svg,toX,y,start,end);
+  drawPoint(svg,toX(start),y,startOpen?'pt-empty':'pt-filled',8);
+  drawPoint(svg,toX(end),y,endOpen?'pt-empty':'pt-filled',8);
+}
+function renderStaticRay(id, min, max, point, open, dir){
+  const svg = document.getElementById(id);
+  const {toX,y} = baseAxis(svg,min,max);
+  drawRaySegment(svg,toX,y,point,dir);
+  drawPoint(svg,toX(point),y,open?'pt-empty':'pt-filled',8);
+}
+renderStaticInterval('theory1',0,7,2,5,false,false);
+renderStaticInterval('theory2',0,7,2,5,true,true);
+renderStaticRay('theory3',-1,7,3,false,'left');
+</script>
+</body>
+</html>
