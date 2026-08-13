@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prepositions of Place, Time &amp; Direction — Theory</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300;1,600&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#efede9;
+    --heading:#452316;
+    --body:#452316;
+    --tan:#cbbc9e;
+    --olive:#a28e30;
+    --maroon:#880500;
+    --red:#d42d23;
+    --card-bg:#faf8f4;
+    --brown:#452316;
+    --serif:'Cormorant Garamond', serif;
+    --sans:'Outfit', sans-serif;
+    --mono:'JetBrains Mono', monospace;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--cream);color:var(--brown);font-family:var(--sans);}
+
+  /* ---------- Meridian header ---------- */
+  .site-container{max-width:1120px;margin:0 auto;padding:0 40px;}
+  header{border-bottom:2px solid var(--red);padding:20px 0 0;background:var(--cream);}
+  .header-top{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:16px;}
+  .logo{font-family:var(--serif);font-weight:600;font-size:42px;letter-spacing:-1px;color:var(--heading);line-height:1;}
+  .logo em{font-style:italic;font-weight:300;color:var(--maroon);}
+  .logo-tagline{font-family:var(--serif);font-style:italic;font-weight:300;font-size:1.05rem;color:var(--olive);margin-top:6px;}
+  nav.crumb-nav{display:flex;align-items:center;gap:10px;margin-top:22px;padding-bottom:16px;flex-wrap:wrap;}
+  .crumb{font-family:var(--sans);font-size:0.7rem;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;padding:9px 18px;border-radius:20px;color:#fff;background:var(--tan);}
+  .crumb:nth-child(2){background:var(--olive);}
+  .crumb:nth-child(3){background:var(--maroon);}
+  .crumb.current{outline:2px solid var(--heading);outline-offset:1px;}
+  .back-link{
+    font-family:var(--sans);font-weight:600;font-size:13px;
+    color:var(--maroon);text-decoration:none;letter-spacing:0.5px;
+    border:1.5px solid var(--maroon);border-radius:20px;padding:7px 16px;
+    display:inline-flex;align-items:center;gap:6px;
+    margin-top:8px;flex-shrink:0;
+  }
+  .back-link:hover{background:var(--maroon);color:#fff;}
+
+  .page{max-width:900px;margin:0 auto;padding:20px 20px 60px;}
+  h1{font-family:var(--serif);font-weight:600;font-size:38px;margin:0 0 4px 0;color:var(--heading);}
+  h1 em{font-style:italic;font-weight:300;color:var(--maroon);}
+  .subtitle{font-size:14px;letter-spacing:1.5px;text-transform:uppercase;color:var(--olive);font-weight:500;margin-bottom:28px;}
+  h3{font-family:var(--serif);font-style:italic;font-weight:500;color:var(--maroon);margin-top:22px;}
+  .theory-card{background:var(--card-bg);border-radius:4px;padding:22px 24px;border:1.5px solid var(--red);margin-bottom:16px;line-height:1.65;font-size:15.5px;}
+  .notation{font-family:var(--mono);font-size:17px;color:var(--maroon);font-weight:500;}
+  .rule-row{display:flex;gap:14px;flex-wrap:wrap;margin-top:14px;}
+  .rule-box{flex:1;min-width:220px;background:#fff;border:1px solid var(--tan);border-radius:4px;padding:12px 14px;}
+  .rule-box .notation{display:block;margin-bottom:4px;}
+  .rule-box p{margin:6px 0 0 0;font-size:14px;}
+  .rule-box ul{margin:6px 0 0 18px;padding:0;font-size:14px;}
+  .rule-box li{margin-bottom:4px;}
+  .ex{font-family:var(--mono);font-size:13.5px;background:#fff;border:1px solid var(--tan);padding:10px 14px;border-radius:6px;color:var(--brown);margin-top:10px;line-height:1.7;}
+  .ex b{color:var(--maroon);}
+  .ex .note{color:var(--olive);font-style:italic;font-family:var(--sans);}
+  table.compare{width:100%;border-collapse:collapse;margin:18px 0 4px;font-size:14px;}
+  table.compare th{font-family:var(--sans);font-size:11px;text-transform:uppercase;letter-spacing:1px;text-align:left;padding:10px 12px;background:var(--maroon);color:#fff;}
+  table.compare td{padding:10px 12px;border-bottom:1px solid var(--tan);vertical-align:top;}
+  table.compare tr:nth-child(even) td{background:#fff;}
+  table.compare td b{color:var(--maroon);}
+  .note-box{border-left:4px solid var(--red);background:#fff;padding:14px 18px;border-radius:0 4px 4px 0;font-size:13.5px;line-height:1.6;color:var(--brown);margin-top:14px;}
+  .note-box b{color:var(--maroon);}
+  .bottom-nav{display:flex;justify-content:center;margin-top:30px;}
+  .big-link{
+    font-family:var(--sans);font-weight:700;font-size:15px;color:#fff;
+    background:var(--maroon);text-decoration:none;padding:12px 28px;border-radius:24px;letter-spacing:0.5px;
+  }
+  .big-link:hover{opacity:0.85;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="site-container">
+    <div class="header-top">
+      <div>
+        <div class="logo">MERIDIAN <em>SCHOOL</em></div>
+        <div class="logo-tagline">online lessons from Fia</div>
+      </div>
+      <a class="back-link" href="index.html">&larr; Uz sākumu</a>
+    </div>
+    <nav class="crumb-nav">
+      <a class="crumb" href="english_7gr_prepositions_theory.html">English</a>
+      <a class="crumb" href="english_7gr_prepositions_theory.html">Theory</a>
+      <span class="crumb current">Prepositions</span>
+    </nav>
+  </div>
+</header>
+
+<div class="page">
+  <h1>Prepositions: <em>at, on, in &amp; to</em></h1>
+  <div class="subtitle">English · Grammar · Theory</div>
+
+  <div class="theory-card">
+    <p>Prepositions like <strong>at</strong>, <strong>on</strong>, <strong>in</strong> and <strong>to</strong> often describe a similar real-world relationship — but which word you use depends on whether you're talking about <em>place</em> (where something is), <em>time</em> (when something happens), or <em>direction</em> (where something is moving to).</p>
+
+    <div class="rule-row">
+      <div class="rule-box">
+        <span class="notation">AT</span>
+        <ul>
+          <li><b>Place:</b> an exact point — at the bus stop, at the door, at the corner</li>
+          <li><b>Time:</b> a precise clock time — at 5pm, at noon, at midnight</li>
+        </ul>
+      </div>
+      <div class="rule-box">
+        <span class="notation">IN</span>
+        <ul>
+          <li><b>Place:</b> inside an enclosed space — in the room, in the box, in London</li>
+          <li><b>Time:</b> a longer period — in July, in 2020, in summer, in the morning</li>
+        </ul>
+      </div>
+      <div class="rule-box">
+        <span class="notation">ON</span>
+        <ul>
+          <li><b>Place:</b> touching a surface — on the table, on the wall, on the bus</li>
+          <li><b>Time:</b> days and dates — on Monday, on 1st May, on my birthday</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Direction: to, into, onto</h3>
+    <p>When a verb describes <strong>movement</strong> toward a place, English usually switches to <b>to</b> (or <b>into</b> / <b>onto</b> for movement into or onto something) — even if the same place would use <i>at</i>, <i>in</i> or <i>on</i> when nothing is moving.</p>
+
+    <div class="ex">I go <b>to</b> school every morning. <span class="note">(movement — destination)</span><br>I am <b>at</b> school right now. <span class="note">(no movement — static point)</span></div>
+    <div class="ex">He walked <b>into</b> the room. <span class="note">(movement into an enclosed space)</span><br>The papers are <b>in</b> the room. <span class="note">(static — enclosed space)</span></div>
+    <div class="ex">The cat jumped <b>onto</b> the shelf. <span class="note">(movement onto a surface)</span><br>The cat is sleeping <b>on</b> the shelf. <span class="note">(static — on a surface)</span></div>
+
+    <table class="compare">
+      <tr><th>Sentence</th><th>Preposition</th><th>Why</th></tr>
+      <tr><td>She's going <b>to</b> the school.</td><td>to</td><td>Movement toward a destination</td></tr>
+      <tr><td>The lesson starts <b>at</b> 5pm.</td><td>at</td><td>A precise, exact point in time</td></tr>
+      <tr><td>The children are <b>in</b> the school.</td><td>in</td><td>No movement — inside the building (enclosed space)</td></tr>
+    </table>
+
+    <div class="note-box"><b>Watch out — common exceptions:</b> at home, at night, at work, in bed, on time (punctual), on foot, on the phone. These don't follow the general rule above, so they need to be learned separately.</div>
+  </div>
+
+  <div class="bottom-nav"><a class="big-link" href="english_7gr_prepositions_practice.html">Start Exercises →</a></div>
+</div>
+
+</body>
+</html>

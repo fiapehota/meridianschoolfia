@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prepositions of Place, Time &amp; Direction — Practice</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300;1,600&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+  :root{
+    --cream:#efede9;
+    --heading:#452316;
+    --body:#452316;
+    --tan:#cbbc9e;
+    --olive:#a28e30;
+    --maroon:#880500;
+    --red:#d42d23;
+    --card-bg:#faf8f4;
+    --brown:#452316;
+    --correct:#5c7a3a;
+    --wrong:#880500;
+    --serif:'Cormorant Garamond', serif;
+    --sans:'Outfit', sans-serif;
+    --mono:'JetBrains Mono', monospace;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--cream);color:var(--brown);font-family:var(--sans);padding-bottom:90px;}
+
+  /* ---------- Meridian header ---------- */
+  .site-container{max-width:1120px;margin:0 auto;padding:0 40px;}
+  header{border-bottom:2px solid var(--red);padding:20px 0 0;background:var(--cream);}
+  .header-top{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:16px;}
+  .logo{font-family:var(--serif);font-weight:600;font-size:42px;letter-spacing:-1px;color:var(--heading);line-height:1;}
+  .logo em{font-style:italic;font-weight:300;color:var(--maroon);}
+  .logo-tagline{font-family:var(--serif);font-style:italic;font-weight:300;font-size:1.05rem;color:var(--olive);margin-top:6px;}
+  nav.crumb-nav{display:flex;align-items:center;gap:10px;margin-top:22px;padding-bottom:16px;flex-wrap:wrap;}
+  .crumb{font-family:var(--sans);font-size:0.7rem;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;padding:9px 18px;border-radius:20px;color:#fff;background:var(--tan);}
+  .crumb:nth-child(2){background:var(--olive);}
+  .crumb:nth-child(3){background:var(--maroon);}
+  .crumb.current{outline:2px solid var(--heading);outline-offset:1px;}
+  .back-link{
+    font-family:var(--sans);font-weight:600;font-size:13px;
+    color:var(--maroon);text-decoration:none;letter-spacing:0.5px;
+    border:1.5px solid var(--maroon);border-radius:20px;padding:7px 16px;
+    display:inline-flex;align-items:center;gap:6px;
+    margin-top:8px;flex-shrink:0;
+  }
+  .back-link:hover{background:var(--maroon);color:#fff;}
+
+  .page{max-width:900px;margin:0 auto;padding:20px 20px 32px;}
+  h1{font-family:var(--serif);font-weight:600;font-size:38px;margin:0 0 4px 0;color:var(--heading);}
+  .subtitle{font-size:14px;letter-spacing:1.5px;text-transform:uppercase;color:var(--olive);font-weight:500;margin-bottom:28px;}
+  h2{font-family:var(--serif);font-weight:600;font-size:26px;color:var(--heading);margin:40px 0 14px 0;padding-bottom:8px;border-bottom:2px solid var(--red);}
+  .section-note{font-size:14px;color:var(--brown);opacity:0.8;margin-bottom:14px;}
+
+  .task-card{background:var(--card-bg);border:1.5px solid var(--red);border-radius:4px;padding:20px 22px;margin-bottom:18px;}
+  .task-num{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;background:var(--tan);color:#fff;font-size:13px;font-weight:600;margin-right:8px;flex:none;}
+  .task-question{font-size:15.5px;font-weight:500;margin-bottom:10px;line-height:1.6;display:flex;gap:4px;align-items:flex-start;}
+  .task-question .txt{flex:1;}
+  input.answer-input{font-family:var(--mono);font-size:15px;padding:6px 10px;border:1.5px solid var(--tan);border-radius:8px;width:110px;color:var(--brown);background:#fff;}
+  input.answer-input:focus{outline:2px solid var(--maroon);border-color:var(--maroon);}
+  .feedback-inline{font-family:var(--mono);font-size:14px;min-width:120px;margin-top:8px;}
+  .feedback-inline.correct{color:var(--correct);font-weight:600;}
+  .feedback-inline.wrong{color:var(--wrong);font-weight:600;}
+  .btn{font-family:var(--sans);font-weight:600;font-size:13px;letter-spacing:0.5px;padding:8px 18px;border-radius:20px;border:1.5px solid var(--maroon);background:var(--maroon);color:#fff;cursor:pointer;}
+  .btn.secondary{background:transparent;color:var(--maroon);}
+  .btn-row{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;}
+
+  .free-input{width:100%;font-family:var(--sans);font-size:14.5px;padding:8px 12px;border:1.5px solid var(--tan);border-radius:8px;color:var(--brown);background:#fff;margin-top:4px;}
+  .free-input:focus{outline:2px solid var(--maroon);border-color:var(--maroon);}
+  .answer-box{margin-top:10px;font-family:var(--mono);font-size:13.5px;color:var(--correct);display:none;line-height:1.6;}
+  .answer-box.show{display:block;}
+
+  #score-bar{position:fixed;bottom:0;left:0;right:0;background:var(--maroon);color:#fff;padding:14px 20px;display:flex;justify-content:center;align-items:center;gap:8px;font-family:var(--sans);font-weight:600;font-size:15px;letter-spacing:0.5px;z-index:10;}
+
+  .student-info{margin-top:44px;padding-top:22px;border-top:2px solid var(--red);}
+  .student-info label{font-size:14px;font-weight:500;color:var(--olive);margin-right:10px;}
+  .student-info input{font-family:var(--sans);font-size:15px;padding:8px 12px;border:1.5px solid var(--tan);border-radius:8px;width:260px;color:var(--brown);}
+  .student-info input:focus{outline:2px solid var(--maroon);border-color:var(--maroon);}
+  .download-row{text-align:center;margin:30px 0 10px;}
+  .nav-row{text-align:center;margin:36px 0 0;}
+  .nav-row a{font-family:var(--sans);font-weight:600;font-size:13px;color:var(--maroon);text-decoration:none;}
+  .nav-row a:hover{text-decoration:underline;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="site-container">
+    <div class="header-top">
+      <div>
+        <div class="logo">MERIDIAN <em>SCHOOL</em></div>
+        <div class="logo-tagline">online lessons from Fia</div>
+      </div>
+      <a class="back-link" href="index.html">&larr; Uz sākumu</a>
+    </div>
+    <nav class="crumb-nav">
+      <a class="crumb" href="english_7gr_prepositions_theory.html">English</a>
+      <a class="crumb" href="english_7gr_prepositions_practice.html">Practice</a>
+      <span class="crumb current">Prepositions</span>
+    </nav>
+  </div>
+</header>
+
+<div class="page">
+<div id="capture-area">
+  <h1>Prepositions: at, on, in &amp; to</h1>
+  <div class="subtitle">English · Grammar · Practice</div>
+
+  <h2>1. Prepositions of place</h2>
+  <p class="section-note">Fill each gap with <b>at</b>, <b>in</b> or <b>on</b>.</p>
+  <div id="section-place"></div>
+
+  <h2>2. Prepositions of time</h2>
+  <p class="section-note">Fill each gap with <b>at</b>, <b>on</b> or <b>in</b>.</p>
+  <div id="section-time"></div>
+
+  <h2>3. Direction &amp; movement</h2>
+  <p class="section-note">Decide whether the sentence describes movement or a static position, then choose <b>to</b>, <b>into</b>, <b>onto</b>, <b>at</b> or <b>in</b>.</p>
+  <div id="section-direction"></div>
+
+  <h2>4. Double trouble — two gaps</h2>
+  <p class="section-note">Each sentence has two (sometimes three) gaps. Think about each one separately.</p>
+  <div id="section-double"></div>
+
+  <h2>5. Mixed challenge ★</h2>
+  <p class="section-note">Harder sentences mixing place, time and direction — including a few exceptions from the theory page.</p>
+  <div id="section-mixed"></div>
+
+  <h2>6. Translate: Russian → English</h2>
+  <p class="section-note">Translate each sentence. Pay attention to the prepositions. Use "Show answer" to check your own work.</p>
+  <div id="section-translate"></div>
+
+  <h2>7. Find and fix the mistake</h2>
+  <p class="section-note">Each sentence has one wrong preposition. Rewrite it correctly, then check with "Show answer".</p>
+  <div id="section-errors"></div>
+
+  <div class="student-info">
+    <label for="studentName">Full name:</label>
+    <input type="text" id="studentName" placeholder="_____________">
+  </div>
+</div>
+
+<div class="download-row">
+  <button class="btn" onclick="downloadWorksheet()">Download worksheet</button>
+</div>
+<div class="nav-row"><a href="english_7gr_prepositions_writing.html">Continue to Writing task →</a></div>
+</div>
+
+<div id="score-bar">Score: <span id="score-val">0</span> / <span id="score-total">0</span></div>
+
+<script>
+let score = 0, total = 0, checkedTasks = 0;
+function updateScoreBar(){
+  document.getElementById('score-val').textContent = score;
+  document.getElementById('score-total').textContent = total;
+}
+
+/* ---------- generic single-blank task ---------- */
+function buildBlankTask(containerId, idPrefix, items){
+  const container = document.getElementById(containerId);
+  items.forEach((raw, idx) => {
+    total++;
+    const [sentence, answerRaw] = raw.split('|');
+    const answers = answerRaw.split(',').map(a=>a.trim().toLowerCase());
+    const parts = sentence.split('___');
+    let html = parts[0];
+    for(let i=1;i<parts.length;i++){
+      html += `<input type="text" class="answer-input" id="${idPrefix}-${idx}">` + parts[i];
+    }
+    const card = document.createElement('div');
+    card.className = 'task-card';
+    card.innerHTML = `
+      <div class="task-question"><span class="task-num">${idx+1}</span><span class="txt">${html}</span></div>
+      <div class="feedback-inline" id="${idPrefix}-fb-${idx}"></div>
+      <div class="answer-box" id="${idPrefix}-ans-${idx}">✓ Correct answer: <b>${answers.join(' / ')}</b></div>
+      <div class="btn-row">
+        <button class="btn" onclick="checkBlank('${idPrefix}',${idx},['${answers.join("','")}'])">Check</button>
+        <button class="btn secondary" onclick="resetBlank('${idPrefix}',${idx})">Reset</button>
+        <button class="btn secondary" onclick="toggleAnswer('${idPrefix}-ans-${idx}')">Show / hide answer</button>
+      </div>
+    `;
+    container.appendChild(card);
+  });
+}
+const taskState = {};
+function checkBlank(prefix, idx, answers){
+  const input = document.getElementById(`${prefix}-${idx}`);
+  const fb = document.getElementById(`${prefix}-fb-${idx}`);
+  const val = input.value.trim().toLowerCase();
+  const ok = answers.includes(val) && val !== '';
+  fb.textContent = ok ? 'Correct!' : 'Not quite — try again.';
+  fb.className = 'feedback-inline ' + (ok ? 'correct' : 'wrong');
+  const key = prefix+'-'+idx;
+  const prev = taskState[key];
+  if(!prev){
+    taskState[key] = { wasOk: ok };
+    if(ok) score++;
+  } else {
+    if(ok && !prev.wasOk) score++;
+    if(!ok && prev.wasOk) score--;
+    prev.wasOk = ok;
+  }
+  updateScoreBar();
+}
+function resetBlank(prefix, idx){
+  const input = document.getElementById(`${prefix}-${idx}`);
+  const fb = document.getElementById(`${prefix}-fb-${idx}`);
+  const key = prefix+'-'+idx;
+  if(taskState[key] && taskState[key].wasOk){ score--; updateScoreBar(); }
+  delete taskState[key];
+  input.value = '';
+  fb.textContent = '';
+  const ans = document.getElementById(`${prefix}-ans-${idx}`);
+  if(ans) ans.classList.remove('show');
+}
+
+/* ---------- section 1: place ---------- */
+buildBlankTask('section-place', 'place', [
+  "Turn left ___ the corner.|at",
+  "The children are playing ___ the garden.|in",
+  "There's a beautiful picture ___ the wall above the sofa.|on",
+  "We arrived ___ the airport two hours early.|at",
+  "My grandmother lives ___ a small village in the mountains.|in",
+  "The cat is sleeping ___ the sofa.|on",
+  "He was standing ___ the entrance, waiting for us.|at",
+  "There were hundreds of books ___ the shelves.|on"
+]);
+
+/* ---------- section 2: time ---------- */
+buildBlankTask('section-time', 'time', [
+  "The lesson starts ___ 9 o'clock.|at",
+  "We're going to the beach ___ Saturday.|on",
+  "My birthday is ___ July.|in",
+  "She was born ___ 2011.|in",
+  "I usually do my homework ___ the evening.|in",
+  "The shops are closed ___ Christmas Day.|on",
+  "We always have a big dinner ___ New Year's Eve.|on",
+  "The exam is ___ the 14th of June.|on"
+]);
+
+/* ---------- section 3: direction ---------- */
+buildBlankTask('section-direction', 'dir', [
+  "I go ___ school every day.|to",
+  "I am ___ school right now.|at",
+  "He walked ___ the classroom and closed the door.|into",
+  "She jumped ___ the bed and started laughing.|onto",
+  "We're moving ___ a new house next month.|to",
+  "They have lived ___ that house for ten years.|in",
+  "Put the letter ___ the postbox.|into",
+  "The book fell ___ the floor.|onto"
+]);
+
+/* ---------- section 5: mixed ---------- */
+buildBlankTask('section-mixed', 'mix', [
+  "Don't be late — the train leaves ___ time.|on",
+  "He was ___ bed by nine o'clock.|in",
+  "We travelled ___ foot because the car broke down.|on",
+  "My father is ___ work until six.|at",
+  "There's a small caf&eacute; ___ the corner of the street.|on,at",
+  "I saw her ___ the concert last night.|at",
+  "He put the vase carefully ___ the shelf.|on",
+  "She stayed ___ home all weekend because she was ill.|at"
+]);
+
+/* ---------- section 4: double trouble (two/three blanks) ---------- */
+const doubleItems = [
+  { main:"The meeting will take place {a} Room 204, {b} the third floor.", a:["in"], b:["on"] },
+  { main:"My grandmother lives {a} a small village, {b} the mountains.", a:["in"], b:["in"] },
+  { main:"He wakes up {a} 6:30 {b} the morning.", a:["at"], b:["in"] },
+  { main:"The plane landed {a} Riga Airport {b} exactly 6pm.", a:["at"], b:["at"] },
+  { main:"We're meeting {a} the caf&eacute; {b} the corner {c} five o'clock.", a:["in"], b:["on","at"], c:["at"] }
+];
+const dtContainer = document.getElementById('section-double');
+doubleItems.forEach((item, idx)=>{
+  total++;
+  const keys = Object.keys(item).filter(k=>['a','b','c'].includes(k));
+  let html = item.main;
+  keys.forEach(k=>{
+    html = html.replace('{'+k+'}', `<input type="text" class="answer-input" style="width:80px" id="dt-${idx}-${k}">`);
+  });
+  const answerText = keys.map(k => item[k].join('/')).join(', ');
+  const card = document.createElement('div');
+  card.className = 'task-card';
+  card.innerHTML = `
+    <div class="task-question"><span class="task-num">${idx+1}</span><span class="txt">${html}</span></div>
+    <div class="feedback-inline" id="dt-fb-${idx}"></div>
+    <div class="answer-box" id="dt-ans-${idx}">✓ Correct answer: <b>${answerText}</b></div>
+    <div class="btn-row">
+      <button class="btn" onclick="checkDouble(${idx})">Check</button>
+      <button class="btn secondary" onclick="resetDouble(${idx})">Reset</button>
+      <button class="btn secondary" onclick="toggleAnswer('dt-ans-${idx}')">Show / hide answer</button>
+    </div>
+  `;
+  dtContainer.appendChild(card);
+});
+const dtState = {};
+function checkDouble(idx){
+  const item = doubleItems[idx];
+  const keys = Object.keys(item).filter(k=>['a','b','c'].includes(k));
+  let allOk = true;
+  keys.forEach(k=>{
+    const input = document.getElementById(`dt-${idx}-${k}`);
+    const val = input.value.trim().toLowerCase();
+    const ok = item[k].includes(val) && val !== '';
+    input.style.background = ok ? '#e8f5e0' : '#fde4e1';
+    if(!ok) allOk = false;
+  });
+  const fb = document.getElementById(`dt-fb-${idx}`);
+  fb.textContent = allOk ? 'All correct!' : 'Check again — something is off.';
+  fb.className = 'feedback-inline ' + (allOk ? 'correct' : 'wrong');
+  const key = 'dt-'+idx;
+  const prev = dtState[key];
+  if(!prev){
+    dtState[key] = { wasOk: allOk };
+    if(allOk) score++;
+  } else {
+    if(allOk && !prev.wasOk) score++;
+    if(!allOk && prev.wasOk) score--;
+    prev.wasOk = allOk;
+  }
+  updateScoreBar();
+}
+function resetDouble(idx){
+  const item = doubleItems[idx];
+  const keys = Object.keys(item).filter(k=>['a','b','c'].includes(k));
+  keys.forEach(k=>{
+    const input = document.getElementById(`dt-${idx}-${k}`);
+    input.value=''; input.style.background = '#fff';
+  });
+  const key = 'dt-'+idx;
+  if(dtState[key] && dtState[key].wasOk){ score--; updateScoreBar(); }
+  delete dtState[key];
+  document.getElementById(`dt-fb-${idx}`).textContent = '';
+  const ans = document.getElementById(`dt-ans-${idx}`);
+  if(ans) ans.classList.remove('show');
+}
+/* ---------- translation (self-check, not scored) ---------- */
+const translations = [
+  { ru:"Встреча состоится в пятницу в 10 утра.", en:"The meeting will take place on Friday at 10 a.m." },
+  { ru:"Она положила книгу на стол.", en:"She put the book on the table." },
+  { ru:"Мы идём в школу каждое утро.", en:"We go to school every morning." },
+  { ru:"Зимой рано темнеет.", en:"It gets dark early in winter." },
+  { ru:"Кот прыгнул на диван.", en:"The cat jumped onto the sofa." },
+  { ru:"Он живёт в маленькой квартире в центре города.", en:"He lives in a small flat in the city centre." },
+  { ru:"Автобус останавливается на углу.", en:"The bus stops at the corner." },
+  { ru:"Урок начинается ровно в девять часов.", en:"The lesson starts at exactly nine o'clock." }
+];
+const trContainer = document.getElementById('section-translate');
+translations.forEach((t, idx)=>{
+  const card = document.createElement('div');
+  card.className = 'task-card';
+  card.innerHTML = `
+    <div class="task-question"><span class="task-num">${idx+1}</span><span class="txt">${t.ru}</span></div>
+    <input type="text" class="free-input" id="tr-${idx}" placeholder="Type your translation...">
+    <div class="answer-box" id="tr-ans-${idx}">✓ ${t.en}</div>
+    <div class="btn-row">
+      <button class="btn secondary" onclick="toggleAnswer('tr-ans-${idx}')">Show / hide answer</button>
+    </div>
+  `;
+  trContainer.appendChild(card);
+});
+
+/* ---------- error correction (self-check, not scored) ---------- */
+const errors = [
+  { wrong:"I will see you in Monday.", right:"I will see you on Monday." },
+  { wrong:"She arrived to the station five minutes late.", right:"She arrived at the station five minutes late." },
+  { wrong:"The concert starts on 7 o'clock.", right:"The concert starts at 7 o'clock." },
+  { wrong:"We live at a small town near the coast.", right:"We live in a small town near the coast." },
+  { wrong:"He put his bag in the chair.", right:"He put his bag on the chair." },
+  { wrong:"They go on school by bus every day.", right:"They go to school by bus every day." },
+  { wrong:"My sister was born on 2015.", right:"My sister was born in 2015." },
+  { wrong:"The keys are on the drawer.", right:"The keys are in the drawer." }
+];
+const ecContainer = document.getElementById('section-errors');
+errors.forEach((e, idx)=>{
+  const card = document.createElement('div');
+  card.className = 'task-card';
+  card.innerHTML = `
+    <div class="task-question"><span class="task-num">${idx+1}</span><span class="txt">${e.wrong}</span></div>
+    <input type="text" class="free-input" id="ec-${idx}" placeholder="Write the correct sentence...">
+    <div class="answer-box" id="ec-ans-${idx}">✓ ${e.right}</div>
+    <div class="btn-row">
+      <button class="btn secondary" onclick="toggleAnswer('ec-ans-${idx}')">Show / hide answer</button>
+    </div>
+  `;
+  ecContainer.appendChild(card);
+});
+function toggleAnswer(id){
+  document.getElementById(id).classList.toggle('show');
+}
+
+updateScoreBar();
+
+/* ---------- PDF download (preserves typed input values) ---------- */
+async function downloadWorksheet(){
+  const btn = document.querySelector('.download-row .btn');
+  const originalText = btn.textContent;
+  btn.textContent = 'Preparing...';
+  btn.disabled = true;
+  const el = document.getElementById('capture-area');
+  const restoreFns = [];
+  try {
+    // html2canvas doesn't reliably render live input values — swap each
+    // input for a plain span showing its current value before capturing.
+    el.querySelectorAll('input[type="text"]').forEach(input => {
+      const span = document.createElement('span');
+      span.textContent = input.value || '        ';
+      span.style.cssText = window.getComputedStyle(input).cssText;
+      span.style.display = 'inline-block';
+      span.style.borderBottom = '1.5px solid #880500';
+      input.style.display = 'none';
+      input.after(span);
+      restoreFns.push(() => { span.remove(); input.style.display = ''; });
+    });
+
+    const canvas = await html2canvas(el, {backgroundColor:'#efede9', scale:2});
+    const img = canvas.toDataURL('image/png');
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF('p','pt','a4');
+    const pageWidth = pdf.internal.pageSize.getWidth();
+    const pageHeight = pdf.internal.pageSize.getHeight();
+    const imgWidth = pageWidth - 60;
+    const imgHeight = (canvas.height / canvas.width) * imgWidth;
+    let heightLeft = imgHeight;
+    let position = 30;
+    pdf.addImage(img,'PNG',30,position,imgWidth,imgHeight);
+    heightLeft -= (pageHeight - 60);
+    while(heightLeft > 0){
+      position = heightLeft - imgHeight + 30;
+      pdf.addPage();
+      pdf.addImage(img,'PNG',30,position,imgWidth,imgHeight);
+      heightLeft -= (pageHeight - 60);
+    }
+    const nameEl = document.getElementById('studentName');
+    const namePart = nameEl.value.trim() ? '_' + nameEl.value.trim().replace(/\s+/g,'_') : '';
+    pdf.save(`prepositions_practice${namePart}.pdf`);
+  } finally {
+    restoreFns.forEach(fn => fn());
+    btn.textContent = originalText;
+    btn.disabled = false;
+  }
+}
+</script>
+</body>
+</html>

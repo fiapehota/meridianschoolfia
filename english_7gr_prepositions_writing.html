@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prepositions of Place, Time &amp; Direction — Writing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300;1,600&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+  :root{
+    --cream:#efede9;
+    --heading:#452316;
+    --body:#452316;
+    --tan:#cbbc9e;
+    --olive:#a28e30;
+    --maroon:#880500;
+    --red:#d42d23;
+    --card-bg:#faf8f4;
+    --brown:#452316;
+    --serif:'Cormorant Garamond', serif;
+    --sans:'Outfit', sans-serif;
+    --mono:'JetBrains Mono', monospace;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--cream);color:var(--brown);font-family:var(--sans);padding-bottom:40px;}
+
+  /* ---------- Meridian header ---------- */
+  .site-container{max-width:1120px;margin:0 auto;padding:0 40px;}
+  header{border-bottom:2px solid var(--red);padding:20px 0 0;background:var(--cream);}
+  .header-top{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:16px;}
+  .logo{font-family:var(--serif);font-weight:600;font-size:42px;letter-spacing:-1px;color:var(--heading);line-height:1;}
+  .logo em{font-style:italic;font-weight:300;color:var(--maroon);}
+  .logo-tagline{font-family:var(--serif);font-style:italic;font-weight:300;font-size:1.05rem;color:var(--olive);margin-top:6px;}
+  nav.crumb-nav{display:flex;align-items:center;gap:10px;margin-top:22px;padding-bottom:16px;flex-wrap:wrap;}
+  .crumb{font-family:var(--sans);font-size:0.7rem;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;padding:9px 18px;border-radius:20px;color:#fff;background:var(--tan);}
+  .crumb:nth-child(2){background:var(--olive);}
+  .crumb:nth-child(3){background:var(--maroon);}
+  .crumb.current{outline:2px solid var(--heading);outline-offset:1px;}
+  .back-link{
+    font-family:var(--sans);font-weight:600;font-size:13px;
+    color:var(--maroon);text-decoration:none;letter-spacing:0.5px;
+    border:1.5px solid var(--maroon);border-radius:20px;padding:7px 16px;
+    display:inline-flex;align-items:center;gap:6px;
+    margin-top:8px;flex-shrink:0;
+  }
+  .back-link:hover{background:var(--maroon);color:#fff;}
+
+  .page{max-width:900px;margin:0 auto;padding:20px 20px 32px;}
+  h1{font-family:var(--serif);font-weight:600;font-size:38px;margin:0 0 4px 0;color:var(--heading);}
+  .subtitle{font-size:14px;letter-spacing:1.5px;text-transform:uppercase;color:var(--olive);font-weight:500;margin-bottom:28px;}
+
+  .task-card{background:var(--card-bg);border:1.5px solid var(--red);border-radius:4px;padding:24px 26px;margin-bottom:22px;}
+  .task-card p{font-size:15.5px;line-height:1.7;margin:0 0 10px 0;}
+  .task-card p b{color:var(--maroon);}
+
+  .chip-row{display:flex;flex-wrap:wrap;gap:9px;margin:14px 0 4px;}
+  .chip{font-family:var(--mono);font-size:13px;font-weight:600;padding:6px 14px;border-radius:20px;color:#fff;}
+  .chip:nth-child(4n+1){background:var(--tan);}
+  .chip:nth-child(4n+2){background:var(--olive);}
+  .chip:nth-child(4n+3){background:var(--maroon);}
+  .chip:nth-child(4n+4){background:var(--red);}
+
+  textarea{width:100%;min-height:220px;border:1.5px solid var(--tan);border-radius:8px;padding:16px;font-family:var(--sans);font-size:14.5px;line-height:1.7;color:var(--brown);background:#fff;resize:vertical;margin-top:16px;}
+  textarea:focus{outline:2px solid var(--maroon);border-color:var(--maroon);}
+
+  .word-count{font-family:var(--mono);font-size:12.5px;color:var(--olive);margin-top:8px;text-align:right;}
+
+  .student-info{margin-top:30px;padding-top:22px;border-top:2px solid var(--red);}
+  .student-info label{font-size:14px;font-weight:500;color:var(--olive);margin-right:10px;}
+  .student-info input{font-family:var(--sans);font-size:15px;padding:8px 12px;border:1.5px solid var(--tan);border-radius:8px;width:260px;color:var(--brown);}
+  .student-info input:focus{outline:2px solid var(--maroon);border-color:var(--maroon);}
+  .download-row{text-align:center;margin:30px 0 10px;}
+  .btn{font-family:var(--sans);font-weight:600;font-size:13px;letter-spacing:0.5px;padding:10px 24px;border-radius:20px;border:1.5px solid var(--maroon);background:var(--maroon);color:#fff;cursor:pointer;}
+  .nav-row{text-align:center;margin:20px 0 0;}
+  .nav-row a{font-family:var(--sans);font-weight:600;font-size:13px;color:var(--maroon);text-decoration:none;}
+  .nav-row a:hover{text-decoration:underline;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="site-container">
+    <div class="header-top">
+      <div>
+        <div class="logo">MERIDIAN <em>SCHOOL</em></div>
+        <div class="logo-tagline">online lessons from Fia</div>
+      </div>
+      <a class="back-link" href="index.html">&larr; Uz sākumu</a>
+    </div>
+    <nav class="crumb-nav">
+      <a class="crumb" href="english_7gr_prepositions_theory.html">English</a>
+      <a class="crumb" href="english_7gr_prepositions_writing.html">Writing</a>
+      <span class="crumb current">Prepositions</span>
+    </nav>
+  </div>
+</header>
+
+<div class="page">
+<div id="capture-area">
+  <h1>Prepositions: at, on, in &amp; to</h1>
+  <div class="subtitle">English · Grammar · Writing</div>
+
+  <div class="task-card">
+    <p><b>My typical Saturday.</b> Write 5&ndash;6 sentences describing a typical Saturday. Use at least <b>six</b> different prepositions of place, time or direction &mdash; try to use as many of the words below as you can.</p>
+    <div class="chip-row">
+      <span class="chip">AT</span><span class="chip">IN</span><span class="chip">ON</span><span class="chip">TO</span><span class="chip">INTO</span><span class="chip">ONTO</span>
+    </div>
+    <textarea id="writingArea" placeholder="On Saturday morning I..."></textarea>
+    <div class="word-count"><span id="wordCount">0</span> words</div>
+  </div>
+
+  <div class="student-info">
+    <label for="studentName">Full name:</label>
+    <input type="text" id="studentName" placeholder="_____________">
+  </div>
+</div>
+
+<div class="download-row">
+  <button class="btn" onclick="downloadWorksheet()">Download worksheet</button>
+</div>
+<div class="nav-row"><a href="english_7gr_prepositions_practice.html">&larr; Back to Practice</a></div>
+</div>
+
+<script>
+const writingArea = document.getElementById('writingArea');
+const wordCount = document.getElementById('wordCount');
+writingArea.addEventListener('input', () => {
+  const words = writingArea.value.trim().split(/\s+/).filter(Boolean);
+  wordCount.textContent = writingArea.value.trim() ? words.length : 0;
+});
+
+async function downloadWorksheet(){
+  const btn = document.querySelector('.download-row .btn');
+  const originalText = btn.textContent;
+  btn.textContent = 'Preparing...';
+  btn.disabled = true;
+  const el = document.getElementById('capture-area');
+  let restore = null;
+  try {
+    // html2canvas does not reliably render live textarea text — swap it
+    // for a plain div showing the typed text before capturing.
+    const ta = document.getElementById('writingArea');
+    const div = document.createElement('div');
+    div.textContent = ta.value || '(nothing written yet)';
+    const cs = window.getComputedStyle(ta);
+    div.style.cssText = cs.cssText;
+    div.style.whiteSpace = 'pre-wrap';
+    div.style.minHeight = cs.height;
+    ta.style.display = 'none';
+    ta.after(div);
+    restore = () => { div.remove(); ta.style.display = ''; };
+
+    const canvas = await html2canvas(el, {backgroundColor:'#efede9', scale:2});
+    const img = canvas.toDataURL('image/png');
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF('p','pt','a4');
+    const pageWidth = pdf.internal.pageSize.getWidth();
+    const pageHeight = pdf.internal.pageSize.getHeight();
+    const imgWidth = pageWidth - 60;
+    const imgHeight = (canvas.height / canvas.width) * imgWidth;
+    let heightLeft = imgHeight;
+    let position = 30;
+    pdf.addImage(img,'PNG',30,position,imgWidth,imgHeight);
+    heightLeft -= (pageHeight - 60);
+    while(heightLeft > 0){
+      position = heightLeft - imgHeight + 30;
+      pdf.addPage();
+      pdf.addImage(img,'PNG',30,position,imgWidth,imgHeight);
+      heightLeft -= (pageHeight - 60);
+    }
+    const nameEl = document.getElementById('studentName');
+    const namePart = nameEl.value.trim() ? '_' + nameEl.value.trim().replace(/\s+/g,'_') : '';
+    pdf.save(`prepositions_writing${namePart}.pdf`);
+  } finally {
+    if(restore) restore();
+    btn.textContent = originalText;
+    btn.disabled = false;
+  }
+}
+</script>
+</body>
+</html>
