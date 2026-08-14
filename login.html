@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Вход | Meridian School</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#efede9;
+    --heading:#452316;
+    --body:#452316;
+    --tan:#cbbc9e;
+    --olive:#a28e30;
+    --maroon:#880500;
+    --red:#d42d23;
+    --serif:'Cormorant Garamond', serif;
+    --sans:'Outfit', sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{
+    font-family:var(--sans);
+    background:var(--cream);
+    color:var(--body);
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+  }
+
+  header{
+    width:100%;
+    text-align:center;
+    padding:36px 20px 8px;
+  }
+  .logo{
+    font-family:var(--serif);
+    font-weight:600;
+    font-size:1.6rem;
+    color:var(--heading);
+  }
+  .logo em{font-style:italic;font-weight:400;color:var(--maroon);}
+  .tagline{
+    font-family:var(--serif);
+    font-style:italic;
+    font-size:.9rem;
+    color:var(--olive);
+    margin-top:2px;
+  }
+
+  main{
+    width:min(360px,88%);
+    margin-top:36px;
+  }
+
+  .card{
+    background:#fff;
+    border:2px solid var(--maroon);
+    padding:32px 26px 28px;
+    text-align:center;
+  }
+
+  h1{
+    font-family:var(--serif);
+    font-weight:600;
+    font-size:1.4rem;
+    margin-bottom:4px;
+  }
+  .sub{
+    font-style:italic;
+    color:var(--olive);
+    font-size:.85rem;
+    margin-bottom:24px;
+  }
+
+  .field{text-align:left;margin-bottom:14px;}
+  .field label{
+    display:block;
+    font-size:.72rem;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color:var(--heading);
+    opacity:.75;
+    margin-bottom:5px;
+  }
+  .field input{
+    width:100%;
+    padding:10px 12px;
+    border:1px solid var(--tan);
+    background:var(--cream);
+    color:var(--heading);
+    font-family:var(--sans);
+    font-size:.95rem;
+  }
+  .field input:focus{
+    outline:2px solid var(--red);
+    outline-offset:1px;
+    border-color:var(--red);
+  }
+
+  .error{
+    display:none;
+    text-align:left;
+    font-size:.8rem;
+    color:var(--red);
+    margin:-4px 0 14px;
+  }
+  .error.show{display:block;}
+
+  button{
+    width:100%;
+    padding:11px;
+    background:var(--maroon);
+    color:#fff;
+    border:none;
+    font-family:var(--sans);
+    font-weight:500;
+    font-size:.95rem;
+    cursor:pointer;
+  }
+  button:hover{background:#6f0400;}
+  button:disabled{opacity:.6;cursor:default;}
+  button:focus-visible{outline:2px solid var(--red);outline-offset:2px;}
+
+  .hint{
+    margin-top:16px;
+    font-size:.78rem;
+    color:var(--heading);
+    opacity:.65;
+  }
+
+  .back{
+    display:inline-block;
+    margin-top:26px;
+    font-size:.82rem;
+    color:var(--maroon);
+    text-decoration:none;
+  }
+  .back:hover{text-decoration:underline;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">MERIDIAN <em>SCHOOL</em></div>
+  <div class="tagline">Онлайн уроки от Фии</div>
+</header>
+
+<main>
+  <div class="card">
+    <h1>Нужно войти</h1>
+    <p class="sub">Эта страница только для учеников</p>
+
+    <form id="loginForm">
+      <div class="field">
+        <label for="email">Имя и Фамилия</label>
+        <input id="email" type="text" autocomplete="username" placeholder="анна.калниня" required>
+      </div>
+      <div class="field">
+        <label for="pass">Пароль</label>
+        <input id="pass" type="password" autocomplete="current-password" required>
+      </div>
+      <p class="error" id="err">Неправильный логин или пароль.</p>
+      <button type="submit" id="submitBtn">Войти</button>
+    </form>
+    <p class="hint">Забыла пароль? Напиши в Telegram Фие или позвони.</p>
+  </div>
+  <a class="back" href="index.html">← Вернуться в меню</a>
+</main>
+
+<script type="module">
+  import { auth } from "./assets/js/firebase-config.js";
+  import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
+
+  const form = document.getElementById("loginForm");
+  const email = document.getElementById("email");
+  const pass = document.getElementById("pass");
+  const err = document.getElementById("err");
+  const btn = document.getElementById("submitBtn");
+
+  // куда вернуть человека после входа
+  const params = new URLSearchParams(window.location.search);
+  const next = params.get("next") || "index.html";
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    err.classList.remove("show");
+    btn.disabled = true;
+    btn.textContent = "...";
+
+    // ученик вводит просто "имя.фамилия" — домен добавляем сами,
+    // чтобы Firebase получил корректный email-формат
+    let loginValue = email.value.trim().toLowerCase();
+    if (!loginValue.includes("@")) {
+      loginValue += "@meridian.local";
+    }
+
+    try {
+      await signInWithEmailAndPassword(auth, loginValue, pass.value);
+      window.location.replace(next);
+    } catch (e) {
+      err.classList.add("show");
+      btn.disabled = false;
+      btn.textContent = "Войти";
+    }
+  });
+</script>
+
+</body>
+</html>
