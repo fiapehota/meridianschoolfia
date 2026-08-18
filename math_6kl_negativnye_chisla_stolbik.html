@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Отрицательные числа в столбик — Meridian School</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300;1,600&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script type="module" src="assets/js/auth-guard.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+  :root{
+    --cream:#efede9;
+    --heading:#452316;
+    --body:#452316;
+    --brown:#452316;
+    --tan:#cbbc9e;
+    --chip1:#a28e30;
+    --chip2:#d42d23;
+    --accent:#880500;
+    --maroon:#880500;
+    --red:#d42d23;
+    --card-bg:#fdfaf5;
+    --muted:#8a7658;
+    --pos:#3E7A3C;
+    --neg:#A3372B;
+  }
+  *{box-sizing:border-box;}
+  body{ margin:0; background:var(--cream); color:var(--brown); font-family:'Outfit',sans-serif; padding-bottom:70px; }
+  .page{ max-width:960px; margin:0 auto; padding:20px 20px 60px; }
+
+  header{ border-bottom:2px solid var(--red); padding:20px 0 0; background:var(--cream); }
+  .site-container{ max-width:960px; margin:0 auto; padding:0 24px; }
+  .header-top{ display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:16px; }
+  .logo{ font-family:'Cormorant Garamond',serif; font-weight:600; font-size:26px; color:var(--heading); }
+  .logo em{ font-style:italic; font-weight:400; color:var(--accent); }
+  .logo-tagline{ font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:300; font-size:1.05rem; color:var(--chip1); margin-top:6px; }
+  .back-link{ font-family:'Outfit',sans-serif; font-weight:300; font-size:13px; color:var(--maroon); text-decoration:none; }
+  .back-link:hover{ text-decoration:underline; }
+  nav.crumb-nav{ display:flex; align-items:center; gap:10px; margin-top:18px; padding-bottom:16px; flex-wrap:wrap; }
+  .crumb{
+    font-family:'Outfit',sans-serif; font-size:11px; font-weight:500; letter-spacing:1.3px;
+    text-transform:uppercase; text-decoration:none; padding:7px 16px; border-radius:20px; color:#fff;
+  }
+  .crumb:nth-child(odd){ background:var(--chip1); }
+  .crumb:nth-child(even){ background:var(--chip2); }
+  .crumb.current{ outline:2px solid var(--heading); outline-offset:1px; }
+
+  h1{ font-family:'Cormorant Garamond',serif; font-weight:600; font-size:32px; margin:24px 0 20px; color:var(--heading); }
+  h1 em{ font-style:italic; font-weight:400; color:var(--accent); }
+
+  .instructions{
+    background:var(--card-bg); border:1.5px solid var(--red); border-radius:6px;
+    padding:16px 20px; font-size:14px; line-height:1.65; margin-bottom:32px;
+  }
+  .instructions b{ color:var(--accent); }
+
+  h2.section-title{
+    font-family:'Cormorant Garamond',serif; font-weight:600; font-size:23px;
+    color:var(--heading); border-bottom:2px solid var(--chip2); padding-bottom:6px; margin:36px 0 6px;
+  }
+  h2.section-title em{ font-style:italic; color:var(--accent); }
+  .section-hint{ font-size:13.5px; color:var(--muted); margin:0 0 18px; }
+
+  .task-grid{ display:grid; grid-template-columns:repeat(2, 1fr); gap:18px; }
+  @media (max-width:700px){ .task-grid{ grid-template-columns:1fr; } }
+
+  .task-card{
+    background:var(--card-bg); border-radius:14px; padding:16px 14px 14px;
+    box-shadow:0 2px 8px rgba(69,35,22,0.06);
+    display:flex; flex-direction:column; align-items:center;
+  }
+  .task-label{
+    align-self:flex-start; font-size:12px; font-weight:600; letter-spacing:1px;
+    text-transform:uppercase; color:var(--accent); margin-bottom:10px;
+  }
+  .task-note{ align-self:flex-start; font-size:11.5px; color:var(--muted); font-style:italic; margin:-4px 0 8px; }
+  .task-expr{
+    align-self:flex-start; font-family:'JetBrains Mono',monospace; font-weight:700;
+    font-size:15.5px; color:var(--heading); background:#fff; border:1px solid var(--tan);
+    border-radius:6px; padding:4px 10px; margin-bottom:10px;
+  }
+
+  .stack{ width:auto; font-family:'JetBrains Mono',monospace; }
+  .digit-row{ display:flex; justify-content:flex-end; align-items:center; }
+  .carry-row{ height:22px; margin-bottom:2px; }
+  .carry-cell{
+    width:30px; height:20px; text-align:center; font-size:12px; color:var(--accent);
+    background:transparent; border:none; border-bottom:1px dashed var(--tan);
+    font-family:'JetBrains Mono',monospace; outline:none;
+  }
+  .op-sign{ width:20px; text-align:center; font-size:18px; font-weight:700; color:var(--accent); flex-shrink:0; }
+  .digit-cell{
+    width:30px; height:36px; border:1px solid var(--tan);
+    display:flex; align-items:center; justify-content:center;
+    font-size:17px; font-weight:700; color:var(--brown); background:var(--cream); margin-left:-1px;
+  }
+  .digit-cell:first-child{ margin-left:0; }
+  .line-row{ border-top:2px solid var(--brown); margin:4px 0; }
+
+  input.ans-cell{
+    width:30px; height:36px; border:1px solid var(--tan); text-align:center;
+    font-size:17px; font-weight:700; font-family:'JetBrains Mono',monospace; color:var(--brown);
+    background:#fff; margin-left:-1px; outline:none; padding:0;
+  }
+  input.ans-cell:first-child{ margin-left:0; }
+  input.ans-cell:focus{ border-color:var(--chip2); background:#fbe9f0; position:relative; z-index:1; }
+  input.ans-cell.correct{ background:#e4f3d9; border-color:#8fbf6f; color:#3a5c22; }
+  input.ans-cell.wrong{ background:#fbe1e1; border-color:#d98a8a; color:#8a2f2f; }
+
+  .answer-line{ display:flex; align-items:center; justify-content:flex-end; gap:10px; }
+  .div-line{ display:flex; align-items:center; gap:6px; flex-wrap:wrap; justify-content:center; margin:6px 0; }
+  .div-eq{ font-size:18px; font-weight:700; color:var(--accent); }
+
+  /* correct-tag: shown NEXT TO the row, never overwrites student input */
+  .correct-tag{
+    font-family:'JetBrains Mono',monospace; font-size:12px; font-weight:700; color:var(--accent);
+    background:#f3e9ee; border:1px dashed var(--chip2); padding:3px 8px; border-radius:8px;
+    white-space:nowrap; opacity:0; visibility:hidden; transition:opacity 0.15s;
+  }
+  .correct-tag.visible{ opacity:1; visibility:visible; }
+
+  .final-row{
+    width:100%; margin-top:14px; padding-top:12px; border-top:1px dashed var(--tan);
+    display:flex; flex-direction:column; gap:6px; align-items:flex-start;
+  }
+  .final-row label{ font-size:12.5px; font-weight:600; color:var(--accent); }
+  .final-line{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  input.final-input{
+    font-family:'JetBrains Mono',monospace; font-size:15px; font-weight:700;
+    padding:5px 10px; border:1.5px solid var(--tan); border-radius:5px; color:var(--brown); width:120px;
+  }
+  input.final-input.correct{ background:#e4f3d9; border-color:#8fbf6f; }
+  input.final-input.wrong{ background:#fbe1e1; border-color:#d98a8a; }
+
+  .task-controls{ display:flex; gap:8px; margin-top:14px; width:100%; justify-content:center; flex-wrap:wrap; }
+  .btn{
+    font-family:'Outfit',sans-serif; font-size:12px; font-weight:600; letter-spacing:0.3px;
+    padding:7px 12px; border-radius:20px; border:none; cursor:pointer; transition:opacity 0.15s;
+  }
+  .btn:hover{ opacity:0.85; }
+  .btn-check{ background:var(--chip2); color:#fff; }
+  .btn-reset{ background:var(--chip1); color:#fff; }
+  .btn-show{ background:var(--accent); color:#fff; }
+
+  .task-feedback{ font-size:12px; margin-top:8px; font-weight:600; height:14px; }
+  .task-feedback.ok{ color:var(--pos); }
+  .task-feedback.bad{ color:var(--neg); }
+
+  .score-bar{
+    position:fixed; bottom:0; left:0; right:0; background:var(--brown); color:#fff;
+    text-align:center; padding:12px 16px; font-family:'Outfit',sans-serif; font-weight:600;
+    font-size:15px; letter-spacing:0.4px; z-index:10;
+  }
+  .score-bar span{ color:var(--chip2); }
+
+  @media print{
+    header, .task-controls, .score-bar, .task-feedback, .download-row{ display:none !important; }
+    body{ padding-bottom:0; }
+  }
+
+  .student-info{ margin-top:44px; padding-top:22px; border-top:2px solid var(--red); }
+  .student-info label{ font-size:14px; font-weight:500; color:var(--accent); margin-right:10px; }
+  .student-info input{
+    font-family:'Outfit',sans-serif; font-size:15px; padding:8px 12px;
+    border:1.5px solid var(--tan); border-radius:8px; width:260px; color:var(--brown);
+  }
+  .student-info input:focus{ outline:2px solid var(--accent); border-color:var(--accent); }
+
+  .download-row{ text-align:center; margin:30px 0 10px; }
+  .btn-download{
+    font-family:'Outfit',sans-serif; font-weight:600; font-size:13px; letter-spacing:0.5px;
+    padding:10px 26px; border-radius:20px; border:1.5px solid var(--accent);
+    background:var(--accent); color:#fff; cursor:pointer; transition:opacity 0.15s;
+  }
+  .btn-download:hover{ opacity:0.85; }
+  .btn-download:disabled{ opacity:0.6; cursor:default; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="site-container">
+    <div class="header-top">
+      <div>
+        <div class="logo">MERIDIAN <em>SCHOOL</em></div>
+        <div class="logo-tagline">Онлайн уроки от Фии</div>
+      </div>
+      <a class="back-link" href="index.html">&larr; Вернуться в меню</a>
+    </div>
+    <nav class="crumb-nav">
+      <a class="crumb" href="#">Математика</a>
+      <a class="crumb" href="#">6 класс</a>
+      <span class="crumb current">Отрицательные числа</span>
+    </nav>
+  </div>
+</header>
+
+<div class="page">
+<div id="capture-area">
+
+  <h1>Действия с <em>отрицательными числами</em> в столбик</h1>
+
+  <div class="instructions">
+    В столбике считаем только <b>модули</b> чисел (без знака, без запятой) — обычным столбиком, цифра за цифрой.
+    Знак результата и запятую (если число десятичное) нигде в столбике не пишем — их нужно один раз правильно
+    записать в отдельное поле <b>«Итоговый ответ»</b> под каждым заданием. Кнопка «Показать ответ» не стирает то,
+    что написал ученик — правильный вариант появляется рядом, в отдельной подсказке.
+  </div>
+
+  <h2 class="section-title">1. Сложение <em>(одинаковые знаки)</em></h2>
+  <p class="section-hint">Если у обоих чисел одинаковый знак — складываем их модули в столбик (запятую в столбике не пишем). Итоговый знак и запятую — в отдельное поле.</p>
+  <div class="task-grid" id="grid-add"></div>
+
+  <h2 class="section-title">2. Вычитание <em>(разные знаки)</em></h2>
+  <p class="section-hint">Если знаки разные (или это обычное вычитание) — из большего модуля вычитаем меньший в столбик. Итоговый знак и запятую — в отдельное поле.</p>
+  <div class="task-grid" id="grid-sub"></div>
+
+  <h2 class="section-title">3. Умножение <em>в столбик</em></h2>
+  <p class="section-hint">Перемножаем модули чисел в столбик, как целые числа. Итоговый знак и запятую (если число десятичное) — в отдельное поле.</p>
+  <div class="task-grid" id="grid-mul"></div>
+
+  <h2 class="section-title">4. Деление <em>по цифрам частного</em></h2>
+  <p class="section-hint">Это те же числа, что мы уже перемножали в разделе 3 — раздели и проверь себя! Делим модуль на модуль. Итоговый знак и запятую — в отдельное поле.</p>
+  <div class="task-grid" id="grid-div"></div>
+
+  <div class="student-info">
+    <label for="studentName">Имя, фамилия:</label>
+    <input type="text" id="studentName" placeholder="_____________">
+  </div>
+
+</div>
+
+<div class="download-row">
+  <button class="btn btn-download" onclick="downloadWorksheet()">Скачать ответы</button>
+</div>
+
+</div>
+
+<div class="score-bar">Результат: <span id="score">0</span> / <span id="total">16</span> верно</div>
+
+<script>
+let solvedCount = 0;
+const TOTAL_TASKS = 16;
+document.getElementById('total').textContent = TOTAL_TASKS;
+function updateScore(delta){ solvedCount += delta; document.getElementById('score').textContent = solvedCount; }
+
+function digitCellsHTML(str){ return str.split('').map(d => `<div class="digit-cell">${d}</div>`).join(''); }
+function ansCellsHTML(str){ return str.split('').map(d => `<input type="text" maxlength="1" class="ans-cell" inputmode="numeric" data-correct="${d}">`).join(''); }
+
+function wireDigitNav(ansCells){
+  ansCells.forEach((cell, idx) => {
+    cell.addEventListener('input', () => {
+      cell.value = cell.value.replace(/[^0-9]/g,'').slice(0,1);
+      if(cell.value && idx < ansCells.length - 1) ansCells[idx+1].focus();
+    });
+    cell.addEventListener('keydown', (e) => {
+      if(e.key === 'Backspace' && !cell.value && idx > 0) ansCells[idx-1].focus();
+    });
+  });
+}
+
+function normFinal(v){
+  return v.replace(/\s+/g,'').replace(/\./g,',').replace(/−/g,'-').replace(/^\+/,'').replace(/,0$/,'');
+}
+
+function attachControls(card){
+  const ansCells = Array.from(card.querySelectorAll('.ans-cell'));
+  const finalInput = card.querySelector('.final-input');
+  const correctTags = Array.from(card.querySelectorAll('.correct-tag'));
+  const feedback = card.querySelector('.task-feedback');
+  wireDigitNav(ansCells);
+  let scored = false;
+
+  card.querySelector('.btn-check').addEventListener('click', () => {
+    let allOk = true;
+    ansCells.forEach(cell => {
+      cell.classList.remove('correct','wrong');
+      if(cell.value.trim() === cell.dataset.correct){ cell.classList.add('correct'); }
+      else { cell.classList.add('wrong'); allOk = false; }
+    });
+    if(finalInput){
+      finalInput.classList.remove('correct','wrong');
+      if(normFinal(finalInput.value) === normFinal(finalInput.dataset.correct)){ finalInput.classList.add('correct'); }
+      else { finalInput.classList.add('wrong'); allOk = false; }
+    }
+    if(allOk){
+      feedback.textContent = 'Верно!';
+      feedback.className = 'task-feedback ok';
+      if(!scored){ scored = true; updateScore(1); }
+    } else {
+      feedback.textContent = 'Пока не совсем так, попробуй ещё.';
+      feedback.className = 'task-feedback bad';
+      if(scored){ scored = false; updateScore(-1); }
+    }
+  });
+
+  card.querySelector('.btn-reset').addEventListener('click', () => {
+    ansCells.forEach(c => { c.value=''; c.classList.remove('correct','wrong'); });
+    card.querySelectorAll('.carry-cell').forEach(c => c.value = '');
+    if(finalInput){ finalInput.value=''; finalInput.classList.remove('correct','wrong'); }
+    correctTags.forEach(t => { t.classList.remove('visible'); });
+    feedback.textContent = '';
+    if(scored){ scored = false; updateScore(-1); }
+  });
+
+  card.querySelector('.btn-show').addEventListener('click', () => {
+    correctTags.forEach(t => { t.classList.add('visible'); });
+  });
+}
+
+function correctTagSpan(value){
+  return `<span class="correct-tag" data-value="${value}">Верно: ${value}</span>`;
+}
+function finalRowHTML(correct, placeholder){
+  return `
+    <div class="final-row">
+      <label>Итоговый ответ (знак и запятая):</label>
+      <div class="final-line">
+        <input type="text" class="final-input" data-correct="${correct}" placeholder="${placeholder}">
+        ${correctTagSpan(correct)}
+      </div>
+    </div>`;
+}
+
+/* ================= СЛОЖЕНИЕ / ВЫЧИТАНИЕ ================= */
+function buildAddSubTask(container, id, task, opSymbol){
+  const carryHTML = Array.from({length: task.aDigits.length}).map(() => `<input type="text" maxlength="1" class="carry-cell">`).join('');
+  const stackHTML = `
+    <div class="digit-row carry-row">${carryHTML}</div>
+    <div class="digit-row">${digitCellsHTML(task.aDigits)}</div>
+    <div class="digit-row"><div class="op-sign">${opSymbol}</div>${digitCellsHTML(task.bDigits)}</div>
+    <div class="line-row"></div>
+    <div class="answer-line">${correctTagSpan(task.resultDigits)}<div class="digit-row">${ansCellsHTML(task.resultDigits)}</div></div>
+  `;
+  const card = document.createElement('div');
+  card.className = 'task-card';
+  card.innerHTML = `
+    <div class="task-label">Задание №${id}</div>
+    <div class="task-expr">${task.expr}</div>
+    <div class="stack">${stackHTML}</div>
+    ${finalRowHTML(task.finalAnswer, 'напр. -2,4')}
+    <div class="task-controls">
+      <button class="btn btn-check">Проверить</button>
+      <button class="btn btn-reset">Очистить</button>
+      <button class="btn btn-show">Показать ответ</button>
+    </div>
+    <div class="task-feedback"></div>
+  `;
+  container.appendChild(card);
+  attachControls(card);
+}
+
+/* ================= УМНОЖЕНИЕ ================= */
+function buildMulTask(container, id, task){
+  const a = task.a, b = task.b;
+  const aStr = String(a), bStr = String(b);
+  const product = a * b;
+  const prodStr = String(product);
+  const carryCount = aStr.length;
+
+  let bodyHTML = `
+    <div class="digit-row carry-row">
+      ${Array.from({length: carryCount}).map(() => `<input type="text" maxlength="1" class="carry-cell">`).join('')}
+    </div>
+    <div class="digit-row">${digitCellsHTML(aStr)}</div>
+    <div class="digit-row"><div class="op-sign">&times;</div>${digitCellsHTML(bStr)}</div>
+    <div class="line-row"></div>
+  `;
+
+  if(task.type === 'single'){
+    bodyHTML += `<div class="answer-line">${correctTagSpan(prodStr)}<div class="digit-row">${ansCellsHTML(prodStr)}</div></div>`;
+  } else {
+    const onesDigit = b % 10, tensDigit = Math.floor(b/10);
+    const p1Str = String(a*onesDigit), p2Str = String(a*tensDigit);
+    bodyHTML += `
+      <div class="answer-line">${correctTagSpan(p1Str)}<div class="digit-row">${ansCellsHTML(p1Str)}</div></div>
+      <div class="answer-line" style="padding-right:29px;">${correctTagSpan(p2Str)}<div class="digit-row">${ansCellsHTML(p2Str)}</div></div>
+      <div class="line-row" style="border-top:1px solid var(--accent);"></div>
+      <div class="answer-line">${correctTagSpan(prodStr)}<div class="digit-row">${ansCellsHTML(prodStr)}</div></div>
+    `;
+  }
+
+  const card = document.createElement('div');
+  card.className = 'task-card';
+  card.innerHTML = `
+    <div class="task-label">Задание №${id}</div>
+    <div class="task-expr">${task.expr}</div>
+    ${task.note ? `<div class="task-note">${task.note}</div>` : ''}
+    <div class="stack">${bodyHTML}</div>
+    ${finalRowHTML(task.finalAnswer, 'напр. -27')}
+    <div class="task-controls">
+      <button class="btn btn-check">Проверить</button>
+      <button class="btn btn-reset">Очистить</button>
+      <button class="btn btn-show">Показать ответ</button>
+    </div>
+    <div class="task-feedback"></div>
+  `;
+  container.appendChild(card);
+  attachControls(card);
+}
+
+/* ================= ДЕЛЕНИЕ ================= */
+function buildDivTask(container, id, task){
+  const dividendStr = String(task.dividend);
+  const divisorStr = String(task.divisor);
+  const quotStr = String(task.dividend / task.divisor);
+
+  const bodyHTML = `
+    <div class="div-line">
+      <div class="digit-row">${digitCellsHTML(dividendStr)}</div>
+      <div class="div-eq">:</div>
+      <div class="digit-row">${digitCellsHTML(divisorStr)}</div>
+      <div class="div-eq">=</div>
+      <div class="digit-row">${ansCellsHTML(quotStr)}</div>
+      ${correctTagSpan(quotStr)}
+    </div>
+  `;
+
+  const card = document.createElement('div');
+  card.className = 'task-card';
+  card.innerHTML = `
+    <div class="task-label">Задание №${id}</div>
+    <div class="task-expr">${task.expr}</div>
+    ${task.note ? `<div class="task-note">${task.note}</div>` : ''}
+    <div class="stack">${bodyHTML}</div>
+    ${finalRowHTML(task.finalAnswer, 'напр. -4,5')}
+    <div class="task-controls">
+      <button class="btn btn-check">Проверить</button>
+      <button class="btn btn-reset">Очистить</button>
+      <button class="btn btn-show">Показать ответ</button>
+    </div>
+    <div class="task-feedback"></div>
+  `;
+  container.appendChild(card);
+  attachControls(card);
+}
+
+/* ================= ДАННЫЕ ЗАДАНИЙ ================= */
+const addTasks = [
+  {expr:"−45,6 + (−23,8)",  aDigits:"456", bDigits:"238", resultDigits:"694",  finalAnswer:"-69,4"},
+  {expr:"−9,40 + (−0,86)",  aDigits:"940", bDigits:"086", resultDigits:"1026", finalAnswer:"-10,26"},
+  {expr:"128 + 76",         aDigits:"128", bDigits:"076", resultDigits:"204",  finalAnswer:"204"},
+  {expr:"−356 + (−489)",    aDigits:"356", bDigits:"489", resultDigits:"845",  finalAnswer:"-845"}
+];
+const subTasks = [
+  {expr:"−128 + 76",         aDigits:"128",  bDigits:"076",  resultDigits:"52",   finalAnswer:"-52"},
+  {expr:"34,05 + (−12,60)",  aDigits:"3405", bDigits:"1260", resultDigits:"2145", finalAnswer:"21,45"},
+  {expr:"−7,20 + 3,15",      aDigits:"720",  bDigits:"315",  resultDigits:"405",  finalAnswer:"-4,05"},
+  {expr:"84,3 − 29,6",       aDigits:"843",  bDigits:"296",  resultDigits:"547",  finalAnswer:"54,7"}
+];
+const mulTasks = [
+  {expr:"−34 × 6",       a:34, b:6,  type:'single', finalAnswer:"-204"},
+  {expr:"128 × (−7)",    a:128,b:7,  type:'single', finalAnswer:"-896"},
+  {expr:"−45 × (−23)",   a:45, b:23, type:'double', finalAnswer:"1035"},
+  {expr:"−4,5 × 6",      a:45, b:6,  type:'single', finalAnswer:"-27", note:"4,5 без запятой — это 45"}
+];
+const divTasks = [
+  {expr:"−204 : 6",       dividend:204, divisor:6,  finalAnswer:"-34"},
+  {expr:"−896 : (−7)",    dividend:896, divisor:7,  finalAnswer:"128"},
+  {expr:"1035 : (−45)",   dividend:1035,divisor:45, finalAnswer:"-23"},
+  {expr:"−27 : 6",        dividend:270, divisor:6,  finalAnswer:"-4,5", note:"27 → 27,0 (добавили 0), делим 270 на 6"}
+];
+
+addTasks.forEach((t,i) => buildAddSubTask(document.getElementById('grid-add'), i+1, t, '+'));
+subTasks.forEach((t,i) => buildAddSubTask(document.getElementById('grid-sub'), i+1, t, '−'));
+mulTasks.forEach((t,i) => buildMulTask(document.getElementById('grid-mul'), i+1, t));
+divTasks.forEach((t,i) => buildDivTask(document.getElementById('grid-div'), i+1, t));
+
+/* ================= СКАЧАТЬ ОТВЕТЫ (PDF) ================= */
+async function downloadWorksheet(){
+  const btn = document.querySelector('.download-row .btn-download');
+  const originalText = btn.textContent;
+  btn.textContent = 'Готовим...';
+  btn.disabled = true;
+  try {
+    const el = document.getElementById('capture-area');
+    const canvas = await html2canvas(el, {backgroundColor:'#efede9', scale:2});
+    const img = canvas.toDataURL('image/png');
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF('p','pt','a4');
+    const pageWidth = pdf.internal.pageSize.getWidth();
+    const pageHeight = pdf.internal.pageSize.getHeight();
+    const imgWidth = pageWidth - 60;
+    const imgHeight = (canvas.height / canvas.width) * imgWidth;
+    let heightLeft = imgHeight;
+    let position = 30;
+    pdf.addImage(img,'PNG',30,position,imgWidth,imgHeight);
+    heightLeft -= (pageHeight - 60);
+    while(heightLeft > 0){
+      position = heightLeft - imgHeight + 30;
+      pdf.addPage();
+      pdf.addImage(img,'PNG',30,position,imgWidth,imgHeight);
+      heightLeft -= (pageHeight - 60);
+    }
+    const nameEl = document.getElementById('studentName');
+    const namePart = nameEl.value.trim() ? '_' + nameEl.value.trim().replace(/\s+/g,'_') : '';
+    pdf.save(`otricatelnye_chisla_stolbik${namePart}.pdf`);
+  } finally {
+    btn.textContent = originalText;
+    btn.disabled = false;
+  }
+}
+</script>
+</body>
+</html>
