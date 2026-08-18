@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Goals for the Next Study Year — Meridian School</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,400&family=Outfit:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<script type="module" src="assets/js/auth-guard.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+  :root{
+    --cream:#efede9;
+    --white:#FFFFFF;
+    --heading:#452316;
+    --body:#452316;
+    --brown:#452316;
+    --tan:#cbbc9e;
+    --chip1:#a28e30;
+    --chip2:#d42d23;
+    --accent:#880500;
+    --maroon:#880500;
+    --red:#d42d23;
+    --card-bg:#fdfaf5;
+    --muted:#8a7658;
+  }
+  *{box-sizing:border-box;}
+  body{ margin:0; background:var(--cream); color:var(--brown); font-family:'Outfit',sans-serif; line-height:1.5; }
+  header{ border-bottom:2px solid var(--red); margin-bottom:24px; background:var(--cream); }
+  .header-inner{
+    max-width:900px; margin:0 auto; padding:18px 20px 14px;
+    display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:10px;
+  }
+  .logo-block{display:flex; flex-direction:column; gap:2px;}
+  .logo{ font-family:'Cormorant Garamond',serif; font-weight:600 !important; font-size:24px; color:var(--heading); letter-spacing:0.5px; }
+  .logo em{ font-style:italic !important; font-weight:400 !important; color:var(--accent) !important; }
+  .logo-sub{ font-family:'Outfit',sans-serif; font-size:12.5px; color:var(--brown); opacity:0.75; }
+  .back-link{ font-family:'Outfit',sans-serif; font-weight:300; font-size:13px; color:var(--accent); text-decoration:none; white-space:nowrap; margin-top:4px; }
+  .back-link:hover{ text-decoration:underline; }
+  .crumb-nav{ max-width:900px; margin:0 auto; padding:0 20px 16px; display:flex; gap:8px; flex-wrap:wrap; }
+  .crumb{ font-family:'Outfit',sans-serif; font-weight:500; font-size:11px; text-transform:uppercase; letter-spacing:1.5px; padding:7px 16px; border-radius:20px; color:var(--white); }
+  .crumb:nth-child(odd){ background:var(--chip1); }
+  .crumb:nth-child(even){ background:var(--chip2); }
+  .crumb.current{ outline:2px solid var(--brown); outline-offset:1px; color:var(--brown); background:var(--white) !important; border:1.5px solid var(--chip2); }
+
+  #captureArea{ max-width:900px; margin:0 auto; padding:0 20px 60px; background:var(--cream); }
+  h1{ font-family:'Cormorant Garamond',serif; font-weight:600; font-size:36px; margin:0 0 8px; color:var(--heading); }
+  h1 em{ font-style:italic; font-weight:400; color:var(--accent); }
+  .intro{ font-size:15px; margin-bottom:4px; }
+  .intro-ru{ font-size:13.5px; font-style:italic; color:var(--accent); margin-bottom:26px; border-left:3px solid var(--chip1); padding-left:10px; }
+
+  /* Vision board */
+  .vision-card{
+    background:var(--card-bg); border:1.5px solid var(--chip2); border-radius:4px;
+    padding:22px 24px; margin-bottom:24px;
+  }
+  .vision-card h2{ font-family:'Cormorant Garamond',serif; font-size:23px; font-weight:600; margin:0 0 4px; color:var(--accent); }
+  .vision-sub-en{ font-size:14px; margin-bottom:2px; }
+  .vision-sub-ru{ font-size:13px; font-style:italic; color:var(--accent); margin-bottom:14px; }
+
+  .dropzone{
+    border:2px dashed var(--chip1); border-radius:6px; background:var(--white);
+    min-height:260px; display:flex; align-items:center; justify-content:center;
+    text-align:center; cursor:pointer; position:relative; overflow:hidden;
+    transition:border-color 0.2s;
+  }
+  .dropzone:hover{ border-color:var(--chip2); }
+  .dropzone.has-image{ border-style:solid; padding:0; }
+  .dz-placeholder{ padding:30px 20px; color:var(--brown); opacity:0.7; }
+  .dz-placeholder .icon{ font-size:34px; display:block; margin-bottom:10px; }
+  .dz-placeholder .txt-en{ font-size:14px; font-weight:600; margin-bottom:4px; }
+  .dz-placeholder .txt-ru{ font-size:12.5px; font-style:italic; }
+  .dropzone img{ width:100%; max-height:420px; object-fit:contain; display:block; background:var(--white); }
+  #fileInput{ display:none; }
+
+  .dz-controls{ margin-top:10px; display:flex; gap:10px; align-items:center; }
+  .btn-replace{
+    font-family:'Outfit',sans-serif; font-weight:600; font-size:12.5px; letter-spacing:0.3px;
+    background:var(--white); color:var(--accent); border:1.5px solid var(--chip1);
+    padding:7px 14px; border-radius:20px; cursor:pointer;
+  }
+
+  /* Writing task */
+  .task-card{
+    background:var(--card-bg); border:1.5px solid var(--chip1); border-radius:4px;
+    padding:22px 24px; margin-bottom:22px;
+  }
+  .task-card h2{ font-family:'Cormorant Garamond',serif; font-size:23px; font-weight:600; margin:0 0 14px; color:var(--accent); }
+
+  .q-group{ margin-bottom:14px; }
+  .q-group .q-label{
+    font-family:'Outfit',sans-serif; font-size:12px; font-weight:700; letter-spacing:1.5px;
+    text-transform:uppercase; color:var(--chip2); margin-bottom:6px;
+  }
+  .q-group ul{ margin:0; padding-left:20px; }
+  .q-group li{ font-size:14.5px; margin-bottom:5px; }
+
+  .q-ru{
+    font-size:13px; font-style:italic; color:var(--accent); margin-top:14px;
+    border-left:3px solid var(--chip1); padding-left:10px; line-height:1.6;
+  }
+
+  textarea{
+    width:100%; min-height:260px; font-family:'Outfit',sans-serif; font-size:14.5px;
+    border:1.5px solid var(--chip2); border-radius:8px; padding:16px; resize:vertical;
+    margin-top:16px; color:var(--brown); background:var(--white);
+  }
+  textarea:focus{ outline:2px solid var(--accent); border-color:var(--accent); }
+  .word-count{ font-family:'JetBrains Mono',monospace; font-size:12.5px; color:var(--chip1); margin-top:8px; text-align:right; }
+
+  /* Signature — same pattern as the column-math worksheet */
+  .signature-block{
+    margin-top:44px; padding-top:22px; border-top:2px solid var(--red);
+    display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+  }
+  .signature-block label{ font-size:14px; font-weight:500; color:var(--accent); margin-right:10px; white-space:nowrap; }
+  .signature-block input{
+    font-family:'Outfit',sans-serif; font-size:15px; padding:8px 12px;
+    border:1.5px solid var(--tan); border-radius:8px; width:260px; color:var(--brown); background:var(--white);
+  }
+  .signature-block input:focus{ outline:2px solid var(--accent); border-color:var(--accent); }
+
+  .btn-row{ display:flex; justify-content:center; margin-top:30px; }
+  .btn{
+    font-family:'Outfit',sans-serif; font-weight:600; font-size:13px; letter-spacing:0.5px;
+    padding:10px 24px; border-radius:20px; border:1.5px solid var(--accent);
+    background:var(--accent); color:#fff; cursor:pointer;
+  }
+
+  @media print{
+    .back-link, #fileInput, .dz-controls, .btn-row{ display:none; }
+    body{ color:#000; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="logo-block">
+      <div class="logo">MERIDIAN <em>SCHOOL</em></div>
+      <div class="logo-sub">Онлайн уроки от Фии</div>
+    </div>
+    <a href="index.html" class="back-link">← Вернуться в меню</a>
+  </div>
+  <div class="crumb-nav">
+    <span class="crumb">ENGLISH</span>
+    <span class="crumb">FUTURE SIMPLE</span>
+    <span class="crumb current">MY GOALS</span>
+  </div>
+</header>
+
+<div id="captureArea">
+  <h1>My Goals for the Next <em>Study Year</em></h1>
+  <div class="intro">Think about your dreams and goals for the next study year. Use <strong>will / won't</strong> to describe them — this is your personal vision board!</div>
+  <div class="intro-ru">Перевод: Подумай о своих мечтах и целях на следующий учебный год. Используй <strong>will / won't</strong>, чтобы их описать — это твоя личная доска визуализации!</div>
+
+  <div class="vision-card">
+    <h2>🖼️ Vision Board</h2>
+    <div class="vision-sub-en">Attach one image that represents your goals or dreams for the year.</div>
+    <div class="vision-sub-ru">Перевод: Прикрепи одну картинку, которая отражает твои цели или мечты на этот год.</div>
+
+    <div class="dropzone" id="dropzone" onclick="document.getElementById('fileInput').click()">
+      <div class="dz-placeholder" id="dzPlaceholder">
+        <span class="icon">🖼️</span>
+        <div class="txt-en">Click to upload an image</div>
+        <div class="txt-ru">Нажми, чтобы загрузить картинку</div>
+      </div>
+      <img id="previewImg" style="display:none;">
+    </div>
+    <input type="file" id="fileInput" accept="image/*">
+    <div class="dz-controls" id="dzControls" style="display:none;">
+      <button type="button" class="btn-replace" onclick="event.stopPropagation(); document.getElementById('fileInput').click()">🔄 Заменить картинку</button>
+    </div>
+  </div>
+
+  <div class="task-card">
+    <h2>✍️ Write About Your Goals</h2>
+
+    <div class="q-group">
+      <div class="q-label">Study</div>
+      <ul>
+        <li>What subjects do you want to improve this year?</li>
+        <li>Will you change the way you study for tests?</li>
+      </ul>
+    </div>
+
+    <div class="q-group">
+      <div class="q-label">Habits</div>
+      <ul>
+        <li>Are there any habits you would like to build or stop this year?</li>
+        <li>Will you start doing something new every day?</li>
+      </ul>
+    </div>
+
+    <div class="q-group">
+      <div class="q-label">Sport</div>
+      <ul>
+        <li>Will you try a new sport or keep doing the one you already do?</li>
+        <li>How often will you exercise?</li>
+      </ul>
+    </div>
+
+    <div class="q-group">
+      <div class="q-label">Hobbies</div>
+      <ul>
+        <li>Are there any new hobbies you would like to try?</li>
+        <li>Will you spend more time on art, music or something creative?</li>
+      </ul>
+    </div>
+
+    <textarea id="writingArea" placeholder="Next year I will..."></textarea>
+    <div class="word-count"><span id="wordCount">0</span> words</div>
+  </div>
+
+  <div class="signature-block">
+    <label for="studentName">Name and Surname / Имя и Фамилия:</label>
+    <input type="text" id="studentName" placeholder="_____________">
+  </div>
+</div>
+
+<div class="btn-row">
+  <button class="btn" onclick="downloadPDF()">Download worksheet</button>
+</div>
+
+<script>
+const fileInput = document.getElementById('fileInput');
+const dropzone = document.getElementById('dropzone');
+const previewImg = document.getElementById('previewImg');
+const dzPlaceholder = document.getElementById('dzPlaceholder');
+const dzControls = document.getElementById('dzControls');
+
+fileInput.addEventListener('change', function(e){
+  const file = e.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = function(evt){
+    previewImg.src = evt.target.result;
+    previewImg.style.display = 'block';
+    dzPlaceholder.style.display = 'none';
+    dropzone.classList.add('has-image');
+    dzControls.style.display = 'flex';
+  };
+  reader.readAsDataURL(file);
+});
+
+const writingArea = document.getElementById('writingArea');
+const wordCount = document.getElementById('wordCount');
+writingArea.addEventListener('input', () => {
+  const words = writingArea.value.trim().split(/\s+/).filter(Boolean);
+  wordCount.textContent = writingArea.value.trim() ? words.length : 0;
+});
+
+async function downloadPDF(){
+  const btn = document.querySelector('.btn-row .btn');
+  const originalText = btn.textContent;
+  btn.textContent = 'Preparing...';
+  btn.disabled = true;
+
+  const el = document.getElementById('captureArea');
+  let restoreTextarea = null;
+  const toHide = el.querySelectorAll('#fileInput, .dz-controls');
+  toHide.forEach(node => node.dataset.prevDisplay = node.style.display);
+  toHide.forEach(node => node.style.display = 'none');
+
+  try {
+    // html2canvas does not reliably render live textarea text — swap it
+    // for a plain div showing the typed text before capturing.
+    const ta = document.getElementById('writingArea');
+    const div = document.createElement('div');
+    div.textContent = ta.value || '(nothing written yet)';
+    const cs = window.getComputedStyle(ta);
+    div.style.cssText = cs.cssText;
+    div.style.whiteSpace = 'pre-wrap';
+    div.style.minHeight = cs.height;
+    ta.style.display = 'none';
+    ta.after(div);
+    restoreTextarea = () => { div.remove(); ta.style.display = ''; };
+
+    const canvas = await html2canvas(el, {backgroundColor:'#efede9', scale:2});
+    const img = canvas.toDataURL('image/png');
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF('p','pt','a4');
+    const pageWidth = pdf.internal.pageSize.getWidth();
+    const pageHeight = pdf.internal.pageSize.getHeight();
+    const imgWidth = pageWidth - 60;
+    const imgHeight = (canvas.height / canvas.width) * imgWidth;
+    let heightLeft = imgHeight;
+    let position = 30;
+    pdf.addImage(img,'PNG',30,position,imgWidth,imgHeight);
+    heightLeft -= (pageHeight - 60);
+    while(heightLeft > 0){
+      position = heightLeft - imgHeight + 30;
+      pdf.addPage();
+      pdf.addImage(img,'PNG',30,position,imgWidth,imgHeight);
+      heightLeft -= (pageHeight - 60);
+    }
+    const nameEl = document.getElementById('studentName');
+    const namePart = nameEl.value.trim() ? '_' + nameEl.value.trim().replace(/\s+/g,'_') : '';
+    pdf.save(`my_goals${namePart}.pdf`);
+  } finally {
+    if(restoreTextarea) restoreTextarea();
+    toHide.forEach(node => node.style.display = node.dataset.prevDisplay || '');
+    btn.textContent = originalText;
+    btn.disabled = false;
+  }
+}
+</script>
+
+</body>
+</html>
