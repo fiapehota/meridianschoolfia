@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Darbības ar kvadrātsaknēm — Uzdevumi | MERIDIAN SCHOOL</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300;1,600&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#efede9;
+    --paper:#fffaf3;
+    --heading:#452316;
+    --body:#452316;
+    --tan:#cbbc9e;
+    --olive:#a28e30;
+    --maroon:#880500;
+    --red:#d42d23;
+    --ok:#3f7d42;
+    --bad:#d42d23;
+    --serif:'Cormorant Garamond', serif;
+    --sans:'Outfit', sans-serif;
+    --mono:'JetBrains Mono', monospace;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--cream);color:var(--body);font-family:var(--sans);line-height:1.6;}
+  h1,h2,h3{font-family:var(--serif);color:var(--heading);}
+  .mono{font-family:var(--mono);}
+
+  header{border-bottom:2px solid var(--red);}
+  .header-inner{max-width:900px;margin:0 auto;padding:24px 20px 16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
+  .logo-link{text-decoration:none;}
+  .logo{font-family:var(--serif);font-weight:600;font-size:42px;letter-spacing:-1px;color:var(--heading);line-height:1;}
+  .logo em{font-style:italic;font-weight:300;color:var(--maroon);}
+  .back-link{font-family:var(--sans);font-size:0.8rem;font-weight:600;letter-spacing:0.3px;color:var(--olive);text-decoration:none;}
+  .back-link:hover{color:var(--maroon);}
+  .site-nav{max-width:900px;margin:0 auto;padding:0 20px 18px;display:flex;gap:10px;flex-wrap:wrap;}
+  .nav-chip{display:inline-block;border-radius:20px;padding:9px 18px;text-transform:uppercase;letter-spacing:1.5px;font-family:var(--sans);font-weight:500;font-size:0.7rem;text-decoration:none;border:none;cursor:default;color:#fff;background:var(--tan);}
+  .nav-chip:nth-child(2){background:var(--olive);}
+  .nav-chip:nth-child(3){background:var(--maroon);}
+  .nav-chip.active{outline:2px solid var(--heading);outline-offset:1px;}
+
+  .page{max-width:900px;margin:0 auto;padding:36px 20px 100px;}
+  h1{font-size:2.6rem;margin:0 0 6px;font-weight:600;line-height:1.1;}
+  h1 em{font-style:italic;font-weight:300;color:var(--maroon);}
+  .subtitle{color:var(--olive);font-family:var(--serif);font-style:italic;font-weight:300;font-size:1.05rem;margin:0 0 26px;}
+
+  .score-badge{position:sticky;top:12px;z-index:50;display:inline-flex;align-items:center;gap:8px;background:var(--maroon);color:#fff;padding:10px 20px;border-radius:30px;font-family:var(--sans);font-weight:600;font-size:0.85rem;box-shadow:0 6px 18px rgba(136,5,0,0.25);margin-bottom:10px;float:right;}
+  .score-badge .num{font-family:var(--mono);font-size:1rem;}
+  .clearfix::after{content:"";display:table;clear:both;}
+
+  .card{background:var(--paper);border-radius:14px;padding:26px 28px;margin-bottom:28px;border:1px solid rgba(69,35,22,0.1);}
+  .card h2{font-size:1.55rem;margin-top:0;margin-bottom:6px;display:flex;align-items:center;gap:12px;}
+  .card h2 .num{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:50%;background:var(--maroon);color:#fff;font-size:0.9rem;font-family:var(--sans);font-weight:700;flex-shrink:0;}
+  .section-desc{font-family:var(--serif);font-style:italic;font-size:0.98rem;color:var(--olive);margin:0 0 18px;font-weight:400;}
+
+  .btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px;}
+  .btn{border:none;border-radius:20px;padding:9px 20px;font-family:var(--sans);font-weight:600;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.5px;cursor:pointer;transition:opacity .15s;color:#fff;}
+  .btn:hover{opacity:0.85;}
+  .btn-check{background:var(--maroon);}
+  .btn-reset{background:var(--tan);color:var(--heading);}
+  .btn-show{background:var(--red);}
+
+  .question{background:#fff;border-radius:10px;padding:16px 18px;margin-bottom:14px;border:1px solid rgba(69,35,22,0.12);transition:border-color .15s, background .15s;}
+  .question.is-correct{border-color:var(--ok);background:rgba(63,125,66,0.06);}
+  .question.is-incorrect{border-color:var(--bad);background:rgba(212,45,35,0.06);}
+  .q-text{font-size:14.5px;margin-bottom:10px;color:var(--body);}
+  .q-text b{color:var(--maroon);}
+  .q-input-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:4px;}
+  .q-input-row label{font-family:var(--mono);font-size:14px;color:var(--heading);}
+  .ans-input{font-family:var(--mono);font-size:15px;border:1.5px solid var(--tan);border-radius:6px;padding:6px 10px;width:70px;background:#fff;color:var(--heading);text-align:center;}
+  .ans-input:focus{outline:none;border-color:var(--maroon);}
+  .feedback{font-size:13px;font-weight:600;margin-left:2px;font-family:var(--sans);}
+  .feedback.correct{color:var(--ok);}
+  .feedback.incorrect{color:var(--bad);}
+  .reveal{display:none;margin-top:8px;font-size:13.5px;background:rgba(136,5,0,0.07);border-radius:6px;padding:8px 12px;color:var(--body);}
+  .reveal b{color:var(--maroon);font-family:var(--mono);}
+  .reveal.show{display:block;}
+
+  .choice-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:6px;}
+  .choice-btn{border:1.5px solid var(--maroon);background:#fff;color:var(--maroon);border-radius:20px;padding:6px 16px;font-family:var(--sans);font-size:13px;font-weight:600;cursor:pointer;}
+  .choice-btn.selected{background:var(--maroon);color:#fff;}
+
+  .challenge-tag{display:inline-block;background:var(--red);color:#fff;padding:3px 10px;border-radius:6px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;font-family:var(--sans);}
+  .form-hint{font-size:12.5px;color:var(--olive);font-weight:500;margin-bottom:4px;}
+
+  .cta-back{text-align:center;margin-top:34px;}
+  .cta-back a{color:var(--olive);font-weight:600;text-decoration:none;font-size:14px;font-family:var(--sans);}
+  .cta-back a:hover{color:var(--maroon);text-decoration:underline;}
+
+  #download-card .name-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
+  #download-card .name-input{font-family:var(--sans);font-size:14px;border:1.5px solid var(--tan);border-radius:6px;padding:9px 14px;width:230px;max-width:100%;background:#fff;color:var(--heading);}
+  #download-card .name-input:focus{outline:none;border-color:var(--maroon);}
+  .btn-download{background:var(--maroon);}
+  #pdf-status{font-size:12.5px;color:var(--olive);margin:10px 0 0;min-height:16px;}
+  #studentNamePrint{display:none;text-align:center;font-family:var(--serif);font-style:italic;font-weight:600;font-size:1.15rem;color:var(--heading);margin:0 0 26px;padding-bottom:14px;border-bottom:1px solid var(--tan);}
+
+  .pdf-hide{display:none !important;}
+  body.pdf-export .ans-input{border:none;border-bottom:1.5px solid var(--heading);border-radius:0;background:transparent;}
+
+  @media (max-width:600px){
+    .logo{font-size:32px;}
+    .page{padding:26px 16px 80px;}
+    h1{font-size:1.9rem;}
+    .score-badge{float:none;display:inline-flex;margin:0 0 18px;}
+  }
+
+  @media print{
+    .btn-row, .feedback, .reveal, .score-badge, .site-nav, .back-link{display:none !important;}
+    .question{border:1px solid #ccc;background:#fff;}
+    .ans-input{border:none;border-bottom:1.5px solid var(--heading);border-radius:0;}
+    .cta-back{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a class="logo-link" href="index.html"><div class="logo">MERIDIAN <em>SCHOOL</em></div></a>
+    <a class="back-link" href="index.html">← Uz sākumu</a>
+  </div>
+  <div class="site-nav">
+    <span class="nav-chip">MATEMĀTIKA</span>
+    <span class="nav-chip">KVADRĀTSAKNES</span>
+    <span class="nav-chip active">UZDEVUMI</span>
+  </div>
+</header>
+
+<div class="page">
+  <div class="clearfix">
+    <div class="score-badge">Rezultāts: <span class="num"><span id="score-current">0</span> / <span id="score-total">0</span></span></div>
+  </div>
+
+  <h1>Darbības ar <em>kvadrātsaknēm</em> — uzdevumi</h1>
+  <p class="subtitle">Vienkāršošana, reizināšana, dalīšana, saskaitīšana un atņemšana — no vienkārša līdz sarežģītam</p>
+  <p id="studentNamePrint"></p>
+
+  <!-- SECTION A -->
+  <div class="card" id="sec-a">
+    <h2><span class="num">A</span>Vienkāršo sakni</h2>
+    <p class="section-desc">Izteic sakni vienkāršotā veidā a√b (iznes lielāko pilno kvadrātu). Piemērs: √50 = 5√2 — ieraksti koeficientu 5 un zem saknes 2.</p>
+    <div class="btn-row">
+      <button class="btn btn-check" data-action="check" data-target="sec-a">Pārbaudīt</button>
+      <button class="btn btn-reset" data-action="reset" data-target="sec-a">Notīrīt</button>
+      <button class="btn btn-show" data-action="show" data-target="sec-a">Rādīt atbildes</button>
+    </div>
+
+    <div class="question" id="qA1"><div class="q-text">1) √8</div><div class="q-input-row"><input class="ans-input" data-answer="2" data-tol="0.05"><label>√</label><input class="ans-input" data-answer="2" data-tol="0.05"><span class="feedback"></span></div><div class="reveal">Pareizā atbilde: <b>2√2</b></div></div>
+    <div class="question" id="qA2"><div class="q-text">2) √12</div><div class="q-input-row"><input class="ans-input" data-answer="2" data-tol="0.05"><label>√</label><input class="ans-input" data-answer="3" data-tol="0.05"><span class="feedback"></span></div><div class="reveal">Pareizā atbilde: <b>2√3</b></div></div>
+    <div class="question" id="qA3"><div class="q-text">3) √18</div><div class="q-input-row"><input class="ans-input" data-answer="3" data-tol="0.05"><label>√</label><input class="ans-input" data-answer="2" data-tol="0.05"><span class="feedback"></span></div><div class="reveal">Pareizā atbilde: <b>3√2</b></div></div>
+    <div class="question" id="qA4"><div class="q-text">4) √20</div><div class="q-input-row"><input class="ans-input" data-answer="2" data-tol="0.05"><label>√</label><input class="ans-input" data-answer="5" data-tol="0.05"><span class="feedback"></span></div><div class="reveal">Pareizā atbilde: <b>2√5</b></div></div>
+    <div class="question" id="qA5"><div class="q-text">5) √27</div><div class="q-input-row"><input class="ans-input" data-answer="3" data-tol="0.05"><label>√</label><input class="ans-input" data-answer="3" data-tol="0.05"><span class="feedback"></span></div><div class="reveal">Pareizā atbilde: <b>3√3</b></div></div>
+    <div class="question" id="qA6"><div class="q-text">6) √32</div><div class="q-input-row"><input class="ans-input" data-answer="4" data-tol="0.05"><label>√</label><input class="ans-input" data-answer="2" data-tol="0.05"><span class="feedback"></span></div><div class="reveal">Pareizā atbilde: <b>4√2</b></div></div>
+    <div class="question" id="qA7"><div class="q-text">7) √45</div><div class="q-input-row"><input class="ans-input" data-answer="3" data-tol="0.05"><label>√</label><input class="ans-input" data-answer="5" data-tol="0.05"><span class="feedback"></span></div><div class="reveal">Pareizā atbilde: <b>3√5</b></div></div>
+    <div class="question" id="qA8"><div class="q-text">8) √50</div><div class="q-input-row"><input class="ans-input" data-answer="5" data-tol="0.05"><label>√</label><input class="ans-input" data-answer="2" data-tol="0.05"><span class="feedback"></span></div><div class="reveal">Pareizā atbilde: <b>5√2</b></div></div>
+    <div class="question" id="qA9"><div class="q-text">9) √72 <span class="mono" style="font-size:12px;color:var(--olive)">(neaizmirsti vienkāršot līdz galam!)</span></div><div class="q-input-row"><input class="ans-input" data-answer="6" data-tol="0.05"><label>√</label><input class="ans-input" data-answer="2" data-tol="0.05"><span class="feedback"></span></div><div class="reveal">Pareizā atbilde: <b>6√2</b></div></div>
+    <div class="question" id="qA10"><div class="q-text">10) √200</div><div class="q-input-row"><input class="ans-input" data-answer="10" data-tol="0.05"><label>√</label><input class="ans-input" data-answer="2" data-tol="0.05"><span class="feedback"></span></div><div class="reveal">Pareizā atbilde: <b>10√2</b></div></div>
+  </div>
+
+  <!-- SECTION B -->
+  <div class="card" id="sec-b">
+    <h2><span class="num">B</span>Reizināšana</h2>
+    <p class="section-desc">Reizini un vienkāršo rezultātu. Visās atbildēs rezultāts ir vesels skaitlis.</p>
+    <div class="btn-row">
+      <button class="btn btn-check" data-action="check" data-target="sec-b">Pārbaudīt</button>
+      <button class="btn btn-reset" data-action="reset" data-target="sec-b">Notīrīt</button>
+      <button class="btn btn-show" data-action="show" data-target="sec-b">Rādīt atbildes</button>
+    </div>
+
+    <div class="question" id="qB1"><div class="q-text">1) √2 · √8</div><div class="q-input-row"><input class="ans-input" data-answer="4" data-tol="0.05"><span class="feedback"></span></div><div class="reveal">Pareizā atbilde: <b>4</b> (√16)</div></div>
+    <div class="question" id="qB2"><div class="q-text">2) √5 · √45</div><div class="q-input-row"><input class="ans-input" data-answer="15" data-tol="0.05"><span class="feedback"></span></div><div class="reveal">Pareizā atbilde: <b>15</b> (√225)</div></div>
+    <div class="question" id="qB3"><div class="q-text">3) √5 · √20</div><div class="q-input-row"><input class="ans-input" data-answer="10" data-tol="0.05"><span class="feedback"></span></div><div class="reveal">Pareizā atbilde: <b>10</b> (√100)</div></div>
+    <div class="question" id="qB4"><div class="q-text">4) √6 · √6</div><div class="q-input-row"><input class="ans-input" data-answer="6" data-tol="0.05"><span class="feedback"></span></div><div class="reveal">Pareizā atbilde: <b>6</b> — (√a)² = a</div></div>
+    <div class="question" id="qB5"><div class="q-text">5) √3 · √27</div><div class="q-input-row"><input class="ans-input" data-answer="9" data-tol="0.05"><span class="feedback"></span></div><div class="reveal">Pareizā atbilde: <b>9</b> (√81)</div></div>
+    <div class="question" id="qB6"><div class="q-text">6) 4√3 · √3</div><div class="q-input-row"><input class="ans-input" data-answer="12" data-tol="0.05"><span class="feedback"></span></div><div class="reveal">Pareizā atbilde: <b>12</b> — 4·(√3·√3) = 4·3</div></div>
+    <div class="question" id="qB7"><div class="q-text">7) 2√3 · 4√12</div><div class="q-input-row"><input class="ans-input" data-answer="48" data-tol="0.05"><span class="feedback"></span></div><div class="reveal">Pareizā atbilde: <b>48</b> — 8√36 = 8·6</div></div>
+    <div class="question" id="qB8"><div class="q-text">8) 3√5 · 2√5</div><div class="q-input-row"><input class="ans-input" data-answer="30" data-tol="0.05"><span class="feedback"></span></div><div class="reveal">Pareizā atbilde: <b>30</b> — 6·(√5·√5) = 6·5</div></div>
+  </div>
+
+  <!-- SECTION C -->
+  <div class="card" id="sec-c">
+    <h2><span class="num">C</span>Dalīšana</h2>
+    <p class="section-desc">Izpildi dalīšanu, vienkāršojot zem saknes esošo daļu.</p>
+    <div class="btn-row">
+      <button class="btn btn-check" data-action="check" data-target="sec-c">Pārbaudīt</button>
+      <button class="btn btn-reset" data-action="reset" data-target="sec-c">Notīrīt</button>
+      <button class="btn btn-show" data-action="show" data-target="sec-c">Rādīt atbildes</button>
+    </div>
+
+    <div class="question" id="qC1"><div class="q-text">1) √18 / √2</div><div class="q-input-row"><input class="ans-input" data-answer="3" data-tol="0.05"><span class="feedback"></span></div><div class="reveal">Pareizā atbilde: <b>3</b> (√9)</div></div>
+    <div class="question" id="qC2"><div class="q-text">2) √72 / √2</div><div class="q-input-row"><input class="ans-input" data-answer="6" data-tol="0.05"><span class="feedback"></span></div><div class="reveal">Pareizā atbilde: <b>6</b> (√36)</div></div>
+    <div class="question" id="qC3"><div class="q-text">3) √48 / √3</div><div class="q-input-row"><input class="ans-input" data-answer="4" data-tol="0.05"><span class="feedback"></span></div><div class="reveal">Pareizā atbilde: <b>4</b> (√16)</div></div>
+    <div class="question" id="qC4"><div class="q-text">4) 6√50 / 2√2</div><div class="q-input-row"><input class="ans-input" data-answer="15" data-tol="0.05"><span class="feedback"></span></div><div class="reveal">Pareizā atbilde: <b>15</b> — 3√25 = 3·5</div></div>
+    <div class="question" id="qC5"><div class="q-text">5) 10√27 / 5√3</div><div class="q-input-row"><input class="ans-input" data-answer="6" data-tol="0.05"><span class="feedback"></span></div><div class="reveal">Pareizā atbilde: <b>6</b> — 2√9 = 2·3</div></div>
+    <div class="question" id="qC6"><div class="q-text">6) <b>Padomā:</b> 1/√2 — racionalizē saucēju un aprēķini decimāldaļā (noapaļo līdz simtdaļām)</div><div class="q-input-row"><input class="ans-input" data-answer="0.71" data-tol="0.02"><span class="feedback"></span></div><div class="reveal">Pareizā atbilde: <b>≈ 0,71</b> — 1/√2 = √2/2</div></div>
+  </div>
+
+  <!-- SECTION D -->
+  <div class="card" id="sec-d">
+    <h2><span class="num">D</span>Saskaitīšana un atņemšana</h2>
+    <p class="section-desc">Ja jautājumā ir divi lodziņi — ieraksti rezultātu a√b formā. Ja jautājums ir izvēles formā — nosaki, vai saknes vispār var apvienot vienā terminā.</p>
+    <div class="btn-row">
+      <button class="btn btn-check" data-action="check" data-target="sec-d">Pārbaudīt</button>
+      <button class="btn btn-reset" data-action="reset" data-target="sec-d">Notīrīt</button>
+      <button class="btn btn-show" data-action="show" data-target="sec-d">Rādīt atbildes</button>
+    </div>
+
+    <div class="question" id="qD1"><div class="q-text">1) 3√2 + 5√2</div><div class="q-input-row"><input class="ans-input" data-answer="8" data-tol="0.05"><label>√</label><input class="ans-input" data-answer="2" data-tol="0.05"><span class="feedback"></span></div><div class="reveal">Pareizā atbilde: <b>8√2</b></div></div>
+
+    <div class="question" id="qD2"><div class="q-text">2) 7√3 − 2√3</div><div class="q-input-row"><input class="ans-input" data-answer="5" data-tol="0.05"><label>√</label><input class="ans-input" data-answer="3" data-tol="0.05"><span class="feedback"></span></div><div class="reveal">Pareizā atbilde: <b>5√3</b></div></div>
+
+    <div class="question" id="qD3"><div class="q-text">3) 4√5 + √5</div><div class="q-input-row"><input class="ans-input" data-answer="5" data-tol="0.05"><label>√</label><input class="ans-input" data-answer="5" data-tol="0.05"><span class="feedback"></span></div><div class="reveal">Pareizā atbilde: <b>5√5</b></div></div>
+
+    <div class="question" id="qD4"><div class="q-text">4) <b>Padomā:</b> √8 + √2 <span class="mono" style="font-size:12px;color:var(--olive)">(vispirms vienkāršo √8!)</span></div><div class="q-input-row"><input class="ans-input" data-answer="3" data-tol="0.05"><label>√</label><input class="ans-input" data-answer="2" data-tol="0.05"><span class="feedback"></span></div><div class="reveal">Pareizā atbilde: <b>3√2</b> — √8=2√2, tad 2√2+√2</div></div>
+
+    <div class="question" id="qD5"><div class="q-text">5) <b>Padomā:</b> √12 + √27</div><div class="q-input-row"><input class="ans-input" data-answer="5" data-tol="0.05"><label>√</label><input class="ans-input" data-answer="3" data-tol="0.05"><span class="feedback"></span></div><div class="reveal">Pareizā atbilde: <b>5√3</b> — √12=2√3, √27=3√3</div></div>
+
+    <div class="question choice-q" id="qD6" data-answer="ne"><div class="q-text">6) 5√3 un 2√7 — vai šīs saknes var apvienot vienā terminā?</div><div class="choice-row"><button class="choice-btn" data-val="ja">Jā</button><button class="choice-btn" data-val="ne">Nē</button></div><span class="feedback"></span><div class="reveal">Pareizā atbilde: <b>Nē</b> — zem saknēm ir dažādi skaitļi (3 un 7)</div></div>
+
+    <div class="question" id="qD7"><div class="q-text">7) <b>Padomā:</b> √20 + √45</div><div class="q-input-row"><input class="ans-input" data-answer="5" data-tol="0.05"><label>√</label><input class="ans-input" data-answer="5" data-tol="0.05"><span class="feedback"></span></div><div class="reveal">Pareizā atbilde: <b>5√5</b> — √20=2√5, √45=3√5</div></div>
+
+    <div class="question" id="qD8"><div class="q-text">8) 8√6 − 3√6 + 2√6</div><div class="q-input-row"><input class="ans-input" data-answer="7" data-tol="0.05"><label>√</label><input class="ans-input" data-answer="6" data-tol="0.05"><span class="feedback"></span></div><div class="reveal">Pareizā atbilde: <b>7√6</b></div></div>
+
+    <div class="question choice-q" id="qD9" data-answer="ja"><div class="q-text">9) √18 un √32 — vai pēc vienkāršošanas šīs saknes var apvienot vienā terminā?</div><div class="choice-row"><button class="choice-btn" data-val="ja">Jā</button><button class="choice-btn" data-val="ne">Nē</button></div><span class="feedback"></span><div class="reveal">Pareizā atbilde: <b>Jā</b> — √18=3√2 un √32=4√2, abām zem saknes ir 2</div></div>
+
+    <div class="question" id="qD10"><span class="challenge-tag">★ Izaicinājums</span><div class="q-text">10) 2√50 − 3√8 <span class="mono" style="font-size:12px;color:var(--olive)">(vienkāršo abas saknes vispirms)</span></div><div class="q-input-row"><input class="ans-input" data-answer="4" data-tol="0.05"><label>√</label><input class="ans-input" data-answer="2" data-tol="0.05"><span class="feedback"></span></div><div class="reveal">Pareizā atbilde: <b>4√2</b> — 2√50=10√2, 3√8=6√2, 10√2−6√2</div></div>
+  </div>
+
+  <!-- SECTION E -->
+  <div class="card" id="sec-e">
+    <h2><span class="num">E</span>Izaicinājums stiprajiem</h2>
+    <p class="section-desc">Kāpināšana un vairāku darbību apvienojumi.</p>
+    <div class="btn-row">
+      <button class="btn btn-check" data-action="check" data-target="sec-e">Pārbaudīt</button>
+      <button class="btn btn-reset" data-action="reset" data-target="sec-e">Notīrīt</button>
+      <button class="btn btn-show" data-action="show" data-target="sec-e">Rādīt atbildes</button>
+    </div>
+
+    <div class="question" id="qE1"><div class="q-text">1) (√7)²</div><div class="q-input-row"><input class="ans-input" data-answer="7" data-tol="0.05"><span class="feedback"></span></div><div class="reveal">Pareizā atbilde: <b>7</b></div></div>
+
+    <div class="question" id="qE2"><div class="q-text">2) (3√2)²</div><div class="q-input-row"><input class="ans-input" data-answer="18" data-tol="0.05"><span class="feedback"></span></div><div class="reveal">Pareizā atbilde: <b>18</b> — 3² · 2 = 9 · 2</div></div>
+
+    <div class="question" id="qE3"><div class="q-text">3) √8 · √8</div><div class="q-input-row"><input class="ans-input" data-answer="8" data-tol="0.05"><span class="feedback"></span></div><div class="reveal">Pareizā atbilde: <b>8</b></div></div>
+
+    <div class="question" id="qE4"><span class="challenge-tag">★</span><div class="q-text">4) √45 + √20 − √5</div><div class="q-input-row"><input class="ans-input" data-answer="4" data-tol="0.05"><label>√</label><input class="ans-input" data-answer="5" data-tol="0.05"><span class="feedback"></span></div><div class="reveal">Pareizā atbilde: <b>4√5</b> — 3√5+2√5−√5</div></div>
+
+    <div class="question" id="qE5"><span class="challenge-tag">★</span><div class="q-text">5) √50 − √8 + √32</div><div class="q-input-row"><input class="ans-input" data-answer="7" data-tol="0.05"><label>√</label><input class="ans-input" data-answer="2" data-tol="0.05"><span class="feedback"></span></div><div class="reveal">Pareizā atbilde: <b>7√2</b> — 5√2−2√2+4√2</div></div>
+  </div>
+
+  <div class="card" id="download-card">
+    <h2 style="font-size:1.4rem;margin-top:0;margin-bottom:6px;">Lejupielādēt darba lapu</h2>
+    <p class="section-desc">Ieraksti savu vārdu, uzvārdu un lejupielādē aizpildīto darba lapu kā PDF.</p>
+    <div class="name-row">
+      <input type="text" id="studentNameInput" class="name-input" placeholder="Vārds, uzvārds">
+      <button class="btn btn-download" id="downloadPdfBtn">⬇ Lejupielādēt PDF</button>
+    </div>
+    <p id="pdf-status"></p>
+  </div>
+
+  <div class="cta-back"><a href="sakni-teorija.html">← Atpakaļ pie teorijas</a></div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+(function(){
+  var correctSet = new Set();
+  var allQuestions = Array.prototype.slice.call(document.querySelectorAll('.question'));
+  document.getElementById('score-total').textContent = allQuestions.length;
+
+  function updateScore(){ document.getElementById('score-current').textContent = correctSet.size; }
+
+  function normalizeNumber(str){
+    if(str === undefined || str === null) return NaN;
+    str = str.trim().replace(',', '.').replace(/\s+/g,'');
+    if(str === '') return NaN;
+    return parseFloat(str);
+  }
+
+  function checkNumericInput(input){
+    var val = normalizeNumber(input.value);
+    if(isNaN(val)) return null;
+    var acceptedRaw = input.getAttribute('data-answer');
+    var tol = parseFloat(input.getAttribute('data-tol') || '0.05');
+    var accepted = acceptedRaw.split('|').map(function(s){ return parseFloat(s.replace(',', '.')); });
+    return accepted.some(function(a){ return Math.abs(val - a) <= tol; });
+  }
+
+  function setFeedback(fbEl, correct){
+    if(!fbEl) return;
+    if(correct){ fbEl.textContent = '✓ Pareizi!'; fbEl.className = 'feedback correct'; }
+    else { fbEl.textContent = '✗ Mēģini vēlreiz'; fbEl.className = 'feedback incorrect'; }
+  }
+
+  function checkQuestion(q){
+    if(q.classList.contains('choice-q')){
+      var sel = q.getAttribute('data-selected');
+      if(!sel) return null;
+      var correct = sel === q.getAttribute('data-answer');
+      setFeedback(q.querySelector('.feedback'), correct);
+      return correct;
+    } else {
+      var inputs = Array.prototype.slice.call(q.querySelectorAll('.ans-input'));
+      var results = inputs.map(checkNumericInput);
+      if(results.some(function(r){ return r === null; })){ return null; }
+      var allCorrect = results.every(Boolean);
+      setFeedback(q.querySelector('.feedback'), allCorrect);
+      return allCorrect;
+    }
+  }
+
+  function checkSection(sectionEl){
+    var qs = sectionEl.querySelectorAll('.question');
+    qs.forEach(function(q){
+      var result = checkQuestion(q);
+      q.classList.remove('is-correct','is-incorrect');
+      if(result === true){ q.classList.add('is-correct'); correctSet.add(q.id); }
+      else if(result === false){ q.classList.add('is-incorrect'); correctSet.delete(q.id); }
+    });
+    updateScore();
+  }
+
+  function resetSection(sectionEl){
+    var qs = sectionEl.querySelectorAll('.question');
+    qs.forEach(function(q){
+      q.classList.remove('is-correct','is-incorrect');
+      q.querySelectorAll('.ans-input').forEach(function(inp){ inp.value=''; });
+      var fb = q.querySelector('.feedback'); if(fb){ fb.textContent=''; fb.className='feedback'; }
+      var r = q.querySelector('.reveal'); if(r) r.classList.remove('show');
+      q.querySelectorAll('.choice-btn').forEach(function(b){ b.classList.remove('selected'); });
+      q.removeAttribute('data-selected');
+      correctSet.delete(q.id);
+    });
+    updateScore();
+  }
+
+  function showAnswers(sectionEl){
+    sectionEl.querySelectorAll('.question').forEach(function(q){
+      var r = q.querySelector('.reveal');
+      if(r) r.classList.add('show');
+    });
+  }
+
+  document.querySelectorAll('.btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var sectionEl = document.getElementById(btn.getAttribute('data-target'));
+      var action = btn.getAttribute('data-action');
+      if(action === 'check') checkSection(sectionEl);
+      else if(action === 'reset') resetSection(sectionEl);
+      else if(action === 'show') showAnswers(sectionEl);
+    });
+  });
+
+  document.querySelectorAll('.choice-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var q = btn.closest('.question');
+      q.querySelectorAll('.choice-btn').forEach(function(b){ b.classList.remove('selected'); });
+      btn.classList.add('selected');
+      q.setAttribute('data-selected', btn.getAttribute('data-val'));
+    });
+  });
+
+  updateScore();
+
+  var downloadBtn = document.getElementById('downloadPdfBtn');
+  if(downloadBtn){
+    downloadBtn.addEventListener('click', function(){
+      var status = document.getElementById('pdf-status');
+      var nameVal = document.getElementById('studentNameInput').value.trim();
+      var namePrint = document.getElementById('studentNamePrint');
+
+      if(typeof html2canvas === 'undefined' || !window.jspdf){
+        status.textContent = 'PDF rīks neielādējās. Pārbaudi interneta savienojumu un mēģini vēlreiz.';
+        return;
+      }
+
+      if(nameVal){
+        namePrint.textContent = 'Vārds, uzvārds: ' + nameVal;
+        namePrint.style.display = 'block';
+      }
+
+      var toHide = document.querySelectorAll('.site-nav, .back-link, .btn-row, .score-badge, #download-card, .cta-back');
+      toHide.forEach(function(el){ el.classList.add('pdf-hide'); });
+      document.body.classList.add('pdf-export');
+      downloadBtn.disabled = true;
+      status.textContent = 'Sagatavo PDF...';
+
+      setTimeout(function(){
+        var target = document.querySelector('.page');
+        html2canvas(target, {scale:2, backgroundColor:'#efede9', useCORS:true}).then(function(canvas){
+          var imgData = canvas.toDataURL('image/jpeg', 0.92);
+          var jsPDF = window.jspdf.jsPDF;
+          var pdf = new jsPDF('p', 'mm', 'a4');
+          var pageWidth = pdf.internal.pageSize.getWidth();
+          var pageHeight = pdf.internal.pageSize.getHeight();
+          var imgWidth = pageWidth;
+          var imgHeight = canvas.height * imgWidth / canvas.width;
+          var heightLeft = imgHeight;
+          var position = 0;
+
+          pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+          heightLeft -= pageHeight;
+
+          while(heightLeft > 0){
+            position = heightLeft - imgHeight;
+            pdf.addPage();
+            pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+            heightLeft -= pageHeight;
+          }
+
+          var fileSuffix = nameVal ? '-' + nameVal.replace(/\s+/g,'_') : '';
+          pdf.save('kvadratsaknes-uzdevumi' + fileSuffix + '.pdf');
+          status.textContent = 'Gatavs!';
+        }).catch(function(err){
+          console.error(err);
+          status.textContent = 'Neizdevās sagatavot PDF. Mēģini vēlreiz.';
+        }).finally(function(){
+          toHide.forEach(function(el){ el.classList.remove('pdf-hide'); });
+          document.body.classList.remove('pdf-export');
+          namePrint.style.display = 'none';
+          downloadBtn.disabled = false;
+        });
+      }, 50);
+    });
+  }
+})();
+</script>
+
+</body>
+</html>
