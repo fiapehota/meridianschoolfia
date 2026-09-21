@@ -13,7 +13,7 @@
   @import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@600;700;800;900&family=Manrope:wght@400;500;600;700;800&family=Marck+Script&display=swap');
 
   * { box-sizing: border-box; }
-  html, body { margin: 0; padding: 0; height:100%; }
+  html, body { margin: 0; padding: 0; height:100%; overflow:hidden; }
   body{
     font-family:'Manrope', 'Helvetica Neue', Arial, sans-serif;
     background:#f8f2e9;
@@ -31,20 +31,28 @@
   .navlink:hover { text-decoration:underline; text-underline-offset:3px; }
 
   .wrap{
-    min-height:100vh;
+    height:100vh;
+    height:100dvh;
     display:grid;
     grid-template-columns: minmax(360px, 560px) 1fr;
   }
   @media (max-width: 860px){
-    .wrap{ grid-template-columns: 1fr; }
-    .photo-panel{ height:38vh; min-height:220px; }
+    .wrap{ grid-template-columns: 1fr; grid-template-rows: clamp(80px,13dvh,160px) 1fr; }
+    .photo-panel{ order:-1; }
+    .form-panel{ padding-top:14px; padding-bottom:14px; }
+    .back-pill{ margin-bottom:10px; }
+    .field input{ padding:11px 14px; }
+    .photo-logo{ left:20px; bottom:14px; }
   }
 
   .form-panel{
     display:flex;
     flex-direction:column;
     justify-content:center;
-    padding:48px clamp(28px,6vw,72px);
+    justify-content:safe center;
+    min-height:0;
+    overflow-y:auto;
+    padding:clamp(20px,5vh,48px) clamp(28px,6vw,72px);
   }
 
   .back-pill{
@@ -58,14 +66,14 @@
     text-decoration:underline;
     text-underline-offset:4px;
     width:fit-content;
-    margin-bottom:40px;
+    margin-bottom:clamp(16px,4vh,40px);
   }
   .back-pill:hover{ color:#c0202a; }
 
   .kicker{ font-size:clamp(30px,3.6vw,42px); color:#c0202a; line-height:1; margin-bottom:6px; }
-  h1{ font-size:clamp(30px,4vw,44px); line-height:0.98; margin:0 0 28px; }
+  h1{ font-size:clamp(28px,4vw,44px); line-height:0.98; margin:0 0 clamp(14px,3vh,28px); }
 
-  .field{ text-align:left; margin-bottom:16px; }
+  .field{ text-align:left; margin-bottom:clamp(10px,2vh,16px); }
   .field label{
     display:block;
     font-size:11px;
@@ -120,7 +128,7 @@
     flex-wrap:wrap;
   }
 
-  .divider{ height:1px; background:rgba(24,19,15,0.1); margin:28px 0 22px; }
+  .divider{ height:1px; background:rgba(24,19,15,0.1); margin:clamp(14px,3vh,28px) 0 clamp(12px,2.5vh,22px); }
 
   .trial-note{ font-size:.85rem; color:#3a332c; line-height:1.5; max-width:380px; }
   .trial-note a{ font-weight:700; color:#c0202a; }
@@ -130,8 +138,10 @@
     position:relative;
     background:#18130f;
     overflow:hidden;
+    min-height:0;
   }
   .photo-panel img{
+    position:absolute; inset:0;
     width:100%; height:100%;
     object-fit:cover;
     display:block;
