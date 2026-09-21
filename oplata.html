@@ -37,7 +37,9 @@
       display:flex; align-items:center; justify-content:center;
       font-family:'Unbounded',sans-serif; font-weight:700; font-size:14px;
       flex:none;
+      overflow:hidden;
     }
+    .avatar img { width:100%; height:100%; object-fit:cover; display:block; }
 
     .layout { display:grid; grid-template-columns: 300px 1fr; gap:40px; align-items:start; padding:44px 48px 96px; max-width:1440px; margin:0 auto; }
     .menu-btn { display:none; }
@@ -257,6 +259,10 @@
     const name = (data && data.name) || fallbackName;
     document.getElementById("sideName").textContent = name;
     document.getElementById("avatarCircle").textContent = name.charAt(0).toUpperCase();
+    try {
+      const savedAvatar = localStorage.getItem(`meridian_avatar_${user.email || ""}`);
+      if (savedAvatar) document.getElementById("avatarCircle").innerHTML = `<img src="assets/avatars/${savedAvatar}" alt="">`;
+    } catch (e) {}
   });
 </script>
 
