@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Ученики | Meridian School</title>
+<title>Профиль | Meridian School</title>
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
@@ -259,66 +259,31 @@
     </div>
 
     <nav class="side-nav">
-      <a href="uchitel.html" class="active"><span class="n">01</span>Ученики</a>
+      <a href="uchitel.html"><span class="n">01</span>Ученики</a>
       <a href="uchitel-raspisanie.html"><span class="n">02</span>Расписание</a>
-      <a href="uchitel-profil.html"><span class="n">03</span>Профиль</a>
+      <a href="uchitel-profil.html" class="active"><span class="n">03</span>Профиль</a>
     </nav>
   </aside>
 
   <!-- ============ ОСНОВНОЕ СОДЕРЖИМОЕ ============ -->
   <main>
-    <section id="studentsSection">
-      <div class="st-head">
-        <div>
-          <div class="week-eyebrow" id="studentsEyebrow">&nbsp;</div>
-          <div class="disp section-title">Ученики</div>
-        </div>
-        <button type="button" class="btn-solid" id="addStudentBtn">+ Добавить ученика</button>
-      </div>
-      <div class="st-list" id="studentList"><div class="st-empty">Загружаю список…</div></div>
-      <p class="st-note">Физика и химия пока без материалов: у учеников они показываются закрытыми, даже если отмечены здесь.</p>
-    </section>
+    <div class="disp page-title">Твой профиль</div>
+
+    <div class="profile-card">
+      <div class="profile-avatar" id="profileAvatar">Ф</div>
+      <div class="profile-name disp">Фия</div>
+    </div>
+
+    <button class="btn-ghost-dark" id="toggleAvatarBtn">Изменить аватарку</button>
+    <div id="avatarPicker" style="display:none;">
+      <div class="section-label">Выбрать аватарку</div>
+      <div class="avatar-grid" id="avatarGrid"></div>
+    </div>
+
+    <div><button class="logout-btn" id="logoutBtn">Выйти из аккаунта</button></div>
   </main>
 
 </div>
-
-<dialog class="st-modal" id="studentDialog" aria-labelledby="dlgTitle">
-  <form id="studentForm" novalidate>
-    <h2 class="disp" id="dlgTitle">Новый ученик</h2>
-
-    <div class="f-field">
-      <label class="f-label" for="fLogin">Логин ученика</label>
-      <input type="text" id="fLogin" autocomplete="off" placeholder="анна.калниня">
-      <div class="f-hint">Ровно так, как ученик вводит его при входе. Сам логин и пароль создаются в Firebase → Authentication.</div>
-    </div>
-
-    <div class="f-field">
-      <label class="f-label" for="fName">Имя (для приветствия)</label>
-      <input type="text" id="fName" autocomplete="off" placeholder="Анна Калниня">
-    </div>
-
-    <div class="f-field">
-      <label class="f-label" for="fCal">Как подписан в календаре (необязательно)</label>
-      <input type="text" id="fCal" autocomplete="off" placeholder="Анна К.">
-      <div class="f-hint">Так, как в названии события: «Анна К. - Английский». Если пусто, ищем по имени.</div>
-    </div>
-
-    <div class="f-field">
-      <span class="f-label" style="display:block; font-size:11px; letter-spacing:.08em; text-transform:uppercase; font-weight:700; opacity:.65; margin-bottom:9px;">Доступные предметы</span>
-      <div class="st-subj" id="fSubjects"></div>
-    </div>
-
-    <p class="f-error" id="fError"></p>
-
-    <div class="f-actions">
-      <button type="button" class="btn-danger" id="fDelete" hidden>Удалить карточку</button>
-      <div class="right">
-        <button type="button" class="btn-ghost" id="fCancel">Отмена</button>
-        <button type="submit" class="btn-solid" id="fSave">Сохранить</button>
-      </div>
-    </div>
-  </form>
-</dialog>
 
 <footer>
   <div class="footer-grid">
@@ -384,176 +349,55 @@
 </script>
 
 <script type="module">
-  import { db } from "./assets/js/firebase-config.js";
-  import { collection, getDocs, doc, setDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
-  import { initTeacherPage, fetchLessons, esc, norm, fmtTime, startOfDay, SUBJECTS, DAY_SHORT, ADMIN_EMAIL } from "./assets/js/teacher.js";
+  import { initTeacherPage } from "./assets/js/teacher.js";
 
-  let studentsCache = [];
-  let nextByNameCache = new Map();
+  const AVATAR_COUNT = 25;
+  const storageKey = (email) => `meridian_avatar_${email}`;
 
-  // ---------- ученики ----------
-  function renderStudents(students, nextByName) {
-    const list = document.getElementById("studentList");
-    document.getElementById("studentsEyebrow").textContent = `Всего: ${students.length}`;
-
-    if (!students.length) {
-      list.innerHTML = `<div class="st-empty">Пока нет ни одного ученика. Нажми «Добавить ученика», чтобы создать первую карточку.</div>`;
-      return;
+  function applyAvatar(fileName) {
+    const headerEl = document.getElementById("avatarCircle");
+    const profileEl = document.getElementById("profileAvatar");
+    if (fileName) {
+      const html = `<img src="assets/avatars/${fileName}" alt="">`;
+      headerEl.innerHTML = html;
+      profileEl.innerHTML = html;
+    } else {
+      headerEl.textContent = "Ф";
+      profileEl.textContent = "Ф";
     }
-
-    list.innerHTML = students.map(st => {
-      const chips = SUBJECTS.map(([id, label]) =>
-        `<span class="chip${st.subjects.includes(id) ? " on" : ""}">${label}</span>`).join("");
-      const cal = st.calendarName && norm(st.calendarName) !== norm(st.name)
-        ? `<div class="st-cal">в календаре: ${esc(st.calendarName)}</div>` : "";
-      const next = nextByName.get(norm(st.calendarName || st.name));
-      const nextHtml = next
-        ? `<span class="t">${DAY_SHORT[next.dayIndex]} ${fmtTime(next.start)}</span><br>${esc(next.subject || "урок")}`
-        : `<span style="color:#a89c8d;">нет ближайших</span>`;
-      return `
-        <div class="st-row">
-          <div class="st-who">
-            <div class="st-ava">${esc(st.name.charAt(0).toUpperCase())}</div>
-            <div><div class="st-name">${esc(st.name)}</div>${cal}</div>
-          </div>
-          <div class="st-subj">${chips}</div>
-          <div class="st-next">${nextHtml}</div>
-          <div><button type="button" class="btn-ghost" data-edit="${esc(st.id)}">Изменить</button></div>
-        </div>`;
-    }).join("");
   }
 
-  async function loadStudents(nextByName) {
-    const list = document.getElementById("studentList");
-    try {
-      const snap = await getDocs(collection(db, "students"));
-      const students = [];
-      snap.forEach(d => {
-        if ((d.id || "").toLowerCase() === ADMIN_EMAIL) return;
-        const data = d.data() || {};
-        const local = d.id.split("@")[0];
-        const fallback = local.split(".").filter(Boolean).map(p => p.charAt(0).toUpperCase() + p.slice(1)).join(" ") || d.id;
-        students.push({
-          id: d.id,
-          name: data.name || fallback,
-          calendarName: data.calendarName || "",
-          subjects: Array.isArray(data.subjects) ? data.subjects : [],
-        });
+  function renderAvatarGrid(email) {
+    const grid = document.getElementById("avatarGrid");
+    grid.innerHTML = "";
+    const saved = localStorage.getItem(storageKey(email));
+    for (let i = 1; i <= AVATAR_COUNT; i++) {
+      const fileName = `avatar-${String(i).padStart(2, "0")}.jpg`;
+      const btn = document.createElement("button");
+      btn.className = "avatar-option" + (saved === fileName ? " selected" : "");
+      btn.innerHTML = `<img src="assets/avatars/${fileName}" alt="">`;
+      btn.addEventListener("click", () => {
+        localStorage.setItem(storageKey(email), fileName);
+        applyAvatar(fileName);
+        grid.querySelectorAll(".avatar-option").forEach(el => el.classList.remove("selected"));
+        btn.classList.add("selected");
       });
-      students.sort((a, b) => a.name.localeCompare(b.name, "ru"));
-      studentsCache = students;
-      nextByNameCache = nextByName;
-      renderStudents(students, nextByName);
-    } catch (e) {
-      console.warn("Не удалось прочитать список учеников:", e);
-      document.getElementById("studentsEyebrow").textContent = "";
-      list.innerHTML = e && e.code === "permission-denied"
-        ? `<div class="st-empty">Нет доступа к списку учеников. В Firebase нужно обновить правила Firestore и добавить в них почту учителя.</div>`
-        : `<div class="st-empty">Не удалось загрузить список учеников. Обнови страницу.</div>`;
+      grid.appendChild(btn);
     }
   }
 
-  // ---------- форма ученика ----------
-  const dlg = document.getElementById("studentDialog");
-  const fLogin = document.getElementById("fLogin");
-  const fName = document.getElementById("fName");
-  const fCal = document.getElementById("fCal");
-  const fErr = document.getElementById("fError");
-  const fSave = document.getElementById("fSave");
-  const fDelete = document.getElementById("fDelete");
-  let editingId = null;
+  initTeacherPage((user) => {
+    const email = user.email || "";
+    applyAvatar(localStorage.getItem(storageKey(email)));
+    renderAvatarGrid(email);
 
-  document.getElementById("fSubjects").innerHTML = SUBJECTS.map(([id, label]) =>
-    `<label class="chip-check"><input type="checkbox" value="${id}"><span class="chip">${label}</span></label>`).join("");
-
-  function showError(msg) { fErr.textContent = msg; fErr.classList.add("show"); }
-
-  function openForm(student) {
-    editingId = student ? student.id : null;
-    fErr.classList.remove("show");
-    document.getElementById("dlgTitle").textContent = student ? "Изменить ученика" : "Новый ученик";
-    fLogin.value = student ? student.id.split("@")[0] : "";
-    fLogin.disabled = !!student;
-    fName.value = student ? student.name : "";
-    fCal.value = student ? student.calendarName : "";
-    document.querySelectorAll("#fSubjects input").forEach(cb => { cb.checked = !!student && student.subjects.includes(cb.value); });
-    fDelete.hidden = !student;
-    fSave.disabled = false;
-    fSave.textContent = "Сохранить";
-    dlg.showModal();
-    (student ? fName : fLogin).focus();
-  }
-
-  document.getElementById("addStudentBtn").addEventListener("click", () => openForm(null));
-  document.getElementById("fCancel").addEventListener("click", () => dlg.close());
-  document.getElementById("studentList").addEventListener("click", (e) => {
-    const btn = e.target.closest("[data-edit]");
-    if (!btn) return;
-    const st = studentsCache.find(x => x.id === btn.dataset.edit);
-    if (st) openForm(st);
-  });
-
-  function saveErrorText(e) {
-    return e && e.code === "permission-denied"
-      ? "Нет прав на запись. В правилах Firestore нужно разрешить запись для почты учителя."
-      : "Не удалось сохранить. Проверь интернет и попробуй ещё раз.";
-  }
-
-  document.getElementById("studentForm").addEventListener("submit", async (e) => {
-    e.preventDefault();
-    fErr.classList.remove("show");
-
-    let id = editingId;
-    if (!id) {
-      const login = fLogin.value.trim().toLowerCase();
-      if (!login) { showError("Впиши логин ученика."); fLogin.focus(); return; }
-      id = login.includes("@") ? login : `${login}@meridian.local`;
-    }
-    const name = fName.value.trim();
-    if (!name) { showError("Впиши имя ученика."); fName.focus(); return; }
-
-    const subjects = [...document.querySelectorAll("#fSubjects input:checked")].map(cb => cb.value);
-    const data = { name, calendarName: fCal.value.trim(), subjects };
-
-    fSave.disabled = true;
-    fSave.textContent = "Сохраняю…";
-    try {
-      await setDoc(doc(db, "students", id), data, { merge: true });
-      dlg.close();
-      await loadStudents(nextByNameCache);
-    } catch (err) {
-      console.warn("Не удалось сохранить ученика:", err);
-      showError(saveErrorText(err));
-      fSave.disabled = false;
-      fSave.textContent = "Сохранить";
-    }
-  });
-
-  fDelete.addEventListener("click", async () => {
-    if (!editingId) return;
-    if (!confirm("Удалить карточку ученика? Вход по логину и паролю останется в Firebase Authentication.")) return;
-    try {
-      await deleteDoc(doc(db, "students", editingId));
-      dlg.close();
-      await loadStudents(nextByNameCache);
-    } catch (err) {
-      console.warn("Не удалось удалить карточку:", err);
-      showError(saveErrorText(err));
-    }
-  });
-
-
-  initTeacherPage(async () => {
-    // ближайшие 14 дней: для колонки «ближайший урок»
-    const now = new Date();
-    const horizon = new Date(now);
-    horizon.setDate(horizon.getDate() + 14);
-    const upcoming = await fetchLessons(startOfDay(now), horizon);
-    const nextByName = new Map();
-    for (const l of upcoming) {
-      if (l.start > now && !nextByName.has(norm(l.student))) nextByName.set(norm(l.student), l);
-    }
-    await loadStudents(nextByName);
+    document.getElementById("toggleAvatarBtn").addEventListener("click", () => {
+      const picker = document.getElementById("avatarPicker");
+      const btn = document.getElementById("toggleAvatarBtn");
+      const isHidden = picker.style.display === "none";
+      picker.style.display = isHidden ? "block" : "none";
+      btn.textContent = isHidden ? "Скрыть выбор аватарки" : "Изменить аватарку";
+    });
   });
 </script>
 

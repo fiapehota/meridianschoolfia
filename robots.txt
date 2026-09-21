@@ -6,6 +6,7 @@ Disallow: /raspisanie.html
 Disallow: /podderzhka.html
 Disallow: /oplata.html
 Disallow: /profil.html
+Disallow: /uchitel
 Disallow: /predmet.html
 Disallow: /login.html
 Disallow: /o-fie.html
