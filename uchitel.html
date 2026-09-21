@@ -127,7 +127,7 @@
     /* ===== кабинет учителя ===== */
     .section-block { margin-bottom:56px; scroll-margin-top:96px; }
     .st-list { border-top:1px solid rgba(24,19,15,0.1); margin-top:24px; }
-    .st-row { display:grid; grid-template-columns:minmax(200px,1.1fr) 2fr minmax(150px,1fr); gap:18px; align-items:center; padding:16px 4px; border-bottom:1px solid rgba(24,19,15,0.1); }
+    .st-row { display:grid; grid-template-columns:minmax(200px,1.1fr) 2fr minmax(150px,1fr) auto; gap:18px; align-items:center; padding:16px 4px; border-bottom:1px solid rgba(24,19,15,0.1); }
     .st-who { display:flex; align-items:center; gap:12px; min-width:0; }
     .st-ava { width:38px; height:38px; border-radius:50%; background:#4d3e31; color:#f8f2e9; display:flex; align-items:center; justify-content:center; font-family:'Unbounded',sans-serif; font-weight:700; font-size:14px; flex:none; }
     .st-name { font-weight:700; font-size:15px; }
@@ -144,6 +144,34 @@
       .st-row { grid-template-columns:1fr; gap:10px; }
     }
     .lesson-who { font-size:13px; font-weight:700; margin-top:3px; }
+
+    .st-head { display:flex; align-items:flex-end; justify-content:space-between; gap:20px; flex-wrap:wrap; }
+    .btn-solid { display:inline-flex; align-items:center; gap:8px; font-family:'Manrope',sans-serif; font-weight:700; font-size:14px; background:#c0202a; color:#f8f2e9; border:none; border-radius:999px; padding:13px 24px; cursor:pointer; white-space:nowrap; }
+    .btn-solid:hover { background:#e2262b; }
+    .btn-solid:disabled { opacity:.6; cursor:default; }
+    .btn-ghost { display:inline-flex; align-items:center; font-family:'Manrope',sans-serif; font-weight:700; font-size:13px; background:transparent; color:#18130f; border:1.5px solid rgba(24,19,15,0.2); border-radius:999px; padding:8px 16px; cursor:pointer; white-space:nowrap; }
+    .btn-ghost:hover { border-color:#c0202a; color:#c0202a; }
+    .btn-danger { background:transparent; border:none; color:#c0202a; font-family:'Manrope',sans-serif; font-weight:700; font-size:13px; cursor:pointer; text-decoration:underline; text-underline-offset:3px; padding:8px 4px; }
+
+    dialog.st-modal { border:none; border-radius:24px; padding:0; width:min(520px, calc(100vw - 32px)); background:#f8f2e9; color:#18130f; box-shadow:0 30px 80px rgba(24,19,15,0.35); }
+    dialog.st-modal::backdrop { background:rgba(24,19,15,0.55); }
+    .st-modal form { padding:30px 28px 26px; }
+    .st-modal h2 { margin:0 0 20px; font-size:24px; line-height:1; }
+    .f-field { margin-bottom:16px; }
+    .f-field label.f-label { display:block; font-size:11px; letter-spacing:.08em; text-transform:uppercase; font-weight:700; opacity:.65; margin-bottom:7px; }
+    .f-field input[type="text"] { width:100%; padding:12px 14px; border:1.5px solid rgba(24,19,15,0.15); border-radius:14px; background:#fff; color:#18130f; font-family:'Manrope',sans-serif; font-size:.95rem; }
+    .f-field input[type="text"]:focus { outline:none; border-color:#c0202a; }
+    .f-field input[disabled] { background:rgba(24,19,15,0.05); color:#3a332c; }
+    .f-hint { font-size:12px; color:#a89c8d; margin-top:6px; line-height:1.45; }
+    .chip-check { position:relative; cursor:pointer; }
+    .chip-check input { position:absolute; opacity:0; pointer-events:none; }
+    .chip-check input:focus-visible + .chip { outline:2px solid #18130f; outline-offset:2px; }
+    .chip-check input:checked + .chip { background:#4d3e31; border-color:#4d3e31; color:#f8f2e9; }
+    .chip-check .chip { display:inline-block; }
+    .f-error { display:none; color:#c0202a; font-size:13px; margin:0 0 14px; line-height:1.45; }
+    .f-error.show { display:block; }
+    .f-actions { display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-top:8px; }
+    .f-actions .right { display:flex; gap:10px; align-items:center; margin-left:auto; }
 </style>
 <style id="adminGate">body{visibility:hidden;}</style>
 <script type="module" src="assets/js/auth-guard.js"></script>
@@ -196,8 +224,13 @@
   <main>
 
     <section class="section-block" id="studentsSection">
-      <div class="week-eyebrow" id="studentsEyebrow">&nbsp;</div>
-      <div class="disp section-title">Ученики</div>
+      <div class="st-head">
+        <div>
+          <div class="week-eyebrow" id="studentsEyebrow">&nbsp;</div>
+          <div class="disp section-title">Ученики</div>
+        </div>
+        <button type="button" class="btn-solid" id="addStudentBtn">+ Добавить ученика</button>
+      </div>
       <div class="st-list" id="studentList"><div class="st-empty">Загружаю список…</div></div>
       <p class="st-note">Физика и химия пока без материалов: у учеников они показываются закрытыми, даже если отмечены здесь.</p>
     </section>
@@ -223,6 +256,44 @@
   </main>
 
 </div>
+
+<dialog class="st-modal" id="studentDialog" aria-labelledby="dlgTitle">
+  <form id="studentForm" novalidate>
+    <h2 class="disp" id="dlgTitle">Новый ученик</h2>
+
+    <div class="f-field">
+      <label class="f-label" for="fLogin">Логин ученика</label>
+      <input type="text" id="fLogin" autocomplete="off" placeholder="анна.калниня">
+      <div class="f-hint">Ровно так, как ученик вводит его при входе. Сам логин и пароль создаются в Firebase → Authentication.</div>
+    </div>
+
+    <div class="f-field">
+      <label class="f-label" for="fName">Имя (для приветствия)</label>
+      <input type="text" id="fName" autocomplete="off" placeholder="Анна Калниня">
+    </div>
+
+    <div class="f-field">
+      <label class="f-label" for="fCal">Как подписан в календаре (необязательно)</label>
+      <input type="text" id="fCal" autocomplete="off" placeholder="Анна К.">
+      <div class="f-hint">Так, как в названии события: «Анна К. - Английский». Если пусто, ищем по имени.</div>
+    </div>
+
+    <div class="f-field">
+      <span class="f-label" style="display:block; font-size:11px; letter-spacing:.08em; text-transform:uppercase; font-weight:700; opacity:.65; margin-bottom:9px;">Доступные предметы</span>
+      <div class="st-subj" id="fSubjects"></div>
+    </div>
+
+    <p class="f-error" id="fError"></p>
+
+    <div class="f-actions">
+      <button type="button" class="btn-danger" id="fDelete" hidden>Удалить карточку</button>
+      <div class="right">
+        <button type="button" class="btn-ghost" id="fCancel">Отмена</button>
+        <button type="submit" class="btn-solid" id="fSave">Сохранить</button>
+      </div>
+    </div>
+  </form>
+</dialog>
 
 <footer>
   <div class="footer-grid">
@@ -290,7 +361,7 @@
 <script type="module">
   import { auth, db } from "./assets/js/firebase-config.js";
   import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
-  import { collection, getDocs } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
+  import { collection, getDocs, doc, setDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
 
   // страница только для учителя; настоящая защита данных — в правилах Firestore
   const ADMIN_EMAIL = "фия.учитель@meridian.local";
@@ -309,6 +380,8 @@
   const MONTHS_GENITIVE = ["января","февраля","марта","апреля","мая","июня","июля","августа","сентября","октября","ноября","декабря"];
 
   let weekOffset = 0;
+  let studentsCache = [];
+  let nextByNameCache = new Map();
 
   const esc = (t) => String(t).replace(/[&<>"']/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[c]));
   const norm = (t) => (t || "").trim().toLowerCase();
@@ -383,7 +456,7 @@
     document.getElementById("studentsEyebrow").textContent = `Всего: ${students.length}`;
 
     if (!students.length) {
-      list.innerHTML = `<div class="st-empty">В базе пока нет учеников.</div>`;
+      list.innerHTML = `<div class="st-empty">Пока нет ни одного ученика. Нажми «Добавить ученика», чтобы создать первую карточку.</div>`;
       return;
     }
 
@@ -404,6 +477,7 @@
           </div>
           <div class="st-subj">${chips}</div>
           <div class="st-next">${nextHtml}</div>
+          <div><button type="button" class="btn-ghost" data-edit="${esc(st.id)}">Изменить</button></div>
         </div>`;
     }).join("");
   }
@@ -426,6 +500,8 @@
         });
       });
       students.sort((a, b) => a.name.localeCompare(b.name, "ru"));
+      studentsCache = students;
+      nextByNameCache = nextByName;
       renderStudents(students, nextByName);
     } catch (e) {
       console.warn("Не удалось прочитать список учеников:", e);
@@ -476,6 +552,96 @@
     end.setDate(end.getDate() + 7);
     renderWeek(monday, await fetchLessons(monday, end));
   }
+
+
+  // ---------- форма ученика ----------
+  const dlg = document.getElementById("studentDialog");
+  const fLogin = document.getElementById("fLogin");
+  const fName = document.getElementById("fName");
+  const fCal = document.getElementById("fCal");
+  const fErr = document.getElementById("fError");
+  const fSave = document.getElementById("fSave");
+  const fDelete = document.getElementById("fDelete");
+  let editingId = null;
+
+  document.getElementById("fSubjects").innerHTML = SUBJECTS.map(([id, label]) =>
+    `<label class="chip-check"><input type="checkbox" value="${id}"><span class="chip">${label}</span></label>`).join("");
+
+  function showError(msg) { fErr.textContent = msg; fErr.classList.add("show"); }
+
+  function openForm(student) {
+    editingId = student ? student.id : null;
+    fErr.classList.remove("show");
+    document.getElementById("dlgTitle").textContent = student ? "Изменить ученика" : "Новый ученик";
+    fLogin.value = student ? student.id.split("@")[0] : "";
+    fLogin.disabled = !!student;
+    fName.value = student ? student.name : "";
+    fCal.value = student ? student.calendarName : "";
+    document.querySelectorAll("#fSubjects input").forEach(cb => { cb.checked = !!student && student.subjects.includes(cb.value); });
+    fDelete.hidden = !student;
+    fSave.disabled = false;
+    fSave.textContent = "Сохранить";
+    dlg.showModal();
+    (student ? fName : fLogin).focus();
+  }
+
+  document.getElementById("addStudentBtn").addEventListener("click", () => openForm(null));
+  document.getElementById("fCancel").addEventListener("click", () => dlg.close());
+  document.getElementById("studentList").addEventListener("click", (e) => {
+    const btn = e.target.closest("[data-edit]");
+    if (!btn) return;
+    const st = studentsCache.find(x => x.id === btn.dataset.edit);
+    if (st) openForm(st);
+  });
+
+  function saveErrorText(e) {
+    return e && e.code === "permission-denied"
+      ? "Нет прав на запись. В правилах Firestore нужно разрешить запись для почты учителя."
+      : "Не удалось сохранить. Проверь интернет и попробуй ещё раз.";
+  }
+
+  document.getElementById("studentForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    fErr.classList.remove("show");
+
+    let id = editingId;
+    if (!id) {
+      const login = fLogin.value.trim().toLowerCase();
+      if (!login) { showError("Впиши логин ученика."); fLogin.focus(); return; }
+      id = login.includes("@") ? login : `${login}@meridian.local`;
+    }
+    const name = fName.value.trim();
+    if (!name) { showError("Впиши имя ученика."); fName.focus(); return; }
+
+    const subjects = [...document.querySelectorAll("#fSubjects input:checked")].map(cb => cb.value);
+    const data = { name, calendarName: fCal.value.trim(), subjects };
+
+    fSave.disabled = true;
+    fSave.textContent = "Сохраняю…";
+    try {
+      await setDoc(doc(db, "students", id), data, { merge: true });
+      dlg.close();
+      await loadStudents(nextByNameCache);
+    } catch (err) {
+      console.warn("Не удалось сохранить ученика:", err);
+      showError(saveErrorText(err));
+      fSave.disabled = false;
+      fSave.textContent = "Сохранить";
+    }
+  });
+
+  fDelete.addEventListener("click", async () => {
+    if (!editingId) return;
+    if (!confirm("Удалить карточку ученика? Вход по логину и паролю останется в Firebase Authentication.")) return;
+    try {
+      await deleteDoc(doc(db, "students", editingId));
+      dlg.close();
+      await loadStudents(nextByNameCache);
+    } catch (err) {
+      console.warn("Не удалось удалить карточку:", err);
+      showError(saveErrorText(err));
+    }
+  });
 
   document.getElementById("prevWeekBtn").addEventListener("click", () => { weekOffset -= 1; loadWeek(); });
   document.getElementById("nextWeekBtn").addEventListener("click", () => { weekOffset += 1; loadWeek(); });
