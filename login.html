@@ -207,7 +207,8 @@
 
   // куда вернуть человека после входа
   const params = new URLSearchParams(window.location.search);
-  const next = params.get("next") || "kabinet.html";
+  const explicitNext = params.get("next");
+  const ADMIN_EMAIL = "фия.учитель@meridian.local";
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -224,7 +225,7 @@
 
     try {
       await signInWithEmailAndPassword(auth, loginValue, pass.value);
-      window.location.replace(next);
+      window.location.replace(explicitNext || (loginValue === ADMIN_EMAIL ? "uchitel.html" : "kabinet.html"));
     } catch (e) {
       err.classList.add("show");
       btn.disabled = false;
