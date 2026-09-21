@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Предмет | Meridian School</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="favicon-16.png" sizes="16x16" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@600;700;800;900&family=Manrope:wght@400;500;600;700;800&family=Marck+Script&display=swap');
+
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: 'Manrope', 'Helvetica Neue', Arial, sans-serif;
+      background: #f8f2e9;
+      color: #18130f;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: #18130f; text-decoration: none; }
+    a:hover { color: #c0202a; }
+    .disp { font-family: 'Unbounded', sans-serif; font-weight: 800; text-transform: uppercase; letter-spacing: -0.01em; }
+    .navlink { font-size: 13px; letter-spacing: 0.05em; text-transform: uppercase; font-weight: 700; }
+    .navlink:hover { text-decoration: underline; text-underline-offset: 3px; }
+    ::selection { background: #c0202a; color: #f8f2e9; }
+    a:focus-visible, button:focus-visible { outline: 2px solid #18130f; outline-offset: 3px; border-radius: 6px; }
+    .icon-btn { display:inline-flex; align-items:center; justify-content:center; width:44px; height:44px; flex:none; border-radius:50%; transition: background .2s ease; border:none; background:transparent; cursor:pointer; padding:0; }
+    .icon-btn:hover { background: rgba(24,19,15,0.06); }
+
+    .avatar { width:38px; height:38px; border-radius:50%; background:#4d3e31; color:#f8f2e9; display:flex; align-items:center; justify-content:center; font-family:'Unbounded',sans-serif; font-weight:700; font-size:14px; flex:none; }
+
+    .layout { display:grid; grid-template-columns: 300px 1fr; gap:40px; align-items:start; padding:44px 48px 96px; max-width:1440px; margin:0 auto; }
+    .menu-btn { display:none; }
+    .mobile-nav[hidden] { display:none; }
+    .mobile-nav { display:flex; flex-direction:column; gap:2px; padding:14px 48px; margin-top:0; border-top:1px solid rgba(24,19,15,0.1); }
+    .mobile-nav a { padding:12px 4px; }
+
+    @media (max-width: 980px) {
+      .layout { grid-template-columns: 1fr; }
+      .sidebar { position:static !important; }
+      .nav-left { display:none !important; }
+      .menu-btn { display:inline-flex !important; }
+    }
+
+    footer { background:#4d3e31; color:#f8f2e9; padding:48px 48px 30px; margin-top:40px; }
+    .footer-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:24px; max-width:1440px; margin:0 auto; padding-bottom:26px; border-bottom:1px solid rgba(248,242,233,0.15); }
+    @media (max-width: 700px) { .footer-grid { grid-template-columns:1fr; gap:18px; } }
+    .footer-grid .navlink { color:#f8f2e9; }
+    .footer-contacts { display:flex; flex-direction:column; gap:10px; font-size:13px; opacity:.85; }
+    .footer-contacts a { color:#f8f2e9; }
+
+    .sidebar { position:sticky; top:96px; }
+    .side-nav a { display:flex; align-items:center; gap:12px; padding:13px 4px; border-bottom:1px solid rgba(24,19,15,0.08); font-family:'Unbounded',sans-serif; font-weight:700; font-size:13px; text-transform:uppercase; letter-spacing:.01em; color:#18130f; }
+    .side-nav a:hover { color:#c0202a; }
+    .side-nav a .n { font-family:'Manrope',sans-serif; font-weight:700; font-size:11px; color:#a89c8d; width:18px; flex:none; }
+
+    .back-link { display:inline-flex; align-items:center; gap:6px; font-size:12px; letter-spacing:.05em; text-transform:uppercase; font-weight:700; opacity:.6; margin-bottom:24px; }
+    .back-link:hover { opacity:1; }
+
+    .eyebrow { font-size:12px; letter-spacing:.08em; text-transform:uppercase; font-weight:700; color:#c0202a; margin-bottom:12px; }
+    .subj-hero { display:flex; gap:44px; align-items:flex-start; margin-bottom:56px; }
+    @media (max-width: 800px) { .subj-hero { flex-direction:column; } }
+    .subj-copy { flex:1.3 1 0; min-width:0; }
+    .subj-copy p { font-size:16px; line-height:1.62; color:#3a332c; max-width:520px; margin:0 0 16px; }
+    .subj-photo { flex:0.7 1 0; min-width:0; }
+    .subj-photo img { width:100%; height:auto; border-radius:22px; display:block; aspect-ratio:4/3; object-fit:cover; }
+    @media (max-width: 800px) { .subj-photo { order:-1; } }
+
+    .mat-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:14px; margin-bottom:40px; }
+    @media (max-width: 920px) { .mat-grid { grid-template-columns:repeat(3,1fr); } }
+    @media (max-width: 560px) { .mat-grid { grid-template-columns:repeat(2,1fr); gap:10px; } }
+    .mat-card { display:block; background:#ffffff; border-radius:16px; padding:10px; box-shadow: 0 10px 24px rgba(24,19,15,0.06); transition: transform .2s ease, box-shadow .2s ease; }
+    .mat-card:hover { transform: translateY(-4px); box-shadow: 0 16px 30px rgba(24,19,15,0.12); }
+    .mat-card img { width:100%; aspect-ratio:1/1; object-fit:cover; border-radius:10px; display:block; }
+    .mat-card .mt { font-family:'Unbounded',sans-serif; font-weight:700; font-size:11.5px; line-height:1.2; margin:9px 0 3px; padding:0 2px; overflow-wrap:break-word; }
+    .mat-card .mtype { font-size:10.5px; color:#c0202a; font-weight:700; text-transform:uppercase; letter-spacing:.03em; padding:0 2px; }
+
+    .grade-label { font-family:'Unbounded',sans-serif; font-weight:700; font-size:13px; text-transform:uppercase; letter-spacing:.02em; color:#867a6c; margin:0 0 14px; }
+</style>
+<script type="module" src="assets/js/auth-guard.js"></script>
+</head>
+<body>
+
+<header style="position:sticky; top:0; z-index:50; background:rgba(248,242,233,0.9); backdrop-filter:blur(8px); border-bottom:1px solid rgba(24,19,15,0.1);">
+  <div style="display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:16px; padding:18px 48px;">
+    <div style="display:flex; align-items:center;">
+      <nav class="nav-left" aria-label="Навигация" style="display:flex; align-items:center; gap:26px;">
+        <a class="navlink" href="index.html">Главная</a>
+      </nav>
+      <button type="button" class="menu-btn icon-btn" id="menuBtn" aria-expanded="false" aria-controls="mobileNav" aria-label="Открыть меню" style="border:none; background:transparent; cursor:pointer; padding:0;">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><line x1="3" y1="7" x2="21" y2="7" stroke="#18130f" stroke-width="2" stroke-linecap="round"/><line x1="3" y1="12" x2="21" y2="12" stroke="#18130f" stroke-width="2" stroke-linecap="round"/><line x1="3" y1="17" x2="21" y2="17" stroke="#18130f" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <a class="disp" href="kabinet.html" style="font-size:20px; white-space:nowrap; justify-self:center;">MERIDIAN</a>
+    <div style="display:flex; align-items:center; gap:10px; justify-self:end;">
+      <button class="icon-btn" aria-label="Поиск" title="Поиск">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="11" cy="11" r="7" stroke="#18130f" stroke-width="2"/><line x1="16.4" y1="16.4" x2="21" y2="21" stroke="#18130f" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+      <a href="profil.html" aria-label="Профиль">
+        <div class="avatar" id="avatarCircle">?</div>
+      </a>
+    </div>
+  </div>
+  <nav id="mobileNav" class="mobile-nav" aria-label="Мобильная навигация" hidden>
+    <a class="navlink" href="index.html">Главная</a>
+  </nav>
+</header>
+
+<div class="layout">
+
+  <aside class="sidebar">
+    <nav class="side-nav">
+      <a href="kabinet.html"><span class="n">01</span>Мой кабинет</a>
+      <a href="raspisanie.html"><span class="n">02</span>Расписание</a>
+      <a href="podderzhka.html"><span class="n">03</span>Поддержка</a>
+      <a href="oplata.html"><span class="n">04</span>Оплата и пакет</a>
+      <a href="profil.html"><span class="n">05</span>Профиль</a>
+    </nav>
+  </aside>
+
+  <main>
+    <a class="back-link" href="kabinet.html#predmety">← Мои предметы</a>
+
+    <div class="subj-hero">
+      <div class="subj-copy">
+        <div class="eyebrow" id="subjEyebrow">&nbsp;</div>
+        <div class="disp" id="subjTitle" style="font-size:clamp(28px,4.4vw,52px); line-height:0.96; margin-bottom:20px; overflow-wrap:break-word; word-break:break-word;">&nbsp;</div>
+        <div id="subjDesc"></div>
+      </div>
+      <div class="subj-photo">
+        <img id="subjPhoto" src="" alt="">
+      </div>
+    </div>
+
+    <div class="disp" style="font-size:clamp(20px,2.6vw,28px); line-height:1; margin-bottom:24px;">Материалы</div>
+    <div id="materialsWrap"></div>
+  </main>
+
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <a class="disp" href="index.html" style="font-size:22px; color:#f8f2e9;">MERIDIAN<br>SCHOOL</a>
+    <nav style="display:flex; flex-direction:column; gap:10px;">
+      <a class="navlink" href="index.html">Уроки</a>
+      <a class="navlink" href="index.html#students">Ученикам</a>
+      <a class="navlink" href="roditelyam.html">Родителям</a>
+      <a class="navlink" href="prepodavateli.html">Преподаватели</a>
+    </nav>
+    <div class="footer-contacts">
+      <a href="mailto:meridianschool.fia@gmail.com">meridianschool.fia@gmail.com</a>
+      <a href="tel:+37122173293">+371 22 173 293 · 11:00–18:00</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var menuBtn = document.getElementById('menuBtn');
+  var mobileNav = document.getElementById('mobileNav');
+  if (!menuBtn || !mobileNav) return;
+
+  var iconHamburger = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><line x1="3" y1="7" x2="21" y2="7" stroke="#18130f" stroke-width="2" stroke-linecap="round"/><line x1="3" y1="12" x2="21" y2="12" stroke="#18130f" stroke-width="2" stroke-linecap="round"/><line x1="3" y1="17" x2="21" y2="17" stroke="#18130f" stroke-width="2" stroke-linecap="round"/></svg>';
+  var iconClose = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><line x1="5" y1="5" x2="19" y2="19" stroke="#18130f" stroke-width="2" stroke-linecap="round"/><line x1="19" y1="5" x2="5" y2="19" stroke="#18130f" stroke-width="2" stroke-linecap="round"/></svg>';
+
+  function closeMenu() {
+    mobileNav.hidden = true;
+    menuBtn.setAttribute('aria-expanded', 'false');
+    menuBtn.innerHTML = iconHamburger;
+  }
+  function openMenu() {
+    mobileNav.hidden = false;
+    menuBtn.setAttribute('aria-expanded', 'true');
+    menuBtn.innerHTML = iconClose;
+  }
+
+  menuBtn.addEventListener('click', function () {
+    if (mobileNav.hidden) { openMenu(); } else { closeMenu(); }
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && !mobileNav.hidden) {
+      closeMenu();
+      menuBtn.focus();
+    }
+  });
+
+  document.addEventListener('click', function (e) {
+    if (!mobileNav.hidden && !mobileNav.contains(e.target) && e.target !== menuBtn && !menuBtn.contains(e.target)) {
+      closeMenu();
+    }
+  });
+
+  mobileNav.querySelectorAll('a').forEach(function (link) {
+    link.addEventListener('click', closeMenu);
+  });
+
+  window.addEventListener('resize', function () {
+    if (window.innerWidth > 980 && !mobileNav.hidden) { closeMenu(); }
+  });
+})();
+</script>
+
+<script type="module">
+  import { auth, db } from "./assets/js/firebase-config.js";
+  import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
+  import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
+
+  const SUBJECT_INFO = {
+    english: {
+      label: "Английский",
+      teacher: "Фия",
+      duration: "60 минут",
+      photo: "subject_english.jpg",
+      description: [
+        "Conversational English and grammar built around fresh, current topics.",
+        "Not just textbook English — the kind you'll actually use in real conversation!"
+      ]
+    },
+    math: {
+      label: "Математика",
+      teacher: "Фия",
+      duration: "60 минут",
+      photo: "subject_math.jpg",
+      description: [
+        "Школьная программа по математике свежим взглядом. То, что раньше казалось страшным — обретает смысл!",
+        "Легко и просто разбираем тему за темой, решаем примеры вместе, без зубрёжки формул наизусть."
+      ]
+    }
+  };
+
+  const MATERIALS = {
+    english: [
+      { grade: "5 класс", items: [
+        { file: "english_5gr_presentsimple_theory.html", icon: "icon_present_simple_theory.jpg", title: "Present Simple", type: "Теория" },
+        { file: "english_5gr_presentsimple_practice.html", icon: "icon_present_simple_practice.jpg", title: "Present Simple", type: "Практика" },
+        { file: "english_5gr_vocabulary_numbers_theory.html", icon: "icon_numbers_theory.jpg", title: "Numbers", type: "Теория" },
+        { file: "english_5gr_vocabulary_numbers_practice.html", icon: "icon_numbers_practice.jpg", title: "Numbers", type: "Практика" },
+        { file: "english_5gr_vocabulary_numbers_test.html", icon: "icon_numbers_test.jpg", title: "Numbers", type: "Тест" },
+        { file: "english_5gr_vocabulary_colors_practice.html", icon: "icon_colors_practice.jpg", title: "Colors", type: "Практика" },
+      ]},
+      { grade: "6 класс", items: [
+        { file: "english_6gr_presentcontinuous_theory.html", icon: "icon_present_continuous_theory.jpg", title: "Present Continuous", type: "Теория" },
+        { file: "english_6gr_presentcontinuous_practice.html", icon: "icon_present_continuous_practice.jpg", title: "Present Continuous", type: "Практика" },
+        { file: "english_6gr_simplevscontinuous_practice.html", icon: "icon_simple_vs_continuous.jpg", title: "Simple vs Continuous", type: "Практика" },
+        { file: "english_6gr_appearance_theory.html", icon: "icon_appearance_theory.jpg", title: "Appearance", type: "Теория" },
+        { file: "english_6gr_appearance_practice.html", icon: "icon_appearance_practice.jpg", title: "Appearance", type: "Практика" },
+        { file: "english_6gr_appearance_writing.html", icon: "icon_appearance_writing.jpg", title: "Appearance", type: "Письмо" },
+        { file: "english_6gr_vocabulary_house.html", icon: "icon_house_and_rooms.jpg", title: "House & Rooms", type: "Слова" },
+        { file: "english_6gr_vocabulary_house_quiz.html", icon: "icon_house_and_rooms_quizz.jpg", title: "House & Rooms", type: "Квиз" },
+        { file: "english_6gr_vocabulary_cooking.html", icon: "icon_cooking.jpg", title: "Cooking", type: "Слова" },
+      ]},
+      { grade: "7 класс", items: [
+        { file: "english_7gr_pasttense_theory1.html", icon: "icon_past_simple_teorija.jpg", title: "Past Simple", type: "Теория" },
+        { file: "english_7gr_pasttense_irregular_table.html", icon: "icon_past_simple_tabule.jpg", title: "Irregular Verbs", type: "Таблица" },
+        { file: "english_7gr_pasttense_irregular_test.html", icon: "icon_irregular_verb_table_test.jpg", title: "Irregular Verbs", type: "Тест" },
+        { file: "english_7gr_prepositions_theory.html", icon: "icon_prepositions_theory.jpg", title: "Prepositions", type: "Теория" },
+        { file: "english_7gr_prepositions_practice.html", icon: "icon_prepositions_practice.jpg", title: "Prepositions", type: "Практика" },
+        { file: "english_7gr_prepositions_writing.html", icon: "icon_prepositions_writing.jpg", title: "Prepositions", type: "Письмо" },
+        { file: "english_7gr_questionwords_theory.html", icon: "icon_question_words_theory.jpg", title: "Question Words", type: "Теория" },
+        { file: "english_7gr_questionwords_practice.html", icon: "icon_question_words_practice.jpg", title: "Question Words", type: "Практика" },
+        { file: "english_7gr_futuresimple_writing.html", icon: "icon_future_simple_writing.jpeg", title: "Future Simple", type: "Письмо" },
+      ]},
+    ],
+    math: [
+      { grade: "5 класс", items: [
+        { file: "math_5gr_saskaitisana_atnemsana_practice.html", icon: "icon_saskaitisana_atnemsana.jpg", title: "Сложение и вычитание в столбик", type: "Практика" },
+        { file: "math_5gr_reizinasana_practice.html", icon: "icon_reizinasana.jpg", title: "Умножение в столбик", type: "Практика" },
+      ]},
+      { grade: "6 класс", items: [
+        { file: "math_6kl_negativnye_chisla_stolbik.html", icon: "icon_negativnye_chisla.jpg", title: "Отрицательные числа в столбик", type: "Практика" },
+      ]},
+      { grade: "7 класс", items: [
+        { file: "matematika-7-klase-intervali-teorija.html", icon: "icon_intervali_teorija.jpg", title: "Числовые интервалы", type: "Теория" },
+        { file: "matematika-7-klase-intervali-uzdevumi.html", icon: "icon_intervali_uzdevumi.jpg", title: "Числовые интервалы", type: "Задачи" },
+      ]},
+      { grade: "8 класс", items: [
+        { file: "sakniuzdevumi.html", icon: "icon_kvadratsaknes_uzdevumi.jpg", title: "Квадратные корни", type: "Задачи" },
+      ]},
+      { grade: "Инструменты", items: [
+        { file: "math_calculator.html", icon: "icon_math_calculator.jpg", title: "Калькулятор", type: "" },
+      ]},
+    ],
+  };
+
+  const params = new URLSearchParams(window.location.search);
+  const subjId = params.get("id") || "english";
+  const info = SUBJECT_INFO[subjId] || SUBJECT_INFO.english;
+  const materials = MATERIALS[subjId] || [];
+
+  document.title = `${info.label} | Meridian School`;
+  document.getElementById("subjEyebrow").textContent = `${info.teacher} · ${info.duration}`;
+  document.getElementById("subjTitle").textContent = info.label;
+  document.getElementById("subjPhoto").src = info.photo;
+  document.getElementById("subjPhoto").alt = info.label;
+  document.getElementById("subjDesc").innerHTML = info.description.map(p => `<p>${p}</p>`).join("");
+
+  const wrap = document.getElementById("materialsWrap");
+  materials.forEach(group => {
+    const h = document.createElement("div");
+    h.className = "grade-label";
+    h.textContent = group.grade;
+    wrap.appendChild(h);
+
+    const grid = document.createElement("div");
+    grid.className = "mat-grid";
+    group.items.forEach(m => {
+      const a = document.createElement("a");
+      a.className = "mat-card";
+      a.href = m.file;
+      a.innerHTML = `
+        <img src="${m.icon}" alt="">
+        <div class="mt">${m.title}</div>
+        ${m.type ? `<div class="mtype">${m.type}</div>` : ""}
+      `;
+      grid.appendChild(a);
+    });
+    wrap.appendChild(grid);
+  });
+
+  onAuthStateChanged(auth, async (user) => {
+    if (!user) return;
+    const local = (user.email || "").split("@")[0];
+    const fallbackName = local.split(".").filter(Boolean)
+      .map(p => p.charAt(0).toUpperCase() + p.slice(1)).join(" ") || "ученик";
+    let data = null;
+    try {
+      const snap = await getDoc(doc(db, "students", user.email));
+      if (snap.exists()) data = snap.data();
+    } catch (e) {}
+    const name = (data && data.name) || fallbackName;
+    document.getElementById("avatarCircle").textContent = name.charAt(0).toUpperCase();
+  });
+</script>
+
+</body>
+</html>

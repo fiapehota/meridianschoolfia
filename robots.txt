@@ -1,0 +1,18 @@
+User-agent: *
+Allow: /
+
+Disallow: /kabinet.html
+Disallow: /raspisanie.html
+Disallow: /podderzhka.html
+Disallow: /oplata.html
+Disallow: /profil.html
+Disallow: /predmet.html
+Disallow: /login.html
+Disallow: /o-fie.html
+Disallow: /par_mani_faq.html
+Disallow: /english_*
+Disallow: /math_*
+Disallow: /matematika-*
+Disallow: /sakniuzdevumi.html
+
+Sitemap: https://fiapehota.github.io/meridianschoolfia/sitemap.xml

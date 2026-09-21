@@ -1,157 +1,160 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Вход | Meridian School</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="favicon-16.png" sizes="16x16" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <style>
-  :root{
-    --cream:#efede9;
-    --heading:#452316;
-    --body:#452316;
-    --tan:#cbbc9e;
-    --olive:#a28e30;
-    --maroon:#880500;
-    --red:#d42d23;
-    --serif:'Cormorant Garamond', serif;
-    --sans:'Outfit', sans-serif;
-  }
-  *{margin:0;padding:0;box-sizing:border-box;}
+  @import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@600;700;800;900&family=Manrope:wght@400;500;600;700;800&family=Marck+Script&display=swap');
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; height:100%; }
   body{
-    font-family:var(--sans);
-    background:var(--cream);
-    color:var(--body);
+    font-family:'Manrope', 'Helvetica Neue', Arial, sans-serif;
+    background:#f8f2e9;
+    color:#18130f;
+    -webkit-font-smoothing:antialiased;
+  }
+  a { color:#18130f; text-decoration:none; }
+  a:hover { color:#c0202a; }
+  ::selection { background:#c0202a; color:#f8f2e9; }
+  a:focus-visible, button:focus-visible, input:focus-visible { outline:2px solid #18130f; outline-offset:3px; border-radius:6px; }
+
+  .disp { font-family:'Unbounded', sans-serif; font-weight:800; text-transform:uppercase; letter-spacing:-0.01em; }
+  .script { font-family:'Marck Script', cursive; font-weight:400; }
+  .navlink { font-size:12px; letter-spacing:.06em; text-transform:uppercase; font-weight:700; }
+  .navlink:hover { text-decoration:underline; text-underline-offset:3px; }
+
+  .wrap{
     min-height:100vh;
+    display:grid;
+    grid-template-columns: minmax(360px, 560px) 1fr;
+  }
+  @media (max-width: 860px){
+    .wrap{ grid-template-columns: 1fr; }
+    .photo-panel{ height:38vh; min-height:220px; }
+  }
+
+  .form-panel{
     display:flex;
     flex-direction:column;
+    justify-content:center;
+    padding:48px clamp(28px,6vw,72px);
+  }
+
+  .back-pill{
+    display:inline-flex;
     align-items:center;
+    gap:6px;
+    font-size:12px;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    font-weight:700;
+    text-decoration:underline;
+    text-underline-offset:4px;
+    width:fit-content;
+    margin-bottom:40px;
   }
+  .back-pill:hover{ color:#c0202a; }
 
-  header{
-    width:100%;
-    text-align:center;
-    padding:36px 20px 8px;
-  }
-  .logo{
-    font-family:var(--serif);
-    font-weight:600;
-    font-size:1.6rem;
-    color:var(--heading);
-  }
-  .logo em{font-style:italic;font-weight:400;color:var(--maroon);}
-  .tagline{
-    font-family:var(--serif);
-    font-style:italic;
-    font-size:.9rem;
-    color:var(--olive);
-    margin-top:2px;
-  }
+  .kicker{ font-size:clamp(30px,3.6vw,42px); color:#c0202a; line-height:1; margin-bottom:6px; }
+  h1{ font-size:clamp(30px,4vw,44px); line-height:0.98; margin:0 0 28px; }
 
-  main{
-    width:min(360px,88%);
-    margin-top:36px;
-  }
-
-  .card{
-    background:#fff;
-    border:2px solid var(--maroon);
-    padding:32px 26px 28px;
-    text-align:center;
-  }
-
-  h1{
-    font-family:var(--serif);
-    font-weight:600;
-    font-size:1.4rem;
-    margin-bottom:4px;
-  }
-  .sub{
-    font-style:italic;
-    color:var(--olive);
-    font-size:.85rem;
-    margin-bottom:24px;
-  }
-
-  .field{text-align:left;margin-bottom:14px;}
+  .field{ text-align:left; margin-bottom:16px; }
   .field label{
     display:block;
-    font-size:.72rem;
-    letter-spacing:.06em;
+    font-size:11px;
+    letter-spacing:.08em;
     text-transform:uppercase;
-    color:var(--heading);
-    opacity:.75;
-    margin-bottom:5px;
+    font-weight:700;
+    opacity:.65;
+    margin-bottom:7px;
   }
   .field input{
     width:100%;
-    padding:10px 12px;
-    border:1px solid var(--tan);
-    background:var(--cream);
-    color:var(--heading);
-    font-family:var(--sans);
+    padding:13px 15px;
+    border:1.5px solid rgba(24,19,15,0.15);
+    border-radius:14px;
+    background:#ffffff;
+    color:#18130f;
+    font-family:'Manrope',sans-serif;
     font-size:.95rem;
   }
-  .field input:focus{
-    outline:2px solid var(--red);
-    outline-offset:1px;
-    border-color:var(--red);
-  }
+  .field input:focus{ outline:none; border-color:#c0202a; }
 
   .error{
     display:none;
     text-align:left;
-    font-size:.8rem;
-    color:var(--red);
-    margin:-4px 0 14px;
-  }
-  .error.show{display:block;}
-
-  button{
-    width:100%;
-    padding:11px;
-    background:var(--maroon);
-    color:#fff;
-    border:none;
-    font-family:var(--sans);
-    font-weight:500;
-    font-size:.95rem;
-    cursor:pointer;
-  }
-  button:hover{background:#6f0400;}
-  button:disabled{opacity:.6;cursor:default;}
-  button:focus-visible{outline:2px solid var(--red);outline-offset:2px;}
-
-  .hint{
-    margin-top:16px;
-    font-size:.78rem;
-    color:var(--heading);
-    opacity:.65;
-  }
-
-  .back{
-    display:inline-block;
-    margin-top:26px;
     font-size:.82rem;
-    color:var(--maroon);
-    text-decoration:none;
+    color:#c0202a;
+    margin:-6px 0 14px;
   }
-  .back:hover{text-decoration:underline;}
+  .error.show{ display:block; }
+
+  button[type="submit"]{
+    width:100%;
+    padding:15px;
+    background:#4d3e31;
+    color:#f8f2e9;
+    border:none;
+    border-radius:999px;
+    font-family:'Manrope',sans-serif;
+    font-weight:700;
+    font-size:.9rem;
+    letter-spacing:.03em;
+    cursor:pointer;
+    margin-top:6px;
+  }
+  button[type="submit"]:hover{ background:#c0202a; }
+  button[type="submit"]:disabled{ opacity:.6; cursor:default; }
+
+  .links-row{
+    display:flex;
+    gap:22px;
+    margin-top:18px;
+    flex-wrap:wrap;
+  }
+
+  .divider{ height:1px; background:rgba(24,19,15,0.1); margin:28px 0 22px; }
+
+  .trial-note{ font-size:.85rem; color:#3a332c; line-height:1.5; max-width:380px; }
+  .trial-note a{ font-weight:700; color:#c0202a; }
+  .trial-note a:hover{ text-decoration:underline; }
+
+  .photo-panel{
+    position:relative;
+    background:#18130f;
+    overflow:hidden;
+  }
+  .photo-panel img{
+    width:100%; height:100%;
+    object-fit:cover;
+    display:block;
+    opacity:.94;
+  }
+  .photo-logo{
+    position:absolute;
+    left:28px; bottom:28px;
+    color:#f8f2e9;
+    font-size:clamp(20px,2.4vw,30px);
+    line-height:0.98;
+    text-shadow:0 2px 18px rgba(0,0,0,0.35);
+  }
 </style>
 </head>
 <body>
 
-<header>
-  <div class="logo">MERIDIAN <em>SCHOOL</em></div>
-  <div class="tagline">Онлайн уроки от Фии</div>
-</header>
+<div class="wrap">
+  <div class="form-panel">
+    <a class="back-pill" href="index.html">← На главную</a>
 
-<main>
-  <div class="card">
-    <h1>Нужно войти</h1>
-    <p class="sub">Эта страница только для учеников</p>
+    <div class="kicker script">с возвращением,</div>
+    <h1 class="disp">Войти в аккаунт</h1>
 
     <form id="loginForm">
       <div class="field">
@@ -163,12 +166,24 @@
         <input id="pass" type="password" autocomplete="current-password" required>
       </div>
       <p class="error" id="err">Неправильный логин или пароль.</p>
-      <button type="submit" id="submitBtn">Войти</button>
+      <button type="submit" id="submitBtn">Войти в кабинет →</button>
     </form>
-    <p class="hint">Забыла пароль? Напиши в Telegram Фие или позвони.</p>
+
+    <div class="links-row">
+      <a class="navlink" href="#" onclick="alert('Пароль можно поменять только через Фию — напиши в Telegram или позвони.'); return false;">Забыли пароль?</a>
+      <a class="navlink" href="#" style="opacity:.55;" onclick="alert('Родительский доступ появится позже.'); return false;">Родительский доступ</a>
+    </div>
+
+    <div class="divider"></div>
+
+    <p class="trial-note">Ещё не учишься у нас? Первый урок — бесплатный пробный, 40 минут. <a href="index.html#contact">Записаться на сайте →</a></p>
   </div>
-  <a class="back" href="index.html">← Вернуться в меню</a>
-</main>
+
+  <div class="photo-panel">
+    <img src="about_locker.jpg" alt="Meridian School">
+    <div class="photo-logo disp">MERIDIAN<br>SCHOOL</div>
+  </div>
+</div>
 
 <script type="module">
   import { auth } from "./assets/js/firebase-config.js";
@@ -182,7 +197,7 @@
 
   // куда вернуть человека после входа
   const params = new URLSearchParams(window.location.search);
-  const next = params.get("next") || "index.html";
+  const next = params.get("next") || "kabinet.html";
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -203,7 +218,7 @@
     } catch (e) {
       err.classList.add("show");
       btn.disabled = false;
-      btn.textContent = "Войти";
+      btn.textContent = "Войти в кабинет →";
     }
   });
 </script>

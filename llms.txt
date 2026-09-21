@@ -1,0 +1,17 @@
+# Meridian School
+
+> Meridian School — платформа онлайн-репетиторства: индивидуальные уроки по английскому, математике, физике и химии, личный кабинет с материалами для самопроверки, гибкое расписание через Google Calendar.
+
+Meridian School проводит онлайн-занятия для школьников через Google Meet. У каждого ученика есть личный кабинет с расписанием, материалами по темам и поддержкой.
+
+## Основные страницы
+
+- [Главная](https://fiapehota.github.io/meridianschoolfia/index.html): о школе, предметы, преподаватели и контакты
+- [О Meridian School](https://fiapehota.github.io/meridianschoolfia/o-shkole.html): ценности и подход школы
+- [Преподаватели](https://fiapehota.github.io/meridianschoolfia/prepodavateli.html): о преподавателях, их опыте и образовании
+- [Родителям](https://fiapehota.github.io/meridianschoolfia/roditelyam.html): как проходят занятия, ответы на частые вопросы
+
+## Контакты
+
+- Email: meridianschool.fia@gmail.com
+- Телефон: +371 22 173 293

@@ -8,7 +8,8 @@
  
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
 import { getAuth } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
- 
+import { getFirestore } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
+
 const firebaseConfig = {
   apiKey: "AIzaSyDB9lrZqZf_qoTDfwnrRuTTnj8zjcElZuM",
   authDomain: "meridian-school-e4a4c.firebaseapp.com",
@@ -17,6 +18,7 @@ const firebaseConfig = {
   messagingSenderId: "580960294344",
   appId: "1:580960294344:web:1f65ba60404dce5e29cfd"
 };
- 
+
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
+export const db = getFirestore(app);
