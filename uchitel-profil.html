@@ -219,6 +219,17 @@
     .logout-btn:hover { background:#c0202a; color:#f8f2e9; }
 </style>
 <style id="adminGate">body{visibility:hidden;}</style>
+<script>
+setTimeout(function () {
+  var g = document.getElementById('adminGate');
+  if (!g) return;
+  g.remove();
+  var m = document.createElement('div');
+  m.style.cssText = 'margin:24px;padding:18px 22px;border-radius:16px;background:#fff;border:1px solid rgba(192,32,42,.35);color:#18130f;font:14px/1.6 Manrope,Arial,sans-serif;';
+  m.textContent = 'Страница загрузилась не полностью. Обнови её. Если не помогает, значит, на сайт не загружен файл assets/js/teacher.js.';
+  document.body.insertBefore(m, document.body.firstChild);
+}, 6000);
+</script>
 <script type="module" src="assets/js/auth-guard.js"></script>
 </head>
 <body>

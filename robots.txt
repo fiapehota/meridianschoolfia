@@ -16,4 +16,4 @@ Disallow: /math_*
 Disallow: /matematika-*
 Disallow: /sakniuzdevumi.html
 
-Sitemap: https://fiapehota.github.io/meridianschoolfia/sitemap.xml
+Sitemap: https://meridianonlineschool.com/sitemap.xml

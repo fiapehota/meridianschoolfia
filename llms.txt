@@ -6,10 +6,10 @@ Meridian School проводит онлайн-занятия для школьн
 
 ## Основные страницы
 
-- [Главная](https://fiapehota.github.io/meridianschoolfia/index.html): о школе, предметы, преподаватели и контакты
-- [О Meridian School](https://fiapehota.github.io/meridianschoolfia/o-shkole.html): ценности и подход школы
-- [Преподаватели](https://fiapehota.github.io/meridianschoolfia/prepodavateli.html): о преподавателях, их опыте и образовании
-- [Родителям](https://fiapehota.github.io/meridianschoolfia/roditelyam.html): как проходят занятия, ответы на частые вопросы
+- [Главная](https://meridianonlineschool.com/index.html): о школе, предметы, преподаватели и контакты
+- [О Meridian School](https://meridianonlineschool.com/o-shkole.html): ценности и подход школы
+- [Преподаватели](https://meridianonlineschool.com/prepodavateli.html): о преподавателях, их опыте и образовании
+- [Родителям](https://meridianonlineschool.com/roditelyam.html): как проходят занятия, ответы на частые вопросы
 
 ## Контакты
 
