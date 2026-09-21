@@ -293,11 +293,28 @@
     });
   }
 
+  // предметы в календаре можно писать по-русски или по-английски: "Математика", "math", "Math"
+  const SUBJECT_ALIASES = {
+    english: ["english", "английский", "английский язык"],
+    math: ["math", "maths", "mathematics", "математика"],
+    physics: ["physics", "физика"],
+    chemistry: ["chemistry", "химия"],
+  };
+  const SUBJECT_RU = { english: "Английский", math: "Математика", physics: "Физика", chemistry: "Химия" };
+  function subjectIdFromText(text) {
+    const t = (text || "").normalize("NFC").trim().toLowerCase();
+    return Object.keys(SUBJECT_ALIASES).find(id => SUBJECT_ALIASES[id].includes(t)) || null;
+  }
+  function subjectDisplay(text) {
+    const id = subjectIdFromText(text);
+    return id ? SUBJECT_RU[id] : (text || "").trim();
+  }
+
   // ищем в календаре ближайший урок этого ученика.
   // события называются строго "Имя Ф. - Предмет", например "Лиза К. - Английский"
   async function fetchNextLesson(studentName) {
     if (!studentName) return null;
-    const norm = s => s.trim().toLowerCase();
+    const norm = s => s.normalize("NFC").trim().toLowerCase();
 
     const url = new URL(`https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(CALENDAR_ID)}/events`);
     url.searchParams.set("key", CALENDAR_API_KEY);
@@ -326,8 +343,9 @@
       const start = new Date(ev.start.dateTime);
       const end = ev.end && ev.end.dateTime ? new Date(ev.end.dateTime) : null;
       const durationMin = end ? Math.round((end - start) / 60000) : null;
-      const subjectLabel = subjectPart.trim();
-      const subjectId = Object.keys(SUBJECTS).find(id => SUBJECTS[id].label.toLowerCase() === subjectLabel.toLowerCase()) || "english";
+      const knownId = subjectIdFromText(subjectPart);
+      const subjectId = knownId || "english";
+      const subjectLabel = knownId ? SUBJECT_RU[knownId] : subjectPart.trim();
 
       return {
         subject: subjectId,

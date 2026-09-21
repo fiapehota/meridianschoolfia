@@ -384,7 +384,7 @@
   let nextByNameCache = new Map();
 
   const esc = (t) => String(t).replace(/[&<>"']/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[c]));
-  const norm = (t) => (t || "").trim().toLowerCase();
+  const norm = (t) => (t || "").normalize("NFC").trim().toLowerCase();
   const fmtTime = (d) => d.toLocaleTimeString("ru-RU", { hour: "2-digit", minute: "2-digit" });
   function startOfDay(d) { return new Date(d.getFullYear(), d.getMonth(), d.getDate()); }
 
@@ -408,6 +408,23 @@
     const from = monday.getDate(), to = saturday.getDate();
     if (monday.getMonth() === saturday.getMonth()) return `${from}–${to} ${MONTHS_GENITIVE[saturday.getMonth()]}`;
     return `${from} ${MONTHS_GENITIVE[monday.getMonth()]} – ${to} ${MONTHS_GENITIVE[saturday.getMonth()]}`;
+  }
+
+  // предметы в календаре можно писать по-русски или по-английски: "Математика", "math", "Math"
+  const SUBJECT_ALIASES = {
+    english: ["english", "английский", "английский язык"],
+    math: ["math", "maths", "mathematics", "математика"],
+    physics: ["physics", "физика"],
+    chemistry: ["chemistry", "химия"],
+  };
+  const SUBJECT_RU = { english: "Английский", math: "Математика", physics: "Физика", chemistry: "Химия" };
+  function subjectIdFromText(text) {
+    const t = (text || "").normalize("NFC").trim().toLowerCase();
+    return Object.keys(SUBJECT_ALIASES).find(id => SUBJECT_ALIASES[id].includes(t)) || null;
+  }
+  function subjectDisplay(text) {
+    const id = subjectIdFromText(text);
+    return id ? SUBJECT_RU[id] : (text || "").trim();
   }
 
   // все уроки из календаря за период; названия событий — "Имя Ф. - Предмет"
@@ -442,7 +459,7 @@
         start,
         dayIndex,
         student: (parts[0] || ev.summary).trim(),
-        subject: parts.length > 1 ? parts.slice(1).join(" - ").trim() : "",
+        subject: parts.length > 1 ? subjectDisplay(parts.slice(1).join(" - ")) : "",
         duration: end ? `${Math.round((end - start) / 60000)} мин` : "",
       });
     }
